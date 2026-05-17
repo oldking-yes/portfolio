@@ -49,7 +49,7 @@ body {
   max-width: 80%;
 }
 
-/* Animation keyframes for fade-in effects */
+/* Animation keyframes */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -67,6 +67,16 @@ body {
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
   }
 }
 

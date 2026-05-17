@@ -1,9 +1,12 @@
-import { Box, Container, Typography, Avatar, Button } from '@mui/material';
+import { Box, Container, Typography, Avatar, Button, Chip, Stack } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
-import { githubUser } from '../data/repos';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import { githubUser, repos } from '../data/repos';
 
 function Hero(): JSX.Element {
+  const langCount = new Set(repos.map((r) => r.language)).size;
+
   return (
     <Box
       component="section"
@@ -16,7 +19,8 @@ function Hero(): JSX.Element {
         alignItems: 'center',
         position: 'relative',
         overflow: 'hidden',
-        background: 'linear-gradient(180deg, #0a0a0a 0%, #12121a 50%, #0a0a0a 100%)',
+        background:
+          'linear-gradient(180deg, #0a0a0a 0%, #0f0f1a 40%, #12121a 60%, #0a0a0a 100%)',
         '&::before': {
           content: '""',
           position: 'absolute',
@@ -25,33 +29,35 @@ function Hero(): JSX.Element {
           right: 0,
           bottom: 0,
           background:
-            'radial-gradient(circle at 50% 30%, rgba(196, 30, 58, 0.08) 0%, transparent 60%), radial-gradient(circle at 80% 70%, rgba(201, 169, 78, 0.05) 0%, transparent 50%)',
+            'radial-gradient(circle at 30% 25%, rgba(196, 30, 58, 0.10) 0%, transparent 60%), radial-gradient(circle at 70% 75%, rgba(6, 182, 212, 0.06) 0%, transparent 50%), radial-gradient(circle at 50% 50%, rgba(201, 169, 78, 0.04) 0%, transparent 70%)',
           pointerEvents: 'none',
         },
       }}
     >
-      {/* Decorative brush stroke lines */}
+      {/* Decorative lines */}
       <Box
         sx={{
           position: 'absolute',
-          top: '15%',
-          left: '5%',
-          width: '120px',
+          top: '12%',
+          left: '4%',
+          width: '140px',
           height: '2px',
-          background: 'linear-gradient(90deg, transparent, rgba(201, 169, 78, 0.3), transparent)',
-          transform: 'rotate(-15deg)',
+          background:
+            'linear-gradient(90deg, transparent, rgba(201, 169, 78, 0.25), transparent)',
+          transform: 'rotate(-12deg)',
           display: { xs: 'none', md: 'block' },
         }}
       />
       <Box
         sx={{
           position: 'absolute',
-          bottom: '20%',
-          right: '8%',
-          width: '80px',
+          bottom: '18%',
+          right: '6%',
+          width: '100px',
           height: '2px',
-          background: 'linear-gradient(90deg, transparent, rgba(196, 30, 58, 0.25), transparent)',
-          transform: 'rotate(20deg)',
+          background:
+            'linear-gradient(90deg, transparent, rgba(196, 30, 58, 0.2), transparent)',
+          transform: 'rotate(18deg)',
           display: { xs: 'none', md: 'block' },
         }}
       />
@@ -62,7 +68,7 @@ function Hero(): JSX.Element {
           sx={{
             display: 'flex',
             justifyContent: 'center',
-            mb: 4,
+            mb: 3,
             animation: 'fadeIn 1s ease-out forwards',
           }}
         >
@@ -73,11 +79,13 @@ function Hero(): JSX.Element {
               width: { xs: 120, sm: 150, md: 170 },
               height: { xs: 120, sm: 150, md: 170 },
               border: '3px solid rgba(201, 169, 78, 0.3)',
-              boxShadow: '0 0 60px rgba(196, 30, 58, 0.15), 0 0 120px rgba(201, 169, 78, 0.05)',
+              boxShadow:
+                '0 0 60px rgba(196, 30, 58, 0.15), 0 0 120px rgba(201, 169, 78, 0.05)',
               transition: 'transform 0.4s ease, box-shadow 0.4s ease',
               '&:hover': {
                 transform: 'scale(1.05)',
-                boxShadow: '0 0 80px rgba(196, 30, 58, 0.25), 0 0 160px rgba(201, 169, 78, 0.1)',
+                boxShadow:
+                  '0 0 80px rgba(196, 30, 58, 0.25), 0 0 160px rgba(201, 169, 78, 0.1)',
               },
             }}
           />
@@ -93,9 +101,9 @@ function Hero(): JSX.Element {
             backgroundClip: 'text',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
-            mb: 1,
+            mb: 0.5,
             letterSpacing: '-0.03em',
-            animation: 'fadeInUp 0.8s ease-out 0.2s forwards',
+            animation: 'fadeInUp 0.8s ease-out 0.15s forwards',
             opacity: 0,
           }}
         >
@@ -109,7 +117,7 @@ function Hero(): JSX.Element {
             fontWeight: 400,
             mb: 1,
             fontSize: { xs: '0.9rem', sm: '1.1rem' },
-            animation: 'fadeInUp 0.8s ease-out 0.35s forwards',
+            animation: 'fadeInUp 0.8s ease-out 0.25s forwards',
             opacity: 0,
             letterSpacing: '0.05em',
           }}
@@ -124,15 +132,84 @@ function Hero(): JSX.Element {
             color: 'text.secondary',
             maxWidth: 520,
             mx: 'auto',
-            mb: 4,
+            mb: 2.5,
             fontSize: { xs: '0.95rem', sm: '1.05rem' },
             lineHeight: 1.8,
-            animation: 'fadeInUp 0.8s ease-out 0.5s forwards',
+            animation: 'fadeInUp 0.8s ease-out 0.35s forwards',
             opacity: 0,
           }}
         >
           {githubUser.bio}
         </Typography>
+
+        {/* Tags row */}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            gap: 1,
+            mb: 3,
+            animation: 'fadeInUp 0.8s ease-out 0.45s forwards',
+            opacity: 0,
+          }}
+        >
+          {githubUser.tags.map((tag) => (
+            <Chip
+              key={tag}
+              label={tag}
+              size="small"
+              sx={{
+                color: 'rgba(255,255,255,0.7)',
+                borderColor: 'rgba(255,255,255,0.12)',
+                fontSize: '0.75rem',
+                fontWeight: 500,
+                '&:hover': {
+                  borderColor: 'secondary.main',
+                  color: 'secondary.main',
+                },
+              }}
+              variant="outlined"
+            />
+          ))}
+        </Box>
+
+        {/* Stats row */}
+        <Stack
+          direction="row"
+          spacing={4}
+          justifyContent="center"
+          sx={{
+            mb: 3.5,
+            animation: 'fadeInUp 0.8s ease-out 0.55s forwards',
+            opacity: 0,
+          }}
+        >
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography variant="h5" sx={{ fontWeight: 700, color: 'primary.main' }}>
+              {repos.length}
+            </Typography>
+            <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+              开源项目
+            </Typography>
+          </Box>
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography variant="h5" sx={{ fontWeight: 700, color: 'secondary.main' }}>
+              {langCount}
+            </Typography>
+            <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+              编程语言
+            </Typography>
+          </Box>
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography variant="h5" sx={{ fontWeight: 700, color: '#06b6d4' }}>
+              2019
+            </Typography>
+            <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+              GitHub 起始
+            </Typography>
+          </Box>
+        </Stack>
 
         {/* CTA buttons */}
         <Box
@@ -154,6 +231,7 @@ function Hero(): JSX.Element {
             rel="noopener noreferrer"
             sx={{
               backgroundColor: 'primary.main',
+              px: 4,
               '&:hover': {
                 backgroundColor: 'primary.dark',
                 transform: 'translateY(-2px)',
@@ -167,10 +245,12 @@ function Hero(): JSX.Element {
           <Button
             variant="outlined"
             size="large"
+            startIcon={<AutoStoriesIcon />}
             href="#projects"
             sx={{
               borderColor: 'rgba(201, 169, 78, 0.4)',
               color: 'secondary.main',
+              px: 4,
               '&:hover': {
                 borderColor: 'secondary.main',
                 backgroundColor: 'rgba(201, 169, 78, 0.08)',
@@ -179,7 +259,7 @@ function Hero(): JSX.Element {
               transition: 'all 0.3s ease',
             }}
           >
-            查看项目
+            浏览项目
           </Button>
         </Box>
       </Container>
@@ -188,20 +268,20 @@ function Hero(): JSX.Element {
       <Box
         sx={{
           position: 'absolute',
-          bottom: 40,
+          bottom: 36,
           left: '50%',
           transform: 'translateX(-50%)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: 1,
+          gap: 0.5,
           color: 'text.secondary',
           animation: 'fadeIn 1s ease-out 1.5s forwards',
           opacity: 0,
         }}
       >
-        <Typography variant="caption" sx={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>
-          SCROLL DOWN
+        <Typography variant="caption" sx={{ fontSize: '0.7rem', letterSpacing: '0.15em' }}>
+          SCROLL
         </Typography>
         <KeyboardDoubleArrowDownIcon
           sx={{

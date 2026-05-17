@@ -1,9 +1,15 @@
-import { Box, Container, Typography, IconButton } from '@mui/material';
+import { Box, Container, Typography, IconButton, Tooltip } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { githubUser } from '../data/repos';
 
 function Footer(): JSX.Element {
   const currentYear = new Date().getFullYear();
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <Box
@@ -11,27 +17,50 @@ function Footer(): JSX.Element {
       sx={{
         py: { xs: 4, md: 5 },
         background: '#0a0a0a',
-        borderTop: '1px solid rgba(201, 169, 78, 0.1)',
+        borderTop: '1px solid rgba(201, 169, 78, 0.08)',
+        position: 'relative',
       }}
     >
       <Container maxWidth="md" sx={{ textAlign: 'center' }}>
-        {/* GitHub icon link */}
+        {/* Back to top */}
         <IconButton
-          href="https://github.com/oldking-yes"
-          target="_blank"
-          rel="noopener noreferrer"
+          onClick={scrollToTop}
           sx={{
             color: 'text.secondary',
             mb: 1.5,
+            border: '1px solid rgba(255,255,255,0.08)',
             '&:hover': {
               color: 'primary.main',
-              transform: 'translateY(-2px)',
+              borderColor: 'primary.main',
+              backgroundColor: 'rgba(196, 30, 58, 0.08)',
+              transform: 'translateY(-3px)',
             },
             transition: 'all 0.3s ease',
           }}
         >
-          <GitHubIcon sx={{ fontSize: 32 }} />
+          <KeyboardArrowUpIcon />
         </IconButton>
+
+        {/* Social icons */}
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1.5, mb: 1.5 }}>
+          <Tooltip title="GitHub" arrow>
+            <IconButton
+              href={githubUser.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                color: 'text.secondary',
+                '&:hover': {
+                  color: 'primary.main',
+                  transform: 'translateY(-2px)',
+                },
+                transition: 'all 0.3s ease',
+              }}
+            >
+              <GitHubIcon sx={{ fontSize: 28 }} />
+            </IconButton>
+          </Tooltip>
+        </Box>
 
         <Typography
           variant="body2"
@@ -41,35 +70,48 @@ function Footer(): JSX.Element {
             alignItems: 'center',
             justifyContent: 'center',
             gap: 0.5,
-            fontSize: '0.85rem',
+            fontSize: '0.82rem',
           }}
         >
           Built with{' '}
           <FavoriteIcon
             sx={{
-              fontSize: 16,
+              fontSize: 15,
               color: '#c41e3a',
               animation: 'pulse 1.5s infinite',
-              '@keyframes pulse': {
-                '0%, 100%': { transform: 'scale(1)' },
-                '50%': { transform: 'scale(1.2)' },
-              },
             }}
           />{' '}
-          · © {currentYear} oldking-yes
+          · © {currentYear} {githubUser.username}
         </Typography>
-        <Typography
-          variant="caption"
+
+        {/* Tech badge */}
+        <Box
           sx={{
-            color: 'rgba(255,255,255,0.2)',
-            mt: 1,
-            display: 'block',
-            fontSize: '0.7rem',
-            letterSpacing: '0.05em',
+            mt: 1.5,
+            display: 'flex',
+            justifyContent: 'center',
+            gap: 1,
+            flexWrap: 'wrap',
           }}
         >
-          Vite + React + MUI + Tailwind CSS
-        </Typography>
+          {['Vite', 'React', 'MUI', 'Tailwind'].map((tech) => (
+            <Typography
+              key={tech}
+              variant="caption"
+              sx={{
+                color: 'rgba(255,255,255,0.15)',
+                fontSize: '0.65rem',
+                letterSpacing: '0.05em',
+                px: 1,
+                py: 0.3,
+                border: '1px solid rgba(255,255,255,0.06)',
+                borderRadius: 1,
+              }}
+            >
+              {tech}
+            </Typography>
+          ))}
+        </Box>
       </Container>
     </Box>
   );

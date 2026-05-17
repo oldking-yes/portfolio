@@ -1,6 +1,9 @@
 import { Box, Container, Typography, Chip } from '@mui/material';
 import { skills } from '../data/repos';
 
+// 按类别分组
+const categories = [...new Set(skills.map((s) => s.category))];
+
 function Skills(): JSX.Element {
   return (
     <Box
@@ -8,7 +11,7 @@ function Skills(): JSX.Element {
       id="skills"
       sx={{
         py: { xs: 8, md: 12 },
-        background: 'linear-gradient(180deg, #12121a 0%, #0a0a0a 100%)',
+        background: 'linear-gradient(180deg, #0a0a0a 0%, #0f0f1a 100%)',
       }}
     >
       <Container maxWidth="md" sx={{ textAlign: 'center' }}>
@@ -30,7 +33,7 @@ function Skills(): JSX.Element {
             fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3rem' },
             fontWeight: 700,
             mt: 1,
-            mb: 2,
+            mb: 1,
           }}
         >
           技术栈
@@ -46,65 +49,64 @@ function Skills(): JSX.Element {
           }}
         />
 
-        {/* Skill chips */}
-        <Box
-          sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            gap: 2.5,
-          }}
-        >
-          {skills.map((skill, index) => (
-            <Chip
-              key={skill.name}
-              label={
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <Box
-                    sx={{
-                      width: 10,
-                      height: 10,
-                      borderRadius: '50%',
-                      backgroundColor: skill.color,
-                    }}
-                  />
-                  <span>
-                    {skill.name}
-                    <Typography
-                      component="span"
-                      sx={{ color: 'text.secondary', ml: 0.5, fontWeight: 400 }}
-                    >
-                      × {skill.count}
-                    </Typography>
-                  </span>
-                </Box>
-              }
+        {/* Skills by category */}
+        {categories.map((category, catIndex) => (
+          <Box key={category} sx={{ mb: catIndex < categories.length - 1 ? 5 : 0 }}>
+            <Typography
+              variant="overline"
               sx={{
-                px: 2,
-                py: 1.5,
-                fontSize: '0.9rem',
-                fontWeight: 600,
-                backgroundColor: `${skill.color}15`,
-                color: skill.color,
-                border: `1px solid ${skill.color}30`,
-                borderRadius: '20px',
-                opacity: 0,
-                animation: `fadeInUp 0.5s ease-out ${0.1 * (index + 1)}s forwards`,
-                '&:hover': {
-                  backgroundColor: `${skill.color}25`,
-                  transform: 'translateY(-3px)',
-                  boxShadow: `0 6px 20px ${skill.color}20`,
-                },
-                transition: 'all 0.3s ease',
-                height: 'auto',
-                '& .MuiChip-label': {
-                  display: 'block',
-                  py: 0.5,
-                },
+                color: 'text.secondary',
+                letterSpacing: '0.12em',
+                fontSize: '0.7rem',
+                mb: 2,
+                display: 'block',
               }}
-            />
-          ))}
-        </Box>
+            >
+              {category}
+            </Typography>
+            <Box
+              sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                gap: 1.5,
+              }}
+            >
+              {skills
+                .filter((s) => s.category === category)
+                .map((skill, index) => (
+                  <Chip
+                    key={skill.name}
+                    label={skill.name}
+                    sx={{
+                      px: 1.5,
+                      py: 1.2,
+                      fontSize: '0.82rem',
+                      fontWeight: 600,
+                      backgroundColor: `${skill.color}15`,
+                      color: skill.color,
+                      border: `1px solid ${skill.color}30`,
+                      borderRadius: '8px',
+                      opacity: 0,
+                      animation: `fadeInUp 0.4s ease-out ${0.05 * (catIndex * 6 + index)}s forwards`,
+                      '&:hover': {
+                        backgroundColor: `${skill.color}25`,
+                        transform: 'translateY(-3px)',
+                        boxShadow: `0 6px 20px ${skill.color}20`,
+                      },
+                      transition: 'all 0.25s ease',
+                      height: 'auto',
+                      '& .MuiChip-label': {
+                        display: 'block',
+                        py: 0.3,
+                      },
+                    }}
+                    variant="outlined"
+                  />
+                ))}
+            </Box>
+          </Box>
+        ))}
       </Container>
     </Box>
   );
