@@ -86,7 +86,7 @@ function Projects(): JSX.Element {
               width: '100%',
             }}
           >
-            {repos.map((repo, i) => (
+            {repos.map((repo) => (
               <Box
                 key={repo.name}
                 data-card
