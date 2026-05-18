@@ -58,6 +58,14 @@ function Hero(): JSX.Element {
         justifyContent: 'center',
         position: 'relative',
         background: 'linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.3) 50%, rgba(10,10,10,0.6) 100%)',
+        '&::after': {
+          content: '""',
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.02) 30%, rgba(0,0,0,0.08) 60%, rgba(0,0,0,0.25) 100%)',
+          pointerEvents: 'none',
+          zIndex: 1,
+        },
       }}
     >
       <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>

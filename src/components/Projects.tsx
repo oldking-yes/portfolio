@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Box, Container, Typography, Chip, IconButton } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -7,9 +7,32 @@ import { repos } from '../data/repos';
 
 function Projects(): JSX.Element {
   const [activeIndex, setActiveIndex] = useState(0);
+  const touchRef = useRef({ startX: 0, startY: 0, isSwiping: false });
 
   const prev = () => setActiveIndex((i) => (i === 0 ? repos.length - 1 : i - 1));
   const next = () => setActiveIndex((i) => (i === repos.length - 1 ? 0 : i + 1));
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const t = e.touches[0];
+    touchRef.current = { startX: t.clientX, startY: t.clientY, isSwiping: false };
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    const t = e.touches[0];
+    const dx = Math.abs(t.clientX - touchRef.current.startX);
+    const dy = Math.abs(t.clientY - touchRef.current.startY);
+    if (dx > 8 && dx > dy * 1.5) {
+      touchRef.current.isSwiping = true;
+    }
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchRef.current.isSwiping) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - touchRef.current.startX;
+    if (dx < -30) next();
+    if (dx > 30) prev();
+  };
 
   const repo = repos[activeIndex];
 
@@ -29,7 +52,13 @@ function Projects(): JSX.Element {
           </Typography>
         </Box>
 
-        {/* Carousel */}
+        {/* Carousel — 支持触摸滑动 */}
+        <Box
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          sx={{ maxWidth: 800, mx: 'auto' }}
+        >
         <Box
           component="a"
           href={repo.previewUrl || repo.url}
@@ -37,8 +66,6 @@ function Projects(): JSX.Element {
           rel="noopener noreferrer"
           className="gradient-border"
           sx={{
-            maxWidth: 800,
-            mx: 'auto',
             display: 'block',
             textDecoration: 'none',
             cursor: 'pointer',
@@ -92,7 +119,7 @@ function Projects(): JSX.Element {
                   left: '30%',
                   width: '200%',
                   height: '200%',
-                  background: 'radial-gradient(circle at center, rgba(160,216,240,0.04) 0%, transparent 60%)',
+                  background: 'radial-gradient(circle at center, rgba(139,168,192,0.04) 0%, transparent 60%)',
                 },
               }} />
 
@@ -132,6 +159,7 @@ function Projects(): JSX.Element {
               </Box>
             </Box>
           </Box>
+        </Box>
         </Box>
 
         {/* Navigation */}
