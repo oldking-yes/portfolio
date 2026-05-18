@@ -3,18 +3,18 @@ import { Box, Container, Typography, Grid2 as Grid } from '@mui/material';
 const directions = [
   {
     num: '01',
-    title: '全栈开发',
-    desc: '从微信小程序到 FastAPI 后端，独立完成从数据库设计到前端交互的全链路开发。',
+    title: 'AI Agent 开发',
+    desc: '熟悉 LangChain、ReAct 框架与 AI 编程工具链，具备 AI 应用从原型设计到生产落地的全链路能力。',
   },
   {
     num: '02',
-    title: '非遗文化数字化',
-    desc: '构建 CRS 推荐系统驱动的非遗文化传播平台，融合 AI 数字人与知识图谱技术。',
+    title: '全栈开发',
+    desc: 'React + FastAPI + SQLAlchemy 全栈开发，微信小程序生态，从数据库到前端的端到端实现。',
   },
   {
     num: '03',
-    title: 'AI 应用探索',
-    desc: '研究 AI 数字人对话、五级回退策略问答与 LLM 人格克隆等前沿方向。',
+    title: '非遗文化数字化',
+    desc: '构建 CRS 推荐系统驱动的非遗文化传播平台，融合 AI 数字人与知识图谱技术，用科技守护传统。',
   },
 ];
 
@@ -28,7 +28,7 @@ function About(): JSX.Element {
             <Box className="reveal">
               <Typography
                 variant="overline"
-                sx={{ color: '#7ec8e8', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace', mb: 1, display: 'block' }}
+                sx={{ color: '#a0d8f0', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace', mb: 1, display: 'block' }}
               >
                 ABOUT
               </Typography>
@@ -41,15 +41,18 @@ function About(): JSX.Element {
                 }}
               >
                 用技术
-                <Box component="span" sx={{ background: 'linear-gradient(135deg, #c8a96e, #7ec8e8)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                <Box component="span" sx={{ background: 'linear-gradient(135deg, #c8a96e, #a0d8f0)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                   {' '}传承文化
                 </Box>
               </Typography>
               <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: '0.92rem', lineHeight: 1.9, mb: 2 }}>
-                你好，我是老王。一名热爱技术的全栈开发者，专注于用数字化手段保护和传播中国非物质文化遗产。
+                你好，我是王子轩。数据科学与大数据专业，AI Agent 开发者。善于利用 Claude Code 等 AI 编程工具高效构建全栈应用。
+              </Typography>
+              <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: '0.92rem', lineHeight: 1.9, mb: 2 }}>
+                从微信小程序到 AI 对话系统，从数据库设计到推荐算法——我享受从零到一构建完整产品的过程。毕业设计「墨韵」是一个基于 CRS 推荐系统的非遗文化传播平台，也是我对技术+文化融合的一次深入实践。
               </Typography>
               <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: '0.92rem', lineHeight: 1.9 }}>
-                从微信小程序到 AI 对话系统，从数据库设计到推荐算法——我享受从零到一构建完整产品的过程。
+                熟悉 LangChain、ReAct 等 Agent 框架，具备 AI 应用从原型到落地的全链路开发能力。持续探索 AI Agent、LLM 应用与编程效率工具的创新边界。
               </Typography>
             </Box>
           </Grid>
@@ -79,7 +82,7 @@ function About(): JSX.Element {
                     left: '40%',
                     width: '200%',
                     height: '200%',
-                    background: 'radial-gradient(circle at center, rgba(126,200,232,0.06) 0%, transparent 60%)',
+                    background: 'radial-gradient(circle at center, rgba(160,216,240,0.06) 0%, transparent 60%)',
                     pointerEvents: 'none',
                   },
                 }}
@@ -88,7 +91,7 @@ function About(): JSX.Element {
                   <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.7rem', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
                     GitHub 注册
                   </Typography>
-                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#7ec8e8' }}>
+                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#a0d8f0' }}>
                     2019.08
                   </Typography>
                 </Box>
@@ -96,7 +99,7 @@ function About(): JSX.Element {
                   <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.7rem', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
                     开源项目
                   </Typography>
-                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#7ec8e8' }}>
+                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#a0d8f0' }}>
                     4 个
                   </Typography>
                 </Box>
@@ -104,7 +107,7 @@ function About(): JSX.Element {
                   <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.7rem', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
                     技术领域
                   </Typography>
-                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#7ec8e8' }}>
+                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#a0d8f0' }}>
                     全栈·AI·文化
                   </Typography>
                 </Box>
@@ -131,7 +134,7 @@ function About(): JSX.Element {
                       width: '150%',
                       height: '150%',
                       transform: 'translate(-50%, -50%)',
-                      background: 'radial-gradient(circle at center, rgba(126,200,232,0.04) 0%, transparent 60%)',
+                      background: 'radial-gradient(circle at center, rgba(160,216,240,0.04) 0%, transparent 60%)',
                       opacity: 0,
                       transition: 'opacity 0.5s ease',
                       pointerEvents: 'none',
@@ -140,7 +143,7 @@ function About(): JSX.Element {
                   }}
                 >
                   <Box sx={{ position: 'relative', zIndex: 1 }}>
-                    <Typography variant="body2" sx={{ color: '#7ec8e8', fontFamily: 'monospace', fontSize: '0.75rem', mb: 1 }}>
+                    <Typography variant="body2" sx={{ color: '#a0d8f0', fontFamily: 'monospace', fontSize: '0.75rem', mb: 1 }}>
                       {dir.num}
                     </Typography>
                     <Typography variant="h4" sx={{ fontSize: '1rem', fontWeight: 600, mb: 1, color: 'text.primary' }}>

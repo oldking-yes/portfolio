@@ -5,6 +5,7 @@ export interface Repo {
   language: string;
   stars: number;
   url: string;
+  previewUrl?: string;
   techStack: string[];
   icon: string;
   gradient: string;
@@ -24,6 +25,7 @@ export const repos: Repo[] = [
     icon: '🏛️',
     gradient: 'linear-gradient(135deg, #0c1929, #1a2a4a)',
     image: '/projects/heritage.png',
+    previewUrl: 'https://frontend-l76hlj7sd-kukik-s-projects.vercel.app',
   },
   {
     name: 'arknights-personality-v2',
@@ -37,6 +39,7 @@ export const repos: Repo[] = [
     icon: '🎮',
     gradient: 'linear-gradient(135deg, #0c1929, #1a1a3a)',
     image: '/projects/arknight.png',
+    previewUrl: 'https://oldking-yes.github.io/arknights-personality-v2/',
   },
   {
     name: 'refine-yourself',
@@ -49,6 +52,7 @@ export const repos: Repo[] = [
     techStack: ['TypeScript', 'AI/LLM', 'Node.js'],
     icon: '🤖',
     gradient: 'linear-gradient(135deg, #0c1929, #0a2a3a)',
+    previewUrl: 'https://refine-yourself.vercel.app',
   },
   {
     name: 'ink-studio',
@@ -61,6 +65,7 @@ export const repos: Repo[] = [
     techStack: ['HTML', 'CSS', 'JavaScript'],
     icon: '🎨',
     gradient: 'linear-gradient(135deg, #0c1929, #2a1a1a)',
+    previewUrl: 'https://oldking-yes.github.io/ink-studio/',
   },
 ];
 
@@ -82,9 +87,10 @@ export const skills: Skill[] = [
 
 export const githubUser = {
   username: 'oldking-yes',
-  displayName: '老王',
+  displayName: '王子轩',
   avatarUrl: 'https://avatars.githubusercontent.com/u/54438040?v=4',
-  bio: '全栈开发者，专注于非遗文化数字化与 AI 应用。用代码把传统带进未来。',
+  bio: '数据科学与大数据专业 · AI Agent 开发者 · Claude Code 深度用户。毕业设计结合 CRS 推荐系统与 AI 数字人，探索传统文化数字化的前沿实践。',
+  tagline: '数据科学 · AI Agent 开发 · Claude Code 生态实践者',
   githubUrl: 'https://github.com/oldking-yes',
   email: '2919178903@qq.com',
 };

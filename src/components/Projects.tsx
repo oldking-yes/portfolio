@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Container, Typography, Button, Chip, IconButton } from '@mui/material';
+import { Box, Container, Typography, Chip, IconButton } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -18,19 +18,34 @@ function Projects(): JSX.Element {
       <Container maxWidth="lg">
         {/* Section header */}
         <Box sx={{ textAlign: 'center', mb: 6 }} className="reveal">
-          <Typography variant="overline" sx={{ color: '#7ec8e8', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
+          <Typography variant="overline" sx={{ color: '#a0d8f0', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
             PROJECTS
           </Typography>
           <Typography variant="h2" sx={{ fontSize: { xs: '1.8rem', md: '2.5rem' }, fontWeight: 700, mt: 1 }}>
             开源项目
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1, fontSize: '0.82rem' }}>
-            点击左右箭头浏览项目
+            点击卡片或左右箭头浏览项目
           </Typography>
         </Box>
 
         {/* Carousel */}
-        <Box className="gradient-border" sx={{ maxWidth: 800, mx: 'auto' }}>
+        <Box
+          component="a"
+          href={repo.previewUrl || repo.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="gradient-border"
+          sx={{
+            maxWidth: 800,
+            mx: 'auto',
+            display: 'block',
+            textDecoration: 'none',
+            cursor: 'pointer',
+            '&:hover': { transform: 'translateY(-2px)' },
+            transition: 'transform 0.3s ease',
+          }}
+        >
           <Box
             key={repo.name}
             sx={{
@@ -60,32 +75,14 @@ function Projects(): JSX.Element {
                 sx={{
                   height: { xs: 140, md: 180 },
                   background: repo.gradient,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  position: 'relative',
-                  overflow: 'hidden',
                   borderTopLeftRadius: 16,
                   borderTopRightRadius: 16,
-                  '&::before': {
-                    content: '""',
-                    position: 'absolute',
-                    inset: 0,
-                    opacity: 0.06,
-                    backgroundImage: `radial-gradient(circle, #c8a96e 1px, transparent 1px)`,
-                    backgroundSize: '20px 20px',
-                  },
                 }}
-              >
-                <Typography sx={{ fontSize: '3.5rem', filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.4))' }}>
-                  {repo.icon}
-                </Typography>
-              </Box>
+              />
             )}
 
             {/* Content */}
             <Box sx={{ p: { xs: 3, md: 5 }, position: 'relative' }}>
-              {/* Glow behind content */}
               <Box sx={{
                 position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden',
                 '&::before': {
@@ -95,18 +92,18 @@ function Projects(): JSX.Element {
                   left: '30%',
                   width: '200%',
                   height: '200%',
-                  background: 'radial-gradient(circle at center, rgba(126,200,232,0.04) 0%, transparent 60%)',
+                  background: 'radial-gradient(circle at center, rgba(160,216,240,0.04) 0%, transparent 60%)',
                 },
               }} />
 
               <Box sx={{ position: 'relative', zIndex: 1 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-                  <Typography sx={{ fontSize: '2.5rem' }}>{repo.icon}</Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
+                  <GitHubIcon sx={{ fontSize: 20, color: '#a0d8f0' }} />
                   <Box>
-                    <Typography variant="h3" sx={{ fontSize: '1.2rem', fontWeight: 700 }}>
+                    <Typography variant="h3" sx={{ fontSize: '1.2rem', fontWeight: 700, color: '#e8e0d0' }}>
                       {repo.displayName}
                     </Typography>
-                    <Typography variant="caption" sx={{ color: '#7ec8e8', fontFamily: '"SF Mono", "Fira Code", monospace', fontSize: '0.7rem' }}>
+                    <Typography variant="caption" sx={{ color: '#a0d8f0', fontFamily: '"SF Mono", "Fira Code", monospace', fontSize: '0.7rem' }}>
                       {repo.name}
                     </Typography>
                   </Box>
@@ -116,7 +113,7 @@ function Projects(): JSX.Element {
                   {repo.description}
                 </Typography>
 
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 3 }}>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 0 }}>
                   {repo.techStack.map((tech) => (
                     <Chip
                       key={tech}
@@ -132,28 +129,6 @@ function Projects(): JSX.Element {
                     />
                   ))}
                 </Box>
-
-                <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center' }}>
-                  <Button
-                    variant="contained"
-                    size="small"
-                    startIcon={<GitHubIcon />}
-                    href={repo.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    sx={{
-                      backgroundColor: 'primary.main',
-                      color: '#0a0a0a',
-                      fontWeight: 700,
-                      '&:hover': { backgroundColor: 'primary.light' },
-                    }}
-                  >
-                    查看源码
-                  </Button>
-                  <Typography variant="caption" sx={{ color: '#7ec8e8', ml: 'auto', fontFamily: '"SF Mono", "Fira Code", monospace', fontSize: '0.7rem' }}>
-                    {repo.language}
-                  </Typography>
-                </Box>
               </Box>
             </Box>
           </Box>
@@ -161,24 +136,30 @@ function Projects(): JSX.Element {
 
         {/* Navigation */}
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 2, mt: 3 }}>
-          <IconButton onClick={prev} sx={{ color: 'text.secondary', border: '1px solid rgba(255,255,255,0.06)', '&:hover': { borderColor: '#7ec8e8', color: '#7ec8e8' } }}>
+          <IconButton
+            onClick={(e) => { e.stopPropagation(); prev(); }}
+            sx={{ color: 'text.secondary', border: '1px solid rgba(255,255,255,0.06)', '&:hover': { borderColor: '#a0d8f0', color: '#a0d8f0' } }}
+          >
             <ChevronLeftIcon />
           </IconButton>
           <Box sx={{ display: 'flex', gap: 1 }}>
             {repos.map((_, i) => (
               <Box
                 key={i}
-                onClick={() => setActiveIndex(i)}
+                onClick={(e) => { e.stopPropagation(); setActiveIndex(i); }}
                 sx={{
                   width: 8, height: 8, borderRadius: '50%',
-                  backgroundColor: i === activeIndex ? '#7ec8e8' : 'rgba(255,255,255,0.1)',
+                  backgroundColor: i === activeIndex ? '#a0d8f0' : 'rgba(255,255,255,0.1)',
                   cursor: 'pointer', transition: 'all 0.2s ease',
-                  '&:hover': { backgroundColor: i === activeIndex ? '#7ec8e8' : 'rgba(255,255,255,0.3)' },
+                  '&:hover': { backgroundColor: i === activeIndex ? '#a0d8f0' : 'rgba(255,255,255,0.3)' },
                 }}
               />
             ))}
           </Box>
-          <IconButton onClick={next} sx={{ color: 'text.secondary', border: '1px solid rgba(255,255,255,0.06)', '&:hover': { borderColor: '#7ec8e8', color: '#7ec8e8' } }}>
+          <IconButton
+            onClick={(e) => { e.stopPropagation(); next(); }}
+            sx={{ color: 'text.secondary', border: '1px solid rgba(255,255,255,0.06)', '&:hover': { borderColor: '#a0d8f0', color: '#a0d8f0' } }}
+          >
             <ChevronRightIcon />
           </IconButton>
         </Box>

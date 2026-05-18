@@ -25,14 +25,14 @@ function Hero(): JSX.Element {
           <Typography
             variant="body2"
             sx={{
-              color: '#7ec8e8',
+              color: '#a0d8f0',
               fontWeight: 600,
               mb: 1.5,
               fontSize: '0.9rem',
               fontFamily: '"SF Mono", "Fira Code", monospace',
             }}
           >
-            👋 你好，我是
+            你好，我是
           </Typography>
         </Box>
 
@@ -67,7 +67,7 @@ function Hero(): JSX.Element {
             opacity: 0,
           }}
         >
-          全栈开发者 · 非遗文化数字化 · AI 探索
+          数据科学 · AI Agent 开发 · Claude Code 生态实践者
         </Typography>
 
         {/* Bio */}
@@ -76,14 +76,14 @@ function Hero(): JSX.Element {
           sx={{
             color: 'text.secondary',
             maxWidth: 560,
-            mb: 3,
+            mb: 2,
             fontSize: '0.95rem',
             lineHeight: 1.8,
             animation: 'fadeInUp 0.6s ease-out 0.3s forwards',
             opacity: 0,
           }}
         >
-          {githubUser.bio}
+          数据科学与大数据专业，AI Agent 开发者，Claude Code 深度用户。毕业设计结合 CRS 推荐系统与 AI 数字人，探索传统文化数字化的前沿实践。
         </Typography>
 
         {/* Tags */}
@@ -91,14 +91,14 @@ function Hero(): JSX.Element {
           direction="row"
           spacing={1}
           sx={{
-            mb: 3.5,
+            mb: 2.5,
             flexWrap: 'wrap',
             gap: 0.5,
             animation: 'fadeInUp 0.6s ease-out 0.35s forwards',
             opacity: 0,
           }}
         >
-          {['全栈开发', '非遗文化', 'AI 探索', '游戏开发'].map((tag) => (
+          {['数据科学', 'AI Agent 开发', 'Claude Code', 'CRS 推荐系统', '全栈开发'].map((tag) => (
             <Chip
               key={tag}
               label={tag}
@@ -109,6 +109,38 @@ function Hero(): JSX.Element {
                 border: '1px solid rgba(200, 169, 110, 0.12)',
                 fontWeight: 500,
                 fontSize: '0.75rem',
+              }}
+            />
+          ))}
+        </Stack>
+
+        {/* Tech stack highlight */}
+        <Stack
+          direction="row"
+          spacing={1}
+          sx={{
+            mb: 3,
+            flexWrap: 'wrap',
+            gap: 0.5,
+            animation: 'fadeInUp 0.6s ease-out 0.38s forwards',
+            opacity: 0,
+          }}
+        >
+          <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.65rem', alignSelf: 'center' }}>
+            技术栈：
+          </Typography>
+          {['Python', 'FastAPI', 'React', 'LLM', 'LangChain', 'AI Agent'].map((tech) => (
+            <Chip
+              key={tech}
+              label={tech}
+              size="small"
+              sx={{
+                backgroundColor: 'rgba(160, 216, 240, 0.06)',
+                color: '#a0d8f0',
+                border: '1px solid rgba(160, 216, 240, 0.12)',
+                fontWeight: 500,
+                fontSize: '0.65rem',
+                height: 20,
               }}
             />
           ))}
@@ -125,7 +157,7 @@ function Hero(): JSX.Element {
           }}
         >
           <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="h5" sx={{ fontWeight: 700, color: '#7ec8e8' }} className="stat-glow">
+            <Typography variant="h5" sx={{ fontWeight: 700, color: '#a0d8f0' }} className="stat-glow">
               {repos.length}
             </Typography>
             <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.7rem' }}>
@@ -133,7 +165,7 @@ function Hero(): JSX.Element {
             </Typography>
           </Box>
           <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="h5" sx={{ fontWeight: 700, color: '#7ec8e8' }} className="stat-glow">
+            <Typography variant="h5" sx={{ fontWeight: 700, color: '#a0d8f0' }} className="stat-glow">
               {langCount}
             </Typography>
             <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.7rem' }}>
@@ -141,7 +173,7 @@ function Hero(): JSX.Element {
             </Typography>
           </Box>
           <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="h5" sx={{ fontWeight: 700, color: '#7ec8e8' }} className="stat-glow">
+            <Typography variant="h5" sx={{ fontWeight: 700, color: '#a0d8f0' }} className="stat-glow">
               2019
             </Typography>
             <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.7rem' }}>
@@ -191,9 +223,9 @@ function Hero(): JSX.Element {
               color: 'text.primary',
               px: 4,
               '&:hover': {
-                borderColor: '#7ec8e8',
-                color: '#7ec8e8',
-                backgroundColor: 'rgba(126, 200, 232, 0.06)',
+                borderColor: '#a0d8f0',
+                color: '#a0d8f0',
+                backgroundColor: 'rgba(160, 216, 240, 0.06)',
                 transform: 'translateY(-2px)',
               },
               transition: 'all 0.3s ease',

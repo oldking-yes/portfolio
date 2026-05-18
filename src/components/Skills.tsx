@@ -7,7 +7,7 @@ function Skills(): JSX.Element {
       <Container maxWidth="lg">
         {/* Section header */}
         <Box sx={{ textAlign: 'center', mb: 6 }} className="reveal">
-          <Typography variant="overline" sx={{ color: '#7ec8e8', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
+          <Typography variant="overline" sx={{ color: '#a0d8f0', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
             SKILLS
           </Typography>
           <Typography variant="h2" sx={{ fontSize: { xs: '1.8rem', md: '2.5rem' }, fontWeight: 700, mt: 1 }}>
@@ -19,7 +19,7 @@ function Skills(): JSX.Element {
         <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr 1fr', sm: 'repeat(4, 1fr)' }, gap: 2, maxWidth: 900, mx: 'auto' }}>
           {/* Featured: TypeScript */}
           <Box className="glass-hover" sx={{ p: 3, gridColumn: { sm: 'span 2' }, borderRadius: 3, border: '1px solid rgba(200,169,110,0.06)', background: 'rgba(200,169,110,0.03)', backdropFilter: 'blur(12px)', position: 'relative', overflow: 'hidden',
-            '&::before': { content: '""', position: 'absolute', top: '40%', left: '30%', width: '200%', height: '200%', background: 'radial-gradient(circle at center, rgba(126,200,232,0.05) 0%, transparent 60%)', pointerEvents: 'none' },
+            '&::before': { content: '""', position: 'absolute', top: '40%', left: '30%', width: '200%', height: '200%', background: 'radial-gradient(circle at center, rgba(160,216,240,0.05) 0%, transparent 60%)', pointerEvents: 'none' },
           }}>
             <Box sx={{ position: 'relative', zIndex: 1 }}>
               <Typography variant="h3" sx={{ fontSize: '1.6rem', fontWeight: 700, color: '#3178c6', mb: 0.5 }}>TypeScript</Typography>
@@ -32,7 +32,7 @@ function Skills(): JSX.Element {
 
           {/* Featured: Python */}
           <Box className="glass-hover" sx={{ p: 3, gridColumn: { sm: 'span 2' }, borderRadius: 3, border: '1px solid rgba(200,169,110,0.06)', background: 'rgba(200,169,110,0.03)', backdropFilter: 'blur(12px)', position: 'relative', overflow: 'hidden',
-            '&::before': { content: '""', position: 'absolute', top: '40%', left: '30%', width: '200%', height: '200%', background: 'radial-gradient(circle at center, rgba(126,200,232,0.05) 0%, transparent 60%)', pointerEvents: 'none' },
+            '&::before': { content: '""', position: 'absolute', top: '40%', left: '30%', width: '200%', height: '200%', background: 'radial-gradient(circle at center, rgba(160,216,240,0.05) 0%, transparent 60%)', pointerEvents: 'none' },
           }}>
             <Box sx={{ position: 'relative', zIndex: 1 }}>
               <Typography variant="h3" sx={{ fontSize: '1.6rem', fontWeight: 700, color: '#3572a5', mb: 0.5 }}>Python</Typography>
