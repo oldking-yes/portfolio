@@ -18,10 +18,8 @@ function Hero(): JSX.Element {
   const [showCursor, setShowCursor] = useState(true);
 
   useEffect(() => {
-    // Cursor blink
     const cursorInt = setInterval(() => setShowCursor((c) => !c), 480);
 
-    // Phase 1: type name
     let ni = 0;
     const nameInt = setInterval(() => {
       if (ni < name.length) {
@@ -29,7 +27,6 @@ function Hero(): JSX.Element {
         ni++;
       } else {
         clearInterval(nameInt);
-        // Phase 2: type tagline after short pause
         setTimeout(() => {
           setPhase('tagline');
           let tj = 0;
@@ -62,19 +59,19 @@ function Hero(): JSX.Element {
         flexDirection: 'column',
         justifyContent: 'center',
         position: 'relative',
-        background: 'linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.3) 50%, rgba(10,10,10,0.6) 100%)',
+        background: 'linear-gradient(180deg, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.15) 50%, rgba(10,10,10,0.3) 100%)',
         '&::after': {
           content: '""',
           position: 'absolute',
           inset: 0,
-          background: 'radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.02) 30%, rgba(0,0,0,0.08) 60%, rgba(0,0,0,0.25) 100%)',
+          background: 'radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.08) 60%, rgba(0,0,0,0.15) 100%)',
           pointerEvents: 'none',
           zIndex: 1,
         },
       }}
     >
       <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
-        {/* Name — 打字期间纯金色，完成后渐变 */}
+        {/* Name typewriter */}
         <Box sx={{ minHeight: { xs: '4rem', sm: '5.5rem', md: '7rem' }, mb: 1 }}>
           <Typography
             variant="h1"
@@ -84,14 +81,14 @@ function Hero(): JSX.Element {
               fontWeight: 800,
               ...(phase === 'done'
                 ? {
-                    background: 'linear-gradient(135deg, #e8e0d0 0%, #c8a96e 50%, #e8e0d0 100%)',
+                    background: 'linear-gradient(135deg, #d0d8e0 0%, #8ba8c0 50%, #d0d8e0 100%)',
                     backgroundSize: '200% auto',
                     backgroundClip: 'text',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     animation: 'shimmer 4s linear infinite',
                   }
-                : { color: '#c8a96e' }),
+                : { color: '#b0c4d8' }),
             }}
           >
             {nameText}
@@ -102,7 +99,7 @@ function Hero(): JSX.Element {
               display: 'inline',
               fontSize: { xs: '2.8rem', sm: '4rem', md: '5.5rem' },
               fontWeight: 800,
-              color: '#c8a96e',
+              color: '#8ba8c0',
               opacity: phase !== 'done' && showCursor ? 1 : 0,
               transition: 'opacity 0.05s',
             }}
@@ -111,7 +108,7 @@ function Hero(): JSX.Element {
           </Typography>
         </Box>
 
-        {/* Tagline */}
+        {/* Tagline typewriter */}
         <Box sx={{ minHeight: '2.5rem', mb: 3 }}>
           <Typography
             variant="h2"
@@ -139,13 +136,12 @@ function Hero(): JSX.Element {
           </Typography>
         </Box>
 
-        {/* 以下部分在打字完成后渐入 */}
+        {/* After typing done — all elements fade in */}
         <Box sx={{
           opacity: phase === 'done' ? 1 : 0,
           transform: phase === 'done' ? 'translateY(0)' : 'translateY(16px)',
           transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
         }}>
-          {/* Highlight tags */}
           <Stack direction="row" spacing={1} sx={{ mb: 3, justifyContent: 'center', flexWrap: 'wrap', gap: 0.5 }}>
             {tags.map((tag) => (
               <Chip key={tag} label={tag} size="small" sx={{
@@ -155,7 +151,6 @@ function Hero(): JSX.Element {
             ))}
           </Stack>
 
-          {/* Tech tags */}
           <Stack direction="row" spacing={1} sx={{ mb: 3.5, justifyContent: 'center', flexWrap: 'wrap', gap: 0.5 }}>
             {techs.map((tech) => (
               <Chip key={tech} label={tech} size="small" sx={{
@@ -165,7 +160,6 @@ function Hero(): JSX.Element {
             ))}
           </Stack>
 
-          {/* Stats */}
           <Stack direction="row" spacing={{ xs: 3, sm: 5 }} sx={{ mb: 4, justifyContent: 'center' }}>
             <Box sx={{ textAlign: 'center' }}>
               <Typography variant="h5" sx={{ fontWeight: 700, color: '#8ba8c0' }} className="stat-glow">{repos.length}</Typography>
@@ -181,12 +175,11 @@ function Hero(): JSX.Element {
             </Box>
           </Stack>
 
-          {/* CTA */}
           <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Button variant="contained" size="large" startIcon={<GitHubIcon />}
               href={githubUser.githubUrl} target="_blank" rel="noopener noreferrer"
-              sx={{ backgroundColor: 'primary.main', color: '#0a0a0a', fontWeight: 700, px: 4,
-                '&:hover': { backgroundColor: 'primary.light', transform: 'translateY(-2px)', boxShadow: '0 8px 24px rgba(200, 169, 110, 0.25)' },
+              sx={{ backgroundColor: '#8ba8c0', color: '#0a0a0a', fontWeight: 700, px: 4,
+                '&:hover': { backgroundColor: '#a8c4d8', transform: 'translateY(-2px)', boxShadow: '0 8px 24px rgba(139, 168, 192, 0.25)' },
                 transition: 'all 0.3s ease',
               }}
             >
