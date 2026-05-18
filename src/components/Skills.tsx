@@ -1,152 +1,60 @@
 import { Box, Container, Typography } from '@mui/material';
 import { skills } from '../data/repos';
 
-const categories = [...new Set(skills.map((s) => s.category))];
-
 function Skills(): JSX.Element {
   return (
-    <Box
-      component="section"
-      id="skills"
-      sx={{
-        py: { xs: 8, md: 12 },
-        background: 'linear-gradient(180deg, #0a0a0a 0%, #0f0f1a 100%)',
-      }}
-    >
-      <Container maxWidth="md" sx={{ textAlign: 'center' }}>
+    <Box component="section" id="skills" sx={{ py: { xs: 10, md: 14 } }}>
+      <Container maxWidth="lg">
         {/* Section header */}
-        <Typography
-          variant="overline"
-          sx={{
-            color: 'secondary.main',
-            letterSpacing: '0.15em',
-            fontSize: '0.75rem',
-            fontWeight: 600,
-          }}
-        >
-          SKILLS
-        </Typography>
-        <Typography
-          variant="h2"
-          sx={{
-            fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3rem' },
-            fontWeight: 700,
-            mt: 1,
-            mb: 1,
-          }}
-        >
-          技术栈
-        </Typography>
-        <Box
-          sx={{
-            width: 60,
-            height: 3,
-            background: 'linear-gradient(90deg, #c9a94e, #c41e3a)',
-            mx: 'auto',
-            mb: 6,
-            borderRadius: 2,
-          }}
-        />
+        <Box sx={{ textAlign: 'center', mb: 6 }} className="reveal">
+          <Typography variant="overline" sx={{ color: '#7ec8e8', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
+            SKILLS
+          </Typography>
+          <Typography variant="h2" sx={{ fontSize: { xs: '1.8rem', md: '2.5rem' }, fontWeight: 700, mt: 1 }}>
+            技术栈
+          </Typography>
+        </Box>
 
-        {categories.map((category, catIndex) => (
-          <Box key={category} sx={{ mb: catIndex < categories.length - 1 ? 5 : 0 }}>
-            <Typography
-              variant="overline"
-              sx={{
-                color: 'text.secondary',
-                letterSpacing: '0.12em',
-                fontSize: '0.7rem',
-                mb: 3,
-                display: 'block',
-              }}
-            >
-              {category}
-            </Typography>
-
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 2.5,
-                maxWidth: 520,
-                mx: 'auto',
-              }}
-            >
-              {skills
-                .filter((s) => s.category === category)
-                .map((skill, index) => (
-                  <Box
-                    key={skill.name}
-                    sx={{
-                      textAlign: 'left',
-                      opacity: 0,
-                      animation: `fadeInUp 0.4s ease-out ${0.08 * (index + 1)}s forwards`,
-                    }}
-                  >
-                    {/* Skill name + level */}
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        mb: 0.8,
-                      }}
-                    >
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          fontWeight: 600,
-                          fontSize: '0.85rem',
-                          color: skill.color,
-                        }}
-                      >
-                        {skill.name}
-                      </Typography>
-                      <Typography
-                        variant="caption"
-                        sx={{ color: 'text.secondary', fontSize: '0.75rem' }}
-                      >
-                        {skill.level}%
-                      </Typography>
-                    </Box>
-
-                    {/* Progress bar */}
-                    <Box
-                      sx={{
-                        height: 6,
-                        borderRadius: 3,
-                        backgroundColor: 'rgba(255,255,255,0.04)',
-                        overflow: 'hidden',
-                        position: 'relative',
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          height: '100%',
-                          borderRadius: 3,
-                          width: `${skill.level}%`,
-                          background: `linear-gradient(90deg, ${skill.color}40, ${skill.color})`,
-                          animation: `fillBar 1s ease-out ${0.3 + 0.1 * index}s forwards`,
-                          transformOrigin: 'left',
-                          position: 'relative',
-                          '&::after': {
-                            content: '""',
-                            position: 'absolute',
-                            right: 0,
-                            top: -1,
-                            width: 8,
-                            height: 8,
-                            borderRadius: '50%',
-                            backgroundColor: skill.color,
-                            boxShadow: `0 0 12px ${skill.color}60`,
-                          },
-                        }}
-                      />
-                    </Box>
-                  </Box>
-                ))}
+        {/* Bento grid */}
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr 1fr', sm: 'repeat(4, 1fr)' }, gap: 2, maxWidth: 900, mx: 'auto' }}>
+          {/* Featured: TypeScript */}
+          <Box className="glass-hover" sx={{ p: 3, gridColumn: { sm: 'span 2' }, borderRadius: 3, border: '1px solid rgba(200,169,110,0.06)', background: 'rgba(200,169,110,0.03)', backdropFilter: 'blur(12px)', position: 'relative', overflow: 'hidden',
+            '&::before': { content: '""', position: 'absolute', top: '40%', left: '30%', width: '200%', height: '200%', background: 'radial-gradient(circle at center, rgba(126,200,232,0.05) 0%, transparent 60%)', pointerEvents: 'none' },
+          }}>
+            <Box sx={{ position: 'relative', zIndex: 1 }}>
+              <Typography variant="h3" sx={{ fontSize: '1.6rem', fontWeight: 700, color: '#3178c6', mb: 0.5 }}>TypeScript</Typography>
+              <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: '0.8rem' }}>主力开发语言，贯穿前端后端项目</Typography>
+              <Box sx={{ mt: 1.5, height: 4, borderRadius: 2, backgroundColor: 'rgba(49,120,198,0.12)', overflow: 'hidden' }}>
+                <Box sx={{ height: '100%', borderRadius: 2, width: '80%', backgroundColor: '#3178c6', animation: 'fillBar 1.2s ease-out forwards' }} />
+              </Box>
             </Box>
           </Box>
-        ))}
+
+          {/* Featured: Python */}
+          <Box className="glass-hover" sx={{ p: 3, gridColumn: { sm: 'span 2' }, borderRadius: 3, border: '1px solid rgba(200,169,110,0.06)', background: 'rgba(200,169,110,0.03)', backdropFilter: 'blur(12px)', position: 'relative', overflow: 'hidden',
+            '&::before': { content: '""', position: 'absolute', top: '40%', left: '30%', width: '200%', height: '200%', background: 'radial-gradient(circle at center, rgba(126,200,232,0.05) 0%, transparent 60%)', pointerEvents: 'none' },
+          }}>
+            <Box sx={{ position: 'relative', zIndex: 1 }}>
+              <Typography variant="h3" sx={{ fontSize: '1.6rem', fontWeight: 700, color: '#3572a5', mb: 0.5 }}>Python</Typography>
+              <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: '0.8rem' }}>后端主力，FastAPI + SQLAlchemy 生态</Typography>
+              <Box sx={{ mt: 1.5, height: 4, borderRadius: 2, backgroundColor: 'rgba(53,114,165,0.12)', overflow: 'hidden' }}>
+                <Box sx={{ height: '100%', borderRadius: 2, width: '85%', backgroundColor: '#3572a5', animation: 'fillBar 1.2s ease-out 0.15s forwards' }} />
+              </Box>
+            </Box>
+          </Box>
+
+          {/* Other skills */}
+          {skills.slice(2).map((skill) => (
+            <Box key={skill.name} className="glass-hover" sx={{ p: 2.5, textAlign: 'center', borderRadius: 3, border: '1px solid rgba(200,169,110,0.06)', background: 'rgba(200,169,110,0.03)', backdropFilter: 'blur(8px)' }}>
+              <Typography variant="body2" sx={{ color: skill.color, fontWeight: 600, fontSize: '0.85rem', mb: 0.5 }}>
+                {skill.name}
+              </Typography>
+              <Box sx={{ height: 3, borderRadius: 2, backgroundColor: 'rgba(255,255,255,0.03)', overflow: 'hidden' }}>
+                <Box sx={{ height: '100%', borderRadius: 2, width: `${60 + Math.random() * 30}%`, backgroundColor: skill.color, animation: 'fillBar 1s ease-out forwards' }} />
+              </Box>
+            </Box>
+          ))}
+        </Box>
       </Container>
     </Box>
   );

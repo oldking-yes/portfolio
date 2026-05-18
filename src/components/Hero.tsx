@@ -1,11 +1,11 @@
-import { Box, Container, Typography, Avatar, Button, Chip, Stack } from '@mui/material';
+import { Box, Container, Typography, Button, Chip, Stack } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { githubUser, repos } from '../data/repos';
 
-function Hero(): JSX.Element {
-  const langCount = new Set(repos.map((r) => r.language)).size;
+const langCount = new Set(repos.map((r) => r.language)).size;
 
+function Hero(): JSX.Element {
   return (
     <Box
       component="section"
@@ -15,140 +15,59 @@ function Hero(): JSX.Element {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center',
         position: 'relative',
-        overflow: 'hidden',
-        background:
-          'linear-gradient(180deg, #0a0a0a 0%, #0f0f1a 35%, #12121a 65%, #0a0a0a 100%)',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `
-            radial-gradient(circle at 25% 30%, rgba(196, 30, 58, 0.12) 0%, transparent 60%),
-            radial-gradient(circle at 70% 70%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
-            radial-gradient(circle at 50% 50%, rgba(201, 169, 78, 0.05) 0%, transparent 70%)
-          `,
-          pointerEvents: 'none',
-        },
+        background: 'linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.3) 50%, rgba(10,10,10,0.6) 100%)',
       }}
     >
-      {/* Grid overlay */}
-      <Box
-        sx={{
-          position: 'absolute',
-          inset: 0,
-          opacity: 0.04,
-          backgroundImage: `
-            linear-gradient(rgba(201, 169, 78, 0.5) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(201, 169, 78, 0.5) 1px, transparent 1px)
-          `,
-          backgroundSize: '60px 60px',
-          pointerEvents: 'none',
-        }}
-      />
-
-      {/* Glowing accent lines */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '20%',
-          left: '10%',
-          width: '180px',
-          height: '1px',
-          background:
-            'linear-gradient(90deg, transparent, rgba(201, 169, 78, 0.2), transparent)',
-          transform: 'rotate(-10deg)',
-          display: { xs: 'none', md: 'block' },
-        }}
-      />
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: '25%',
-          right: '8%',
-          width: '140px',
-          height: '1px',
-          background:
-            'linear-gradient(90deg, transparent, rgba(196, 30, 58, 0.15), transparent)',
-          transform: 'rotate(15deg)',
-          display: { xs: 'none', md: 'block' },
-        }}
-      />
-
-      <Container maxWidth="sm" sx={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
-        {/* Avatar with glow */}
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            mb: 3.5,
-            animation: 'fadeIn 1s ease-out forwards',
-          }}
-        >
-          <Box sx={{ position: 'relative' }}>
-            {/* Glow ring */}
-            <Box
-              sx={{
-                position: 'absolute',
-                inset: -8,
-                borderRadius: '50%',
-                background:
-                  'conic-gradient(from 0deg, transparent, rgba(196,30,58,0.15), rgba(201,169,78,0.1), transparent)',
-                animation: 'glow 3s ease-in-out infinite',
-              }}
-            />
-            <Avatar
-              src={githubUser.avatarUrl}
-              alt={githubUser.username}
-              sx={{
-                width: { xs: 120, sm: 150, md: 170 },
-                height: { xs: 120, sm: 150, md: 170 },
-                border: '2px solid rgba(201, 169, 78, 0.25)',
-                position: 'relative',
-                transition: 'transform 0.4s ease',
-                '&:hover': {
-                  transform: 'scale(1.05)',
-                },
-              }}
-            />
-          </Box>
+      <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1 }}>
+        {/* Greeting */}
+        <Box sx={{ animation: 'fadeInUp 0.6s ease-out forwards' }}>
+          <Typography
+            variant="body2"
+            sx={{
+              color: '#7ec8e8',
+              fontWeight: 600,
+              mb: 1.5,
+              fontSize: '0.9rem',
+              fontFamily: '"SF Mono", "Fira Code", monospace',
+            }}
+          >
+            👋 你好，我是
+          </Typography>
         </Box>
 
-        {/* Username - gradient + shimmer */}
+        {/* Name with warm gradient + shimmer */}
         <Typography
           variant="h1"
           sx={{
-            fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.5rem' },
+            fontSize: { xs: '2.8rem', sm: '4rem', md: '5.5rem' },
             fontWeight: 800,
-            background:
-              'linear-gradient(135deg, #e5e5e5 0%, #c9a94e 40%, #e63946 70%, #c9a94e 100%)',
+            mb: 1.5,
+            background: 'linear-gradient(135deg, #e8e0d0 0%, #c8a96e 50%, #e8e0d0 100%)',
             backgroundSize: '200% auto',
             backgroundClip: 'text',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
-            animation: 'shimmer 4s linear infinite, fadeInUp 0.8s ease-out 0.1s forwards',
+            animation: 'fadeInUp 0.6s ease-out 0.1s forwards, shimmer 4s linear infinite',
             opacity: 0,
-            mb: 0.5,
-            letterSpacing: '-0.03em',
           }}
         >
           {githubUser.displayName}
         </Typography>
 
+        {/* Tagline */}
         <Typography
-          variant="h6"
+          variant="h2"
           sx={{
+            fontSize: { xs: '1.3rem', sm: '1.8rem', md: '2.2rem' },
+            fontWeight: 500,
             color: 'text.secondary',
-            fontWeight: 400,
-            mb: 1.5,
-            fontSize: { xs: '0.9rem', sm: '1.1rem' },
-            animation: 'fadeInUp 0.8s ease-out 0.2s forwards',
+            mb: 2,
+            animation: 'fadeInUp 0.6s ease-out 0.2s forwards',
             opacity: 0,
-            letterSpacing: '0.05em',
           }}
         >
-          @{githubUser.username}
+          全栈开发者 · 非遗文化数字化 · AI 探索
         </Typography>
 
         {/* Bio */}
@@ -156,12 +75,11 @@ function Hero(): JSX.Element {
           variant="body1"
           sx={{
             color: 'text.secondary',
-            maxWidth: 520,
-            mx: 'auto',
+            maxWidth: 560,
             mb: 3,
-            fontSize: { xs: '0.95rem', sm: '1.05rem' },
+            fontSize: '0.95rem',
             lineHeight: 1.8,
-            animation: 'fadeInUp 0.8s ease-out 0.3s forwards',
+            animation: 'fadeInUp 0.6s ease-out 0.3s forwards',
             opacity: 0,
           }}
         >
@@ -169,50 +87,45 @@ function Hero(): JSX.Element {
         </Typography>
 
         {/* Tags */}
-        <Box
+        <Stack
+          direction="row"
+          spacing={1}
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            gap: 1,
             mb: 3.5,
-            animation: 'fadeInUp 0.8s ease-out 0.4s forwards',
+            flexWrap: 'wrap',
+            gap: 0.5,
+            animation: 'fadeInUp 0.6s ease-out 0.35s forwards',
             opacity: 0,
           }}
         >
-          {githubUser.tags.map((tag) => (
+          {['全栈开发', '非遗文化', 'AI 探索', '游戏开发'].map((tag) => (
             <Chip
               key={tag}
               label={tag}
               size="small"
               sx={{
+                backgroundColor: 'rgba(200, 169, 110, 0.08)',
                 color: 'rgba(255,255,255,0.6)',
-                borderColor: 'rgba(255,255,255,0.08)',
-                fontSize: '0.75rem',
+                border: '1px solid rgba(200, 169, 110, 0.12)',
                 fontWeight: 500,
-                '&:hover': {
-                  borderColor: 'secondary.main',
-                  color: 'secondary.main',
-                },
+                fontSize: '0.75rem',
               }}
-              variant="outlined"
             />
           ))}
-        </Box>
+        </Stack>
 
-        {/* Stats */}
+        {/* Stats — light blue with pulse glow */}
         <Stack
           direction="row"
           spacing={{ xs: 3, sm: 5 }}
-          justifyContent="center"
           sx={{
             mb: 4,
-            animation: 'fadeInUp 0.8s ease-out 0.5s forwards',
+            animation: 'fadeInUp 0.6s ease-out 0.4s forwards',
             opacity: 0,
           }}
         >
           <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="h5" sx={{ fontWeight: 700, color: 'primary.main' }}>
+            <Typography variant="h5" sx={{ fontWeight: 700, color: '#7ec8e8' }} className="stat-glow">
               {repos.length}
             </Typography>
             <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.7rem' }}>
@@ -220,7 +133,7 @@ function Hero(): JSX.Element {
             </Typography>
           </Box>
           <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="h5" sx={{ fontWeight: 700, color: 'secondary.main' }}>
+            <Typography variant="h5" sx={{ fontWeight: 700, color: '#7ec8e8' }} className="stat-glow">
               {langCount}
             </Typography>
             <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.7rem' }}>
@@ -228,7 +141,7 @@ function Hero(): JSX.Element {
             </Typography>
           </Box>
           <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="h5" sx={{ fontWeight: 700, color: '#06b6d4' }}>
+            <Typography variant="h5" sx={{ fontWeight: 700, color: '#7ec8e8' }} className="stat-glow">
               2019
             </Typography>
             <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.7rem' }}>
@@ -241,10 +154,9 @@ function Hero(): JSX.Element {
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'center',
             gap: 2,
             flexWrap: 'wrap',
-            animation: 'fadeInUp 0.8s ease-out 0.6s forwards',
+            animation: 'fadeInUp 0.6s ease-out 0.45s forwards',
             opacity: 0,
           }}
         >
@@ -257,12 +169,13 @@ function Hero(): JSX.Element {
             rel="noopener noreferrer"
             sx={{
               backgroundColor: 'primary.main',
+              color: '#0a0a0a',
+              fontWeight: 700,
               px: 4,
-              py: 1.2,
               '&:hover': {
-                backgroundColor: 'primary.dark',
+                backgroundColor: 'primary.light',
                 transform: 'translateY(-2px)',
-                boxShadow: '0 8px 24px rgba(196, 30, 58, 0.3)',
+                boxShadow: '0 8px 24px rgba(200, 169, 110, 0.25)',
               },
               transition: 'all 0.3s ease',
             }}
@@ -274,13 +187,13 @@ function Hero(): JSX.Element {
             size="large"
             href="#about"
             sx={{
-              borderColor: 'rgba(201, 169, 78, 0.3)',
-              color: 'secondary.main',
+              borderColor: 'rgba(255,255,255,0.08)',
+              color: 'text.primary',
               px: 4,
-              py: 1.2,
               '&:hover': {
-                borderColor: 'secondary.main',
-                backgroundColor: 'rgba(201, 169, 78, 0.08)',
+                borderColor: '#7ec8e8',
+                color: '#7ec8e8',
+                backgroundColor: 'rgba(126, 200, 232, 0.06)',
                 transform: 'translateY(-2px)',
               },
               transition: 'all 0.3s ease',
@@ -298,24 +211,19 @@ function Hero(): JSX.Element {
           bottom: 32,
           left: '50%',
           transform: 'translateX(-50%)',
+          animation: 'fadeIn 1s ease-out 1.2s forwards',
+          opacity: 0,
+          color: 'text.secondary',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           gap: 0.5,
-          color: 'text.secondary',
-          animation: 'fadeIn 1s ease-out 1.5s forwards',
-          opacity: 0,
         }}
       >
-        <Typography variant="caption" sx={{ fontSize: '0.65rem', letterSpacing: '0.15em' }}>
-          SCROLL
+        <Typography variant="caption" sx={{ fontSize: '0.6rem', letterSpacing: '0.15em', color: 'rgba(255,255,255,0.2)' }}>
+          SCROLL DOWN
         </Typography>
-        <KeyboardDoubleArrowDownIcon
-          sx={{
-            animation: 'float 2s ease-in-out infinite',
-            fontSize: 20,
-          }}
-        />
+        <ArrowDownwardIcon sx={{ fontSize: 16, animation: 'float 2s ease-in-out infinite', color: 'rgba(255,255,255,0.2)' }} />
       </Box>
     </Box>
   );

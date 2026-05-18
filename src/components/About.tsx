@@ -1,139 +1,159 @@
-import { Box, Container, Typography, Card, CardContent, Grid2 as Grid } from '@mui/material';
-import { aboutInfo, repos } from '../data/repos';
+import { Box, Container, Typography, Grid2 as Grid } from '@mui/material';
+
+const directions = [
+  {
+    num: '01',
+    title: '全栈开发',
+    desc: '从微信小程序到 FastAPI 后端，独立完成从数据库设计到前端交互的全链路开发。',
+  },
+  {
+    num: '02',
+    title: '非遗文化数字化',
+    desc: '构建 CRS 推荐系统驱动的非遗文化传播平台，融合 AI 数字人与知识图谱技术。',
+  },
+  {
+    num: '03',
+    title: 'AI 应用探索',
+    desc: '研究 AI 数字人对话、五级回退策略问答与 LLM 人格克隆等前沿方向。',
+  },
+];
 
 function About(): JSX.Element {
   return (
-    <Box
-      component="section"
-      id="about"
-      sx={{
-        py: { xs: 8, md: 12 },
-        background: 'linear-gradient(180deg, #0f0f1a 0%, #0a0a0a 100%)',
-      }}
-    >
+    <Box component="section" id="about" sx={{ py: { xs: 10, md: 14 } }}>
       <Container maxWidth="lg">
-        {/* Section header */}
-        <Box sx={{ textAlign: 'center', mb: { xs: 5, md: 7 } }}>
-          <Typography
-            variant="overline"
-            sx={{
-              color: 'secondary.main',
-              letterSpacing: '0.15em',
-              fontSize: '0.75rem',
-              fontWeight: 600,
-            }}
-          >
-            ABOUT
-          </Typography>
-          <Typography
-            variant="h2"
-            sx={{
-              fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3rem' },
-              fontWeight: 700,
-              mt: 1,
-            }}
-          >
-            关于我
-          </Typography>
-          <Box
-            sx={{
-              width: 60,
-              height: 3,
-              background: 'linear-gradient(90deg, #c41e3a, #c9a94e)',
-              mx: 'auto',
-              mt: 2,
-              borderRadius: 2,
-            }}
-          />
-        </Box>
-
-        {/* Intro text */}
-        <Box sx={{ maxWidth: 680, mx: 'auto', textAlign: 'center', mb: 6 }}>
-          <Typography
-            variant="body1"
-            sx={{
-              color: 'text.secondary',
-              fontSize: { xs: '0.95rem', md: '1.05rem' },
-              lineHeight: 1.9,
-            }}
-          >
-            {aboutInfo.intro}
-          </Typography>
-          <Box
-            sx={{
-              mt: 2,
-              display: 'flex',
-              justifyContent: 'center',
-              gap: { xs: 2, md: 4 },
-              flexWrap: 'wrap',
-            }}
-          >
-            <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.8rem' }}>
-              🗓️ GitHub 注册于 <strong style={{ color: '#c9a94e' }}>2019 年 8 月</strong>
-            </Typography>
-            <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.8rem' }}>
-              📦 <strong style={{ color: '#c9a94e' }}>{repos.length}</strong> 个开源项目
-            </Typography>
-          </Box>
-        </Box>
-
-        {/* Direction cards */}
-        <Grid container spacing={{ xs: 2.5, md: 3 }} justifyContent="center">
-          {aboutInfo.directions.map((dir, index) => (
-            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={dir.title}>
-              <Card
-                className="card-hover"
+        <Grid container spacing={4} alignItems="center">
+          {/* Left: Intro */}
+          <Grid size={{ xs: 12, md: 5 }}>
+            <Box className="reveal">
+              <Typography
+                variant="overline"
+                sx={{ color: '#7ec8e8', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace', mb: 1, display: 'block' }}
+              >
+                ABOUT
+              </Typography>
+              <Typography
+                variant="h2"
                 sx={{
-                  height: '100%',
-                  p: { xs: 2, md: 3 },
-                  textAlign: 'center',
-                  borderColor: 'rgba(201, 169, 78, 0.06)',
-                  opacity: 0,
-                  animation: `fadeInUp 0.5s ease-out ${0.15 * (index + 1)}s forwards`,
+                  fontSize: { xs: '1.8rem', md: '2.5rem' },
+                  fontWeight: 700,
+                  mb: 2,
                 }}
               >
-                <CardContent sx={{ px: 0 }}>
-                  {/* Icon */}
-                  <Typography
-                    sx={{
-                      fontSize: '2.5rem',
-                      mb: 1.5,
-                      display: 'block',
-                      animation: 'float 3s ease-in-out infinite',
-                      animationDelay: `${index * 0.5}s`,
-                    }}
-                  >
-                    {dir.icon}
-                  </Typography>
+                用技术
+                <Box component="span" sx={{ background: 'linear-gradient(135deg, #c8a96e, #7ec8e8)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                  {' '}传承文化
+                </Box>
+              </Typography>
+              <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: '0.92rem', lineHeight: 1.9, mb: 2 }}>
+                你好，我是老王。一名热爱技术的全栈开发者，专注于用数字化手段保护和传播中国非物质文化遗产。
+              </Typography>
+              <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: '0.92rem', lineHeight: 1.9 }}>
+                从微信小程序到 AI 对话系统，从数据库设计到推荐算法——我享受从零到一构建完整产品的过程。
+              </Typography>
+            </Box>
+          </Grid>
 
-                  {/* Title with accent underline */}
-                  <Typography
-                    variant="h3"
-                    sx={{
-                      fontSize: '1.1rem',
-                      fontWeight: 700,
-                      mb: 1,
-                      color: dir.color,
-                    }}
-                  >
-                    {dir.title}
+          {/* Right: Bento Grid */}
+          <Grid size={{ xs: 12, md: 7 }}>
+            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 2 }}>
+              {/* Stats card — glow behind */}
+              <Box
+                className="glass-hover"
+                sx={{
+                  gridColumn: { sm: 'span 2' },
+                  p: 3,
+                  borderRadius: 3,
+                  border: '1px solid rgba(200,169,110,0.06)',
+                  background: 'rgba(200,169,110,0.03)',
+                  backdropFilter: 'blur(12px)',
+                  display: 'flex',
+                  gap: 3,
+                  flexWrap: 'wrap',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: '30%',
+                    left: '40%',
+                    width: '200%',
+                    height: '200%',
+                    background: 'radial-gradient(circle at center, rgba(126,200,232,0.06) 0%, transparent 60%)',
+                    pointerEvents: 'none',
+                  },
+                }}
+              >
+                <Box sx={{ position: 'relative', zIndex: 1 }}>
+                  <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.7rem', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
+                    GitHub 注册
                   </Typography>
+                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#7ec8e8' }}>
+                    2019.08
+                  </Typography>
+                </Box>
+                <Box sx={{ position: 'relative', zIndex: 1 }}>
+                  <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.7rem', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
+                    开源项目
+                  </Typography>
+                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#7ec8e8' }}>
+                    4 个
+                  </Typography>
+                </Box>
+                <Box sx={{ position: 'relative', zIndex: 1 }}>
+                  <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.7rem', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
+                    技术领域
+                  </Typography>
+                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#7ec8e8' }}>
+                    全栈·AI·文化
+                  </Typography>
+                </Box>
+              </Box>
 
-                  {/* Description */}
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: 'text.secondary',
-                      fontSize: '0.85rem',
-                      lineHeight: 1.7,
-                    }}
-                  >
-                    {dir.desc}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
+              {/* Direction cards — each with subtle glow */}
+              {directions.map((dir) => (
+                <Box
+                  key={dir.title}
+                  className="glass-hover"
+                  sx={{
+                    p: 2.5,
+                    borderRadius: 3,
+                    border: '1px solid rgba(200,169,110,0.06)',
+                    background: 'rgba(200,169,110,0.03)',
+                    backdropFilter: 'blur(12px)',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    '&::before': {
+                      content: '""',
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      width: '150%',
+                      height: '150%',
+                      transform: 'translate(-50%, -50%)',
+                      background: 'radial-gradient(circle at center, rgba(126,200,232,0.04) 0%, transparent 60%)',
+                      opacity: 0,
+                      transition: 'opacity 0.5s ease',
+                      pointerEvents: 'none',
+                    },
+                    '&:hover::before': { opacity: 1 },
+                  }}
+                >
+                  <Box sx={{ position: 'relative', zIndex: 1 }}>
+                    <Typography variant="body2" sx={{ color: '#7ec8e8', fontFamily: 'monospace', fontSize: '0.75rem', mb: 1 }}>
+                      {dir.num}
+                    </Typography>
+                    <Typography variant="h4" sx={{ fontSize: '1rem', fontWeight: 600, mb: 1, color: 'text.primary' }}>
+                      {dir.title}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: '0.8rem', lineHeight: 1.7 }}>
+                      {dir.desc}
+                    </Typography>
+                  </Box>
+                </Box>
+              ))}
+            </Box>
+          </Grid>
         </Grid>
       </Container>
     </Box>
