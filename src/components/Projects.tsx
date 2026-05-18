@@ -115,7 +115,7 @@ function Projects(): JSX.Element {
                 sx={{
                   flex: '0 0 auto',
                   width: { xs: 'calc(100vw - 108px)', md: 640 },
-                  aspectRatio: { xs: '3/5', md: '3/4' },
+                  aspectRatio: { xs: '1/1.92', md: '3/4' },
                   scrollSnapAlign: 'center',
                   textDecoration: 'none',
                   borderRadius: 3,
