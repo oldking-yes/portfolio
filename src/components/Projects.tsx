@@ -80,7 +80,7 @@ function Projects(): JSX.Element {
               '&::-webkit-scrollbar': { display: 'none' },
               msOverflowStyle: 'none',
               scrollbarWidth: 'none',
-              px: { xs: 'calc(50vw - 140px)', md: 'calc(50vw - 530px)' },
+              px: { xs: 'calc(50vw - 165px)', md: 'calc(50vw - 530px)' },
               gap: { xs: 2.5, md: 4 },
               alignItems: 'center',
               width: '100%',
@@ -96,8 +96,8 @@ function Projects(): JSX.Element {
                 rel="noopener noreferrer"
                 sx={{
                   flex: '0 0 auto',
-                  width: { xs: 'calc(100vw - 88px)', md: 960 },
-                  aspectRatio: { xs: '3/5', md: '3/2' },
+                  width: { xs: 'calc(100vw - 40px)', md: 960 },
+                  aspectRatio: { xs: '2/3', md: '3/2' },
                   scrollSnapAlign: 'center',
                   textDecoration: 'none',
                   borderRadius: 3,
@@ -106,7 +106,7 @@ function Projects(): JSX.Element {
                   backdropFilter: 'blur(12px)',
                   overflow: 'hidden',
                   display: 'flex',
-                  flexDirection: { xs: 'column', md: 'row' },
+                  flexDirection: 'row',
                   transition: 'transform 0.2s ease, border-color 0.2s ease',
                   '&:hover': {
                     transform: 'translateY(-2px)',
@@ -114,7 +114,7 @@ function Projects(): JSX.Element {
                   },
                 }}
               >
-                <Box sx={{ flex: { xs: '0 0 40%', md: '0 0 37%' }, overflow: 'hidden', backgroundColor: '#0a0f14', position: 'relative' }}>
+                <Box sx={{ flex: { xs: '0 0 42%', md: '0 0 37%' }, overflow: 'hidden', backgroundColor: '#0a0f14', position: 'relative', borderRadius: '16px 0 0 16px', display: 'flex', alignItems: 'stretch' }}>
                   {repo.image ? (
                     <Box component="img" src={assetUrl(repo.image)} alt={repo.displayName}
                       sx={{
