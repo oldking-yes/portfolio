@@ -15,9 +15,9 @@ export interface Repo {
 export const repos: Repo[] = [
   {
     name: 'heritage-crs-platform',
-    displayName: '非遗文化传播平台',
+    displayName: 'CRS 推荐系统平台',
     description:
-      '基于 CRS 推荐系统的非遗文化传播平台——融合 AI 数字人「黑塔」对话、五级回退策略问答与知识图谱推荐解释生成。',
+      '基于对话推荐引擎的全栈应用——融合 AI 对话、五级回退问答策略与知识图谱推荐解释生成，16 张数据表架构。',
     language: 'Python',
     stars: 0,
     url: 'https://github.com/oldking-yes/heritage-crs-platform',
@@ -29,9 +29,9 @@ export const repos: Repo[] = [
   },
   {
     name: 'arknights-personality-v2',
-    displayName: '干员人格测试',
+    displayName: 'AI 人格测试引擎',
     description:
-      'React + Tailwind 打造的明日方舟干员人格测试应用，通过趣味问答匹配你的干员人格。',
+      'LLM 驱动的对话式人格评测应用，React + Tailwind 构建的交互问答与结果推理系统。',
     language: 'TypeScript',
     stars: 1,
     url: 'https://github.com/oldking-yes/arknights-personality-v2',
@@ -45,7 +45,7 @@ export const repos: Repo[] = [
     name: 'refine-yourself',
     displayName: 'AI 人格克隆',
     description:
-      '从聊天记录中克隆 AI 人格，利用对话数据训练个性化 AI 分身，探索 AI 与人格模拟技术。',
+      '对话数据驱动的 AI 人格克隆系统——从聊天记录提取特征并训练个性化 AI 分身。',
     language: 'TypeScript',
     stars: 0,
     url: 'https://github.com/oldking-yes/refine-yourself',
@@ -56,9 +56,9 @@ export const repos: Repo[] = [
   },
   {
     name: 'ink-studio',
-    displayName: '墨水工作室',
+    displayName: '前端设计实验室',
     description:
-      '创意数字工作室项目，聚焦前端交互技术与视觉表达。（项目描述待补充）',
+      '前端交互与视觉表达实验项目，探索创意 Web 技术与 UI 动效。',
     language: 'HTML',
     stars: 0,
     url: 'https://github.com/oldking-yes/ink-studio',
@@ -87,9 +87,9 @@ export const skills: Skill[] = [
 
 export const githubUser = {
   username: 'oldking-yes',
-  displayName: '老王',
+  displayName: 'Zixuan Wang',
   avatarUrl: 'https://avatars.githubusercontent.com/u/54438040?v=4',
-  bio: '数据科学与大数据专业 · AI Agent 开发者 · Claude Code 深度用户。毕业设计结合 CRS 推荐系统与 AI 数字人，探索传统文化数字化的前沿实践。',
+  bio: '数据科学与大数据专业 · AI Agent 开发者 · Claude Code 深度用户。全栈开发，CRS 推荐系统与 LLM 应用实践经验。',
   tagline: '数据科学 · AI Agent 开发 · Claude Code 生态实践者',
   githubUrl: 'https://github.com/oldking-yes',
   email: '2919178903@qq.com',

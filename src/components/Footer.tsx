@@ -12,7 +12,7 @@ function Footer(): JSX.Element {
           ))}
         </Box>
         <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.65rem' }}>
-          &copy; {new Date().getFullYear()} oldking-yes · Built with ❤️
+          &copy; {new Date().getFullYear()} Zixuan Wang · Built with ❤️
         </Typography>
       </Container>
     </Box>

@@ -15,7 +15,7 @@ function Contact(): JSX.Element {
             保持联系
           </Typography>
           <Typography variant="body1" sx={{ color: 'text.secondary', maxWidth: 400, mx: 'auto', mb: 5, fontSize: '0.9rem', lineHeight: 1.8 }}>
-            无论你是对项目感兴趣、想合作，还是只是想聊聊天——欢迎联系我。
+            对项目感兴趣或想合作？欢迎联系。
           </Typography>
 
           {/* Card */}
@@ -23,8 +23,8 @@ function Contact(): JSX.Element {
             sx={{
               p: { xs: 4, md: 5 },
               borderRadius: 4,
-              border: '1px solid rgba(200,169,110,0.08)',
-              background: 'rgba(200,169,110,0.03)',
+              border: '1px solid rgba(143,164,184,0.10)',
+              background: 'rgba(143,164,184,0.04)',
               backdropFilter: 'blur(16px)',
               display: 'flex',
               flexDirection: 'column',
@@ -52,7 +52,7 @@ function Contact(): JSX.Element {
                   py: 1.5, fontSize: '0.85rem', fontWeight: 600,
                   borderColor: 'rgba(255,255,255,0.06)', color: 'text.primary', borderRadius: 2,
                   fontFamily: '"SF Mono", "Fira Code", monospace',
-                  '&:hover': { borderColor: '#c8a96e', backgroundColor: 'rgba(200, 169, 110, 0.06)', transform: 'translateY(-2px)' },
+                  '&:hover': { borderColor: '#8fa4b8', backgroundColor: 'rgba(143, 164, 184, 0.06)', transform: 'translateY(-2px)' },
                   transition: 'all 0.3s ease',
                 }}
               >

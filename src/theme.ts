@@ -5,9 +5,9 @@ const theme = responsiveFontSizes(
     palette: {
       mode: 'dark',
       primary: {
-        main: '#c8a96e',
-        light: '#dcc48e',
-        dark: '#a8884e',
+        main: '#8fa4b8',
+        light: '#a8bcc8',
+        dark: '#7090a8',
         contrastText: '#0a0a0a',
       },
       secondary: {
@@ -20,13 +20,13 @@ const theme = responsiveFontSizes(
       },
       background: {
         default: '#0a0a0a',
-        paper: 'rgba(200, 169, 110, 0.04)',
+        paper: 'rgba(143, 164, 184, 0.04)',
       },
       text: {
         primary: '#e8e0d0',
         secondary: '#a09888',
       },
-      divider: 'rgba(200, 169, 110, 0.08)',
+      divider: 'rgba(143, 164, 184, 0.08)',
     },
     typography: {
       fontFamily: '"Inter", "system-ui", "-apple-system", "sans-serif"',
@@ -54,10 +54,10 @@ const theme = responsiveFontSizes(
         styleOverrides: {
           root: {
             backgroundImage: 'none',
-            backgroundColor: 'rgba(200, 169, 110, 0.03)',
+            backgroundColor: 'rgba(143, 164, 184, 0.04)',
             backdropFilter: 'blur(12px)',
             WebkitBackdropFilter: 'blur(12px)',
-            border: '1px solid rgba(200, 169, 110, 0.06)',
+            border: '1px solid rgba(143, 164, 184, 0.08)',
             borderRadius: 14,
             boxShadow: 'none',
           },

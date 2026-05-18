@@ -56,8 +56,8 @@ function CanvasBackground(): JSX.Element {
         for (let c = 0; c < COLS; c++) {
           cells[r][c] = {
             char: chars[Math.floor(Math.random() * chars.length)],
-            brightness: 0.15 + Math.random() * 0.25,
-            changeTimer: Math.floor(Math.random() * 60),
+            brightness: 0.22 + Math.random() * 0.28,
+            changeTimer: Math.floor(Math.random() * 120),
           };
         }
       }
@@ -86,7 +86,7 @@ function CanvasBackground(): JSX.Element {
           cell.changeTimer--;
           if (cell.changeTimer <= 0) {
             cell.char = chars[Math.floor(Math.random() * chars.length)];
-            cell.changeTimer = 15 + Math.floor(Math.random() * 50);
+            cell.changeTimer = 30 + Math.floor(Math.random() * 80);
             cell.brightness = 0.5 + Math.random() * 0.4;
           }
 
@@ -112,16 +112,43 @@ function CanvasBackground(): JSX.Element {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
 
-      // 暗角
-      const cx = canvas.width / 2;
-      const cy = canvas.height / 2;
-      const maxR = Math.max(canvas.width, canvas.height) * 0.7;
-      const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
-      grad.addColorStop(0, 'rgba(0,0,0,0)');
-      grad.addColorStop(0.5, 'rgba(0,0,0,0)');
-      grad.addColorStop(1, 'rgba(0,0,0,0.12)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // 四边暗角：中心全亮，四边+四角狠狠压黑
+      const W = canvas.width;
+      const H = canvas.height;
+      const edgeW = W * 0.28;
+      const edgeH = H * 0.28;
+
+      // 左边缘
+      const gl = ctx.createLinearGradient(0, 0, edgeW, 0);
+      gl.addColorStop(0, 'rgba(0,0,0,0.75)');
+      gl.addColorStop(0.3, 'rgba(0,0,0,0.35)');
+      gl.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = gl;
+      ctx.fillRect(0, 0, edgeW, H);
+
+      // 右边缘
+      const gr = ctx.createLinearGradient(W - edgeW, 0, W, 0);
+      gr.addColorStop(0, 'rgba(0,0,0,0)');
+      gr.addColorStop(0.7, 'rgba(0,0,0,0.35)');
+      gr.addColorStop(1, 'rgba(0,0,0,0.75)');
+      ctx.fillStyle = gr;
+      ctx.fillRect(W - edgeW, 0, edgeW, H);
+
+      // 上边缘
+      const gt = ctx.createLinearGradient(0, 0, 0, edgeH);
+      gt.addColorStop(0, 'rgba(0,0,0,0.75)');
+      gt.addColorStop(0.3, 'rgba(0,0,0,0.35)');
+      gt.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = gt;
+      ctx.fillRect(0, 0, W, edgeH);
+
+      // 下边缘
+      const gb = ctx.createLinearGradient(0, H - edgeH, 0, H);
+      gb.addColorStop(0, 'rgba(0,0,0,0)');
+      gb.addColorStop(0.7, 'rgba(0,0,0,0.35)');
+      gb.addColorStop(1, 'rgba(0,0,0,0.75)');
+      ctx.fillStyle = gb;
+      ctx.fillRect(0, H - edgeH, W, edgeH);
 
       animId = requestAnimationFrame(draw);
     };

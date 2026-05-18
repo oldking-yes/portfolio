@@ -18,7 +18,7 @@ function Skills(): JSX.Element {
         {/* Bento grid */}
         <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr 1fr', sm: 'repeat(4, 1fr)' }, gap: 2, maxWidth: 900, mx: 'auto' }}>
           {/* Featured: TypeScript */}
-          <Box className="glass-hover" sx={{ p: 3, gridColumn: { sm: 'span 2' }, borderRadius: 3, border: '1px solid rgba(200,169,110,0.06)', background: 'rgba(200,169,110,0.03)', backdropFilter: 'blur(12px)', position: 'relative', overflow: 'hidden',
+          <Box className="glass-hover" sx={{ p: 3, gridColumn: { sm: 'span 2' }, borderRadius: 3, border: '1px solid rgba(143,164,184,0.08)', background: 'rgba(143,164,184,0.04)', backdropFilter: 'blur(12px)', position: 'relative', overflow: 'hidden',
             '&::before': { content: '""', position: 'absolute', top: '40%', left: '30%', width: '200%', height: '200%', background: 'radial-gradient(circle at center, rgba(160,216,240,0.05) 0%, transparent 60%)', pointerEvents: 'none' },
           }}>
             <Box sx={{ position: 'relative', zIndex: 1 }}>
@@ -31,7 +31,7 @@ function Skills(): JSX.Element {
           </Box>
 
           {/* Featured: Python */}
-          <Box className="glass-hover" sx={{ p: 3, gridColumn: { sm: 'span 2' }, borderRadius: 3, border: '1px solid rgba(200,169,110,0.06)', background: 'rgba(200,169,110,0.03)', backdropFilter: 'blur(12px)', position: 'relative', overflow: 'hidden',
+          <Box className="glass-hover" sx={{ p: 3, gridColumn: { sm: 'span 2' }, borderRadius: 3, border: '1px solid rgba(143,164,184,0.08)', background: 'rgba(143,164,184,0.04)', backdropFilter: 'blur(12px)', position: 'relative', overflow: 'hidden',
             '&::before': { content: '""', position: 'absolute', top: '40%', left: '30%', width: '200%', height: '200%', background: 'radial-gradient(circle at center, rgba(160,216,240,0.05) 0%, transparent 60%)', pointerEvents: 'none' },
           }}>
             <Box sx={{ position: 'relative', zIndex: 1 }}>
@@ -44,16 +44,19 @@ function Skills(): JSX.Element {
           </Box>
 
           {/* Other skills */}
-          {skills.slice(2).map((skill) => (
-            <Box key={skill.name} className="glass-hover" sx={{ p: 2.5, textAlign: 'center', borderRadius: 3, border: '1px solid rgba(200,169,110,0.06)', background: 'rgba(200,169,110,0.03)', backdropFilter: 'blur(8px)' }}>
+          {skills.slice(2).map((skill, i) => {
+            const barWidths = ['90%', '75%', '85%', '70%', '65%', '80%'];
+            return (
+            <Box key={skill.name} className="glass-hover" sx={{ p: 2.5, textAlign: 'center', borderRadius: 3, border: '1px solid rgba(143,164,184,0.08)', background: 'rgba(143,164,184,0.04)', backdropFilter: 'blur(8px)' }}>
               <Typography variant="body2" sx={{ color: skill.color, fontWeight: 600, fontSize: '0.85rem', mb: 0.5 }}>
                 {skill.name}
               </Typography>
               <Box sx={{ height: 3, borderRadius: 2, backgroundColor: 'rgba(255,255,255,0.03)', overflow: 'hidden' }}>
-                <Box sx={{ height: '100%', borderRadius: 2, width: `${60 + Math.random() * 30}%`, backgroundColor: skill.color, animation: 'fillBar 1s ease-out forwards' }} />
+                <Box sx={{ height: '100%', borderRadius: 2, width: barWidths[i] || '75%', backgroundColor: skill.color, animation: 'fillBar 1s ease-out forwards' }} />
               </Box>
             </Box>
-          ))}
+            );
+          })}
         </Box>
       </Container>
     </Box>

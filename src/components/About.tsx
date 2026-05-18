@@ -13,8 +13,8 @@ const directions = [
   },
   {
     num: '03',
-    title: '非遗文化数字化',
-    desc: '构建 CRS 推荐系统驱动的非遗文化传播平台，融合 AI 数字人与知识图谱技术，用科技守护传统。',
+    title: '推荐系统与数据工程',
+    desc: 'CRS 对话推荐引擎、知识图谱构建、五级回退策略问答——完整的数据驱动推荐系统实践经验。',
   },
 ];
 
@@ -40,16 +40,16 @@ function About(): JSX.Element {
                   mb: 2,
                 }}
               >
-                用技术
-                <Box component="span" sx={{ background: 'linear-gradient(135deg, #c8a96e, #8ba8c0)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                  {' '}传承文化
+                全栈构建
+                <Box component="span" sx={{ background: 'linear-gradient(135deg, #8fa4b8, #a8bcc8)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                  {' '}· AI 驱动
                 </Box>
               </Typography>
               <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: '0.92rem', lineHeight: 1.9, mb: 2 }}>
-                你好，我是老王。数据科学与大数据专业，AI Agent 开发者。善于利用 Claude Code 等 AI 编程工具高效构建全栈应用。
+                数据科学与大数据专业，AI Agent 开发者。善于利用 Claude Code 等 AI 编程工具高效构建全栈应用。
               </Typography>
               <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: '0.92rem', lineHeight: 1.9, mb: 2 }}>
-                从微信小程序到 AI 对话系统，从数据库设计到推荐算法——我享受从零到一构建完整产品的过程。毕业设计「墨韵」是一个基于 CRS 推荐系统的非遗文化传播平台，也是我对技术+文化融合的一次深入实践。
+                从微信小程序到 AI 对话系统，从数据库设计到推荐算法——我享受从零到一构建完整产品的过程。毕业设计融合了 CRS 推荐系统、知识图谱与 LLM 对话引擎，是对推荐系统与 AI 应用的一次全栈实践。
               </Typography>
               <Typography variant="body1" sx={{ color: 'text.secondary', fontSize: '0.92rem', lineHeight: 1.9 }}>
                 熟悉 LangChain、ReAct 等 Agent 框架，具备 AI 应用从原型到落地的全链路开发能力。持续探索 AI Agent、LLM 应用与编程效率工具的创新边界。
@@ -57,22 +57,20 @@ function About(): JSX.Element {
             </Box>
           </Grid>
 
-          {/* Right: Bento Grid */}
+          {/* Right: Direction cards */}
           <Grid size={{ xs: 12, md: 7 }}>
             <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 2 }}>
-              {/* Stats card — glow behind */}
+              {/* Featured card — spans full width */}
               <Box
                 className="glass-hover"
                 sx={{
                   gridColumn: { sm: 'span 2' },
                   p: 3,
                   borderRadius: 3,
-                  border: '1px solid rgba(200,169,110,0.06)',
-                  background: 'rgba(200,169,110,0.03)',
+                  border: '1px solid rgba(143,164,184,0.08)',
+                  background: 'rgba(143,164,184,0.04)',
                   backdropFilter: 'blur(12px)',
-                  display: 'flex',
-                  gap: 3,
-                  flexWrap: 'wrap',
+                  textAlign: 'center',
                   position: 'relative',
                   overflow: 'hidden',
                   '&::before': {
@@ -82,38 +80,20 @@ function About(): JSX.Element {
                     left: '40%',
                     width: '200%',
                     height: '200%',
-                    background: 'radial-gradient(circle at center, rgba(160,216,240,0.06) 0%, transparent 60%)',
+                    background: 'radial-gradient(circle at center, rgba(160,216,240,0.05) 0%, transparent 60%)',
                     pointerEvents: 'none',
                   },
                 }}
               >
-                <Box sx={{ position: 'relative', zIndex: 1 }}>
-                  <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.7rem', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
-                    GitHub 注册
-                  </Typography>
-                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#8ba8c0' }}>
-                    2019.08
-                  </Typography>
-                </Box>
-                <Box sx={{ position: 'relative', zIndex: 1 }}>
-                  <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.7rem', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
-                    开源项目
-                  </Typography>
-                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#8ba8c0' }}>
-                    4 个
-                  </Typography>
-                </Box>
-                <Box sx={{ position: 'relative', zIndex: 1 }}>
-                  <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.7rem', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
-                    技术领域
-                  </Typography>
-                  <Typography variant="h6" sx={{ fontWeight: 700, color: '#8ba8c0' }}>
-                    全栈·AI·文化
-                  </Typography>
-                </Box>
+                <Typography variant="body2" sx={{ position: 'relative', zIndex: 1, color: '#8ba8c0', fontFamily: '"SF Mono", "Fira Code", monospace', fontSize: '0.7rem', mb: 0.5 }}>
+                  PHILOSOPHY
+                </Typography>
+                <Typography variant="h4" sx={{ position: 'relative', zIndex: 1, fontSize: '1rem', fontWeight: 600, color: 'text.primary', lineHeight: 1.7 }}>
+                  用 AI 加速构建 · 追求全栈闭环 · 持续交付
+                </Typography>
               </Box>
 
-              {/* Direction cards — each with subtle glow */}
+              {/* Direction cards */}
               {directions.map((dir) => (
                 <Box
                   key={dir.title}
@@ -121,8 +101,8 @@ function About(): JSX.Element {
                   sx={{
                     p: 2.5,
                     borderRadius: 3,
-                    border: '1px solid rgba(200,169,110,0.06)',
-                    background: 'rgba(200,169,110,0.03)',
+                    border: '1px solid rgba(143,164,184,0.08)',
+                    background: 'rgba(143,164,184,0.04)',
                     backdropFilter: 'blur(12px)',
                     position: 'relative',
                     overflow: 'hidden',

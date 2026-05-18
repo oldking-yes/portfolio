@@ -32,8 +32,8 @@ function App(): JSX.Element {
       <CanvasBackground />
       <Box sx={{ position: 'relative', zIndex: 1 }}>
         <Hero />
-        <About />
         <Projects />
+        <About />
         <Skills />
         <Contact />
         <Footer />
