@@ -15,12 +15,28 @@ export interface Repo {
 
 export const repos: Repo[] = [
   {
-    name: 'heritage-crs-platform',
+    name: 'ink-studio',
+    displayName: '墨韵 · 数字水墨',
+    description:
+      '数字水墨诗画互动平台——SVG 场景引擎 + Canvas 墨迹扩散 + Web Audio 古琴音景，单文件自包含。',
+    rationale:
+      '[创意实验] 零框架零依赖，单个 index.html 自包含完整数字水墨体验。SVG 场景引擎（山脉竹林仙鹤锦鲤墨滴飞花瓣）+ Canvas 2D 题诗作画（一键导出）+ Web Audio 古琴泛音音景。五种主题配色（墨韵/青花/金碧/朱砂/雪景），书法风格留言墙。验证了纯前端可实现完整艺术交互体验的技术上限。',
+    language: 'HTML',
+    stars: 0,
+    url: 'https://github.com/oldking-yes/ink-studio',
+    techStack: ['SVG', 'Canvas 2D', 'Web Audio API', 'CSS Animation'],
+    icon: '🎨',
+    gradient: 'linear-gradient(135deg, #0c1929, #2a1a1a)',
+    image: '/projects/项目截图/前端设计实验室.png',
+    previewUrl: 'https://oldking-yes.github.io/ink-studio/',
+  },
+  {
+    name: 'arknights-personality-v2',
     displayName: 'CRS 推荐系统平台',
     description:
       '毕设 | ASK-REC 对话推荐引擎 + Neo4j 知识图谱 + 双前端（小程序/React Web）全栈落地。',
     rationale:
-      '基于 ASK-REC 引擎的多轮对话推荐，置信度三维状态机（显式偏好+隐式行为+交互数据）保障推荐质量。五级回退策略（本地KB→豆包LLM→网络搜索）确保100%回答覆盖。Neo4j 存储 200+ 非遗知识节点，推荐解释可溯源。独立负责数据库建模（16表）、API 设计（12端点）、双前端（小程序 + React SPA，21页面）。',
+      '[全栈系统·毕设] 基于 ASK-REC 引擎的多轮对话推荐，置信度三维状态机（显式偏好+隐式行为+交互数据）保障推荐质量。五级回退策略（本地KB→豆包LLM→网络搜索）确保100%回答覆盖。Neo4j 存储 200+ 非遗知识节点，推荐解释可溯源。独立负责数据库建模（16表）、API 设计（12端点）、双前端（小程序 + React SPA，21页面）。',
     language: 'Python',
     stars: 0,
     url: 'https://github.com/oldking-yes/heritage-crs-platform',
@@ -36,7 +52,7 @@ export const repos: Repo[] = [
     description:
       '沉浸式人格评测 × 明日方舟世界观——20 道战术情境题 → 5 维雷达图 → 16 位干员匹配。',
     rationale:
-      'React 19 + TypeScript 全栈前端，20 道深度剧情题（Framer Motion 动画 + corruption 乱码特效）。欧氏距离五维匹配算法 + Chart.js 雷达图，含 vitest 单元测试。642 行 Canvas 分享引擎支持微信/小红书/B站三平台排版。CP 兼容度卡（18 组配对+双语标签）+ 罗德岛身份档案。i18next 中英双语 + PWA 离线安装（v3.0）。',
+      '[工程实践] React 19 + TypeScript 全栈前端，20 道深度剧情题（Framer Motion 动画 + corruption 乱码特效）。欧氏距离五维匹配算法 + Chart.js 雷达图，含 vitest 单元测试。642 行 Canvas 分享引擎支持微信/小红书/B站三平台排版。CP 兼容度卡（18 组配对+双语标签）+ 罗德岛身份档案。i18next 中英双语 + PWA 离线安装（v3.0）。',
     language: 'TypeScript',
     stars: 1,
     url: 'https://github.com/oldking-yes/arknights-personality-v2',
@@ -52,7 +68,7 @@ export const repos: Repo[] = [
     description:
       '上传聊天记录 → DeepSeek AI 分析 → 五层人格画像 → 可对话的数字分身。Next.js 16 + Supabase SaaS 产品。',
     rationale:
-      '完整 SaaS 产品流程（77 源文件/26 组件/5 API）：上传 .txt → DeepSeek 提炼五层人格（身份/行为规则/表达风格/决策模式/对话样本）→ 生成分享链接 → 公开对话。预置 12 个名人角色（Elon Musk/罗翔/李白等）。Supabase PostgreSQL + RLS 安全策略，原始数据即用即弃。Vercel OG Image 11 种主题社交卡片渲染。独立域名 refineyourself.asia。',
+      '[LLM应用] 完整 SaaS 产品流程（77 源文件/26 组件/5 API）：上传 .txt → DeepSeek 提炼五层人格（身份/行为规则/表达风格/决策模式/对话样本）→ 生成分享链接 → 公开对话。预置 12 个名人角色（Elon Musk/罗翔/李白等）。Supabase PostgreSQL + RLS 安全策略，原始数据即用即弃。Vercel OG Image 11 种主题社交卡片渲染。独立域名 refineyourself.asia。',
     language: 'TypeScript',
     stars: 0,
     url: 'https://github.com/oldking-yes/refine-yourself',
@@ -63,20 +79,20 @@ export const repos: Repo[] = [
     previewUrl: 'https://refineyourself.asia/',
   },
   {
-    name: 'ink-studio',
-    displayName: '墨韵 · 数字水墨',
+    name: 'heritage-crs-platform',
+    displayName: 'CRS 推荐系统平台',
     description:
-      '数字水墨诗画互动平台——SVG 场景引擎 + Canvas 墨迹扩散 + Web Audio 古琴音景，单文件自包含。',
+      '毕设 | ASK-REC 对话推荐引擎 + Neo4j 知识图谱 + 双前端（小程序/React Web）全栈落地。',
     rationale:
-      '零框架零依赖，单个 index.html 自包含完整数字水墨体验。SVG 场景引擎（山脉竹林仙鹤锦鲤墨滴飞花瓣）+ Canvas 2D 题诗作画（一键导出）+ Web Audio 古琴泛音音景。五种主题配色（墨韵/青花/金碧/朱砂/雪景），书法风格留言墙。验证了纯前端可实现完整艺术交互体验的技术上限。',
-    language: 'HTML',
+      '[全栈系统·毕设] 基于 ASK-REC 引擎的多轮对话推荐，置信度三维状态机（显式偏好+隐式行为+交互数据）保障推荐质量。五级回退策略（本地KB→豆包LLM→网络搜索）确保100%回答覆盖。Neo4j 存储 200+ 非遗知识节点，推荐解释可溯源。独立负责数据库建模（16表）、API 设计（12端点）、双前端（小程序 + React SPA，21页面）。',
+    language: 'Python',
     stars: 0,
-    url: 'https://github.com/oldking-yes/ink-studio',
-    techStack: ['SVG', 'Canvas 2D', 'Web Audio API', 'CSS Animation'],
-    icon: '🎨',
-    gradient: 'linear-gradient(135deg, #0c1929, #2a1a1a)',
-    image: '/projects/项目截图/前端设计实验室.png',
-    previewUrl: 'https://oldking-yes.github.io/ink-studio/',
+    url: 'https://github.com/oldking-yes/heritage-crs-platform',
+    techStack: ['Python', 'FastAPI', 'SQLAlchemy', 'Neo4j', 'React', 'TypeScript', '微信小程序'],
+    icon: '🏛️',
+    gradient: 'linear-gradient(135deg, #0c1929, #1a2a4a)',
+    image: '/projects/项目截图/CRS推荐系统平台.png',
+    previewUrl: 'https://frontend-l76hlj7sd-kukik-s-projects.vercel.app',
   },
 ];
 
