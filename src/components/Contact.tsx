@@ -5,7 +5,7 @@ import { githubUser } from '../data/repos';
 
 function Contact(): JSX.Element {
   return (
-    <Box component="section" id="contact" sx={{ py: { xs: 10, md: 14 }, textAlign: 'center' }}>
+    <Box component="section" id="contact" sx={{ py: { xs: 8, md: 12 }, textAlign: 'center' }}>
       <Container maxWidth="sm">
         <Box className="reveal">
           <Typography variant="overline" sx={{ color: '#8ba8c0', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace' }}>

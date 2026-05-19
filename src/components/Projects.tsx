@@ -49,7 +49,7 @@ function Projects(): JSX.Element {
   }, []);
 
   return (
-    <Box component="section" id="projects" sx={{ py: { xs: 3, md: 10 }, minHeight: { md: 'calc(100vh - 64px)' }, display: 'flex', flexDirection: 'column' }}>
+    <Box component="section" id="projects" sx={{ py: { xs: 3, md: 8 }, minHeight: { md: 'calc(100vh - 64px)' }, display: 'flex', flexDirection: 'column' }}>
       <Container maxWidth={false} sx={{ flex: 1, display: 'flex', flexDirection: 'column', px: { xs: 0, md: 2 } }}>
         <Box sx={{ textAlign: 'center', mb: { xs: 2, md: 4 }, flexShrink: 0 }} className="reveal">
           <Typography variant="overline" sx={{ color: '#8ba8c0', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace' }}>

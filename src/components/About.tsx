@@ -20,7 +20,7 @@ const directions = [
 
 function About(): JSX.Element {
   return (
-    <Box component="section" id="about" sx={{ py: { xs: 10, md: 14 } }}>
+    <Box component="section" id="about" sx={{ py: { xs: 8, md: 12 } }}>
       <Container maxWidth="lg">
         <Grid container spacing={4} alignItems="center">
           {/* Left: Intro */}

@@ -99,17 +99,36 @@ export const repos: Repo[] = [
 export interface Skill {
   name: string;
   color: string;
+  category: string;
 }
 
 export const skills: Skill[] = [
-  { name: 'TypeScript', color: '#3178c6' },
-  { name: 'Python', color: '#3572a5' },
-  { name: 'React', color: '#61dafb' },
-  { name: 'FastAPI', color: '#009688' },
-  { name: 'SQLAlchemy', color: '#d33682' },
-  { name: 'Tailwind', color: '#06b6d4' },
-  { name: '微信小程序', color: '#07c160' },
-  { name: 'Node.js', color: '#339933' },
+  // 框架
+  { name: 'React', color: '#61dafb', category: '框架' },
+  { name: 'Next.js', color: '#e8e0d0', category: '框架' },
+  { name: 'FastAPI', color: '#009688', category: '框架' },
+  { name: 'Vite', color: '#bd34fe', category: '框架' },
+  // 语言
+  { name: 'TypeScript', color: '#3178c6', category: '语言' },
+  { name: 'Python', color: '#3572a5', category: '语言' },
+  { name: 'SQL', color: '#d33682', category: '语言' },
+  // 数据库/后端
+  { name: 'SQLAlchemy', color: '#d32f2f', category: '后端' },
+  { name: 'Neo4j', color: '#018bff', category: '后端' },
+  { name: 'Supabase', color: '#3ecf8e', category: '后端' },
+  { name: 'PostgreSQL', color: '#336791', category: '后端' },
+  // AI/LLM
+  { name: 'DeepSeek', color: '#4d6bfe', category: 'AI' },
+  { name: 'Prompt Engineering', color: '#f59e0b', category: 'AI' },
+  // 前端
+  { name: 'Tailwind CSS', color: '#06b6d4', category: '前端' },
+  { name: 'Chart.js', color: '#ff6384', category: '前端' },
+  { name: 'Framer Motion', color: '#e91e63', category: '前端' },
+  // 平台
+  { name: '微信小程序', color: '#07c160', category: '平台' },
+  { name: 'PWA', color: '#5a0fc8', category: '平台' },
+  { name: 'Vercel', color: '#e8e0d0', category: '平台' },
+  { name: 'GitHub Pages', color: '#8fa4b8', category: '平台' },
 ];
 
 export const githubUser = {
