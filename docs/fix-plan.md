@@ -15,6 +15,14 @@
 | 技术栈 | HTML, CSS, JS | **SVG, Canvas 2D, Web Audio API, CSS Animation** |
 | THINKING | 零框架依赖... | **零框架零依赖，单文件实现从SVG场景引擎到Canvas题诗作画** |
 
+### 1.5 refine-yourself GitHub 账号核实 ⚠️
+
+| 当前标注 | 源码实际 |
+|---------|---------|
+| `oldking-yes/refine-yourself` | **`kukik-s/refine-yourself`** |
+
+需要核实：是同一个项目有两个仓库，还是账号迁移？如果是 kukik-s，需要更新 `repos.ts` 中的 `url` 字段。
+
 ### 2. heritage 技术栈标签补全
 
 | 当前 | 补全后 |

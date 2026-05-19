@@ -1,111 +1,146 @@
 # 炼化自己 · Refine Yourself — 项目深度分析
 
+> 基于源码全量探索（77文件/50源文件/26组件/5 API路由）
+
 ## 基本信息
-- **仓库**: oldking-yes/refine-yourself
-- **框架**: Next.js 16 (App Router) + TypeScript
-- **版本**: 0.1.0
+- **仓库**: kukik-s/refine-yourself（⚠️ 非 oldking-yes）
+- **框架**: Next.js 16 (App Router) + TypeScript 5 strict
+- **规模**: **77 文件** / 50 源文件 / 26 组件(.tsx) / 5 API 路由
 - **数据库**: Supabase PostgreSQL + RLS 安全策略
-- **AI**: DeepSeek API（人格分析 + 智能对话）
-- **部署**: Vercel + 独立域名 refineyourself.asia
-- **性质**: AI 人格克隆 SaaS 雏形
+- **AI**: DeepSeek API（原生 fetch，无 SDK）
+- **部署**: Vercel（主）+ Zeabur（备）+ 独立域名 refineyourself.asia
 
-## 技术栈（远比当前标注丰富）
+## 真实项目规模
 
-| 层面 | 技术 |
+| 指标 | 数值 |
 |------|------|
-| 框架 | Next.js 16 (App Router) |
-| 语言 | TypeScript |
-| 样式 | Tailwind CSS 4 + shadcn/ui + base-ui |
-| 图标 | Lucide |
-| 数据库 | Supabase PostgreSQL + RLS |
-| AI | DeepSeek API |
-| 部署 | Vercel + refineyourself.asia |
-| 工具 | Zod 校验、ESLint |
+| 总文件数 | 77（排除 node_modules/.git/.next） |
+| 源代码 | 50 个文件 |
+| 组件 | 26 个 .tsx 文件 |
+| API 路由 | 5 个 |
+| 类型定义 | 3 个 |
+| 预置角色数据 | 455 行（12 个名人角色） |
+| 全局 CSS | 259 行（含 dark mode） |
+| 部署脚本 | zeabur-deploy.mjs 159 行 |
+
+## 功能全景（远比当前卡片丰富）
+
+### 阶段 A — 人格提炼
+- 上传 .txt 聊天记录（微信/WhatsApp/Telegram）
+- 校验：仅 .txt / 10MB 上限 / 最少 50 字符
+- DeepSeek 分析 → 五层人格结构
+- **原始数据即用即弃，数据库只存 JSONB 人格文本**
+
+### 阶段 B — 智能对话
+- 生成 UUID 分享链接
+- System prompt 注入五层人格 + few-shot 样本
+- DeepSeek 按角色回复（1-3 句，拒绝暴露 AI 身份）
+- 聊天历史仅存 browser localStorage
+
+### 阶段 C — 预置角色广场
+- **12 个名人角色**（Elon Musk / Steve Jobs / 罗翔 / 张雪峰 / Einstein / Taylor Swift / 诸葛亮 / 宫崎骏 / 李白 / 孙悟空 / 鲁迅 / 居里夫人）
+- 每个角色完整五层人格 + 4 个 few-shot 样本
+
+### 阶段 D — 社交分享
+- 分享链接 + 管理令牌
+- html-to-image 生成分享卡片（含 QR 码）
+- Vercel OG Image：**11 种主题**（tech/minimal/scholar/bold/classic/artistic/ancient/nature/poet/mythic/default）
+- 每个分身独立生成动态 OG 社交卡
 
 ## 架构
 
 ```
 src/
-├── app/
-│   ├── layout.tsx        # Next.js Root Layout
-│   ├── page.tsx          # 主页面（上传→分析→分享）
-│   └── favicon.ico
-├── components/           # UI 组件（shadcn/base-ui）
-├── hooks/
-│   └── use-in-view.ts    # 视口交叉观察
+├── app/                    # Next.js App Router
+│   ├── layout.tsx          # Root Layout
+│   ├── page.tsx            # 首页(上传流程) 'use client'
+│   ├── [id]/page.tsx       # 聊天页(服务端取数据)
+│   └── explore/page.tsx    # 302 跳转
+├── api/
+│   ├── persona/            # POST(创建分身) GET DELETE
+│   ├── chat/[id]/          # POST(数据库分身对话)
+│   ├── chat/prebuilt/      # POST(预置角色对话)
+│   └── og/                 # GET(OG Image 11主题)
+├── components/             # 26 个组件
+│   ├── landing/            # Hero, Upload, Processing, Result, Share, PrebuiltGrid
+│   ├── chat/               # ChatInterface, Bubble, Input, TypingIndicator, PersonaHeader
+│   └── shared/             # Header, Footer, CopyButton, ShareModal
 ├── lib/
-│   ├── chat-storage.ts   # 对话持久化
-│   ├── utils.ts          # 工具函数
-│   └── validators.ts     # Zod 校验
-├── types/
-│   ├── chat.ts           # 对话类型
-│   ├── persona.ts        # 五层人格结构
-│   └── api.ts            # API 类型
+│   ├── deepseek/           # client.ts, persona-prompt.ts, chat-prompt.ts
+│   ├── chat-storage.ts     # localStorage 对话持久化
+│   ├── validators.ts       # Zod 校验
+│   └── utils.ts
+├── types/                  # chat.ts, persona.ts, api.ts
 ├── data/
-│   └── prebuilt-personas.ts  # 预置角色（可跳过提炼直接对话）
-├── supabase-schema.sql   # PostgreSQL 数据库定义 + RLS 策略
-├── test-data/
-│   ├── 马斯克-模拟聊天记录.txt
-│   └── 马斯克-达沃斯2026采访.txt
-├── zeabur-deploy.mjs     # Zeabur 部署脚本
-└── .vercel/project.json  # Vercel 配置
+│   └── prebuilt-personas.ts # 455行 12个角色
+└── hooks/
+    └── use-in-view.ts
 ```
 
-## 五层人格结构（persona.ts）
+## DeepSeek 集成细节
 
-```typescript
-identity: string            // 身份认知
-rules: string[]             // 行为规则
-expression_style: string    // 表达风格
-decision_patterns: string[] // 决策模式
-conversation_samples: []    // 对话样本
+| 场景 | Temperature | Max Tokens | 特殊配置 |
+|------|-------------|-----------|---------|
+| 人格提炼 | 0.8 | 4096 | JSON mode |
+| 聊天回复 | 0.7 | 1024 | Few-shot 注入 |
+
+**prompt 工程**：
+- 人格提炼：专业语言风格分析专家角色 → 严格五层 JSON 输出 → 自动脱敏姓名/电话
+- 聊天回复：身份 + 表达风格 + 行为规则 + 决策模式 + 4 个 few-shot 对话样本 → 7 条对话规则（语言匹配、简短自然、不暴露 AI 身份等）
+
+## API 路由全貌
+
+| 路由 | 方法 | 功能 |
+|------|------|------|
+| `/api/persona` | POST | multipart 上传 → Zod 校验 → DeepSeek 分析 → Supabase 写入 |
+| `/api/persona/[id]` | GET | 获取公开信息（隐藏 admin_token） |
+| `/api/persona/[id]` | DELETE | x-admin-token 验证后删除 |
+| `/api/chat/[id]` | POST | 查 Supabase → 构建 prompt → DeepSeek 回复 → chat_count +1 |
+| `/api/chat/prebuilt/[slug]` | POST | 预置角色纯推理对话（无需数据库） |
+| `/api/og` | GET | Next.js ImageResponse 动态 OG Image 生成 |
+
+## 技术亮点
+
+1. **隐私优先**：原始数据即用即弃，不落数据库
+2. **五层人格结构**：identity / rules / expression_style / decision_patterns / conversation_samples
+3. **Few-shot 引擎**：对话样本作为 real few-shot 注入 prompt，直接影响生成风格
+4. **新旧兼容**：`normalizeProfile()` 统一处理新旧格式
+5. **12 个预置角色**：每个含完整五层结构 + 4 个定制样本
+6. **OG Image 11 主题**：根据分身类型动态渲染社交分享卡
+7. **双部署**：Vercel 主站 + Zeabur 备站 + 自定义域名
+8. **dark mode**：CSS 变量驱动
+
+## 当前作品集严重偏差
+
+| 维度 | 当前错误 | 应修正 |
+|------|---------|--------|
+| 技术栈 | `['TypeScript', 'AI/LLM', 'Node.js']` | `['Next.js 16', 'TypeScript', 'DeepSeek API', 'Supabase', 'PostgreSQL', 'Tailwind CSS 4', 'shadcn/ui']` |
+| 定位 | "实验项目" | **SaaS 产品**（77文件/5API/12预置角色/11种OG主题） |
+| GitHub | `oldking-yes/refine-yourself` | ⚠️ 核实：实际仓库 `kukik-s/refine-yourself` |
+| 域名 | refine-yourself.vercel.app | **refineyourself.asia** |
+| 功能 | "特征提取+微调" | **完整SaaS：上传→AI分析→分享→对话** |
+
+## 建议新文案
+
+```
+描述: 上传聊天记录 → AI 提炼人格 → 生成数字分身
+      77文件 · 26组件 · 5 API · 12预置角色 · DeepSeek 驱动
+
+THINKING: [定位: SaaS 产品]
+完整的 AI 人格克隆 SaaS：上传 .txt 聊天记录 → DeepSeek 五层人格分析 →
+生成可分享的数字分身链接 → 任何人可与分身进行角色对话。
+预置 12 个知名人物角色（Elon Musk/罗翔/李白等）。
+Next.js 16 Server Components + Supabase PostgreSQL + Tailwind CSS 4。
+Vercel OG Image 11 种主题动态社交卡片渲染。
+隐私优先设计：原始数据即用即弃，数据库仅存人格 JSONB 文本。
 ```
 
-新旧格式兼容的 `normalizeProfile()` 函数体现工程成熟度。
+技术栈标注（8标签）：`Next.js 16`, `TypeScript`, `DeepSeek API`, `Supabase`, `PostgreSQL`, `Tailwind CSS 4`, `shadcn/ui`, `Vercel`
 
-## 完整产品流程
+## 面试问答准备
 
-```
-用户上传 .txt 聊天记录
-    → DeepSeek AI 分析语言特征
-      → 生成五层人格画像
-        → 生成唯一分享链接
-          → 任何人与你的 AI 分身对话
-            → 原始数据已删除（隐私优先）
-```
+Q: "人格克隆怎么做的？"
+A: 上传聊天记录 → DeepSeek 语言分析 → 提炼五层人格（身份/行为规则/表达风格/决策模式/对话样本）→ 构建 system prompt → 用户对话时注入人设 + few-shot 样本。77 个源文件、5 个 API 路由、12 个预置角色。原始数据即用即弃。
 
-## 当前作品集缺失
-
-| 当前标注 | 应补充 |
-|---------|--------|
-| 仅「TypeScript, AI/LLM, Node.js」 | **Next.js, Supabase, DeepSeek, shadcn/ui, Tailwind CSS 4, Vercel** |
-| "实验项目" | **SaaS 雏形** — 完整产品有数据库/部署/AI/分享 |
-| 未提隐私设计 | **原始数据处理后即丢弃** |
-| 域名写错 | 应为 `refine-yourself.vercel.app` 或 `refineyourself.asia` |
-
-## 建议文案
-
-```
-描述: 上传聊天记录 → AI 提炼人格 → 生成可对话的数字分身
-      Next.js 16 + DeepSeek + Supabase + 独立域名
-
-THINKING: [定位: LLM应用]
-从聊天数据清洗到 AI 人格建模的完整 SaaS 产品流程：
-用户上传 .txt → DeepSeek 分析语言特征 → 生成五层人格画像 → 分享链接 → 公开对话。
-Supabase PostgreSQL (RLS安全) 持久化，原始数据处理后即丢弃，隐私优先设计。
-Next.js 16 App Router + shadcn/ui + Tailwind CSS 4 前端，Vercel 部署。
-独立域名 refineyourself.asia，含预置角色（可跳过提炼直接体验对话）。
-```
-
-技术栈标注: `Next.js 16`, `TypeScript`, `DeepSeek API`, `Supabase`, `PostgreSQL`, `Tailwind CSS 4`, `shadcn/ui`
-
-## 亮点提炼
-
-| HR 关注点 | 展示内容 |
-|-----------|---------|
-| 全栈能力 | Next.js + Supabase + AI API 集成 |
-| 产品思维 | 上传→分析→分享→对话，完整闭环 |
-| 隐私意识 | 原始数据即用即弃 |
-| 工程规范 | Zod 校验、类型安全、RLS 安全策略 |
-| 独立域名 | refineyourself.asia |
-| 预置体验 | 预置角色可跳过提炼，降低体验门槛 |
+Q: "为什么用 Supabase 而不是 MongoDB？"
+A: 项目定位是轻量 SaaS，Supabase 免费 tier 足够支持 MVP。PostgreSQL + JSONB 兼具结构化查询和非结构化人格存储。RLS 策略实现零代码权限控制。
