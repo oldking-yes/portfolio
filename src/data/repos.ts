@@ -13,6 +13,44 @@ export interface Repo {
   image?: string;
 }
 
+export interface Education {
+  school: string;
+  degree: string;
+  major: string;
+  period: string;
+  description?: string;
+}
+
+export interface Experience {
+  company: string;
+  role: string;
+  period: string;
+  description: string;
+  techStack?: string[];
+}
+
+export const education: Education[] = [
+  {
+    school: '数据科学与大数据技术',
+    degree: '本科',
+    major: '数据科学方向',
+    period: '2022 - 2026',
+    description:
+      '主修课程：数据科学导论、机器学习、数据库系统原理、软件工程、Python 程序设计、大数据技术。毕业设计：基于 CRS 对话推荐与 Neo4j 知识图谱的非遗文化传播系统（优秀毕设）。',
+  },
+];
+
+export const experiences: Experience[] = [
+  {
+    company: '个人全栈开发',
+    role: '独立开发者',
+    period: '2023 - 至今',
+    description:
+      '主导 4 个全栈项目的全流程开发，涵盖 AI 对话推荐、LLM 应用、创意编程工具等领域。独立完成数据库建模、API 设计、前后端开发与云端部署。累计 77+ 源文件、26+ 组件、12+ API 端点的完整产品交付经验。',
+    techStack: ['React', 'TypeScript', 'Python', 'FastAPI', 'Next.js', 'Supabase', 'Neo4j'],
+  },
+];
+
 export const repos: Repo[] = [
   {
     name: 'heritage-crs-platform',
@@ -75,44 +113,47 @@ export const repos: Repo[] = [
     techStack: ['DeepSeek API', 'Cloudflare Workers', 'Canvas 2D', 'SVG', 'Web Audio API', 'GitHub Pages'],
     icon: '🎨',
     gradient: 'linear-gradient(135deg, #0c1929, #2a1a1a)',
-    image: '/projects/项目截图/前端设计实验室.png',
-    previewUrl: 'https://nebula-website-henna.vercel.app/',
+    image: '/projects/项目截图/前端设计实验室.png', // TODO: update to ink-studio specific screenshot
+    previewUrl: 'https://oldking-yes.github.io/ink-studio',
   },
 ];
+
+export type Proficiency = 'expert' | 'advanced' | 'intermediate';
 
 export interface Skill {
   name: string;
   color: string;
   category: string;
+  proficiency: Proficiency;
 }
 
 export const skills: Skill[] = [
   // 框架
-  { name: 'React', color: '#61dafb', category: '框架' },
-  { name: 'Next.js', color: '#e8e0d0', category: '框架' },
-  { name: 'FastAPI', color: '#009688', category: '框架' },
-  { name: 'Vite', color: '#bd34fe', category: '框架' },
+  { name: 'React', color: '#61dafb', category: '框架', proficiency: 'expert' },
+  { name: 'Next.js', color: '#e8e0d0', category: '框架', proficiency: 'advanced' },
+  { name: 'FastAPI', color: '#009688', category: '框架', proficiency: 'advanced' },
+  { name: 'Vite', color: '#bd34fe', category: '框架', proficiency: 'expert' },
   // 语言
-  { name: 'TypeScript', color: '#3178c6', category: '语言' },
-  { name: 'Python', color: '#3572a5', category: '语言' },
-  { name: 'SQL', color: '#d33682', category: '语言' },
+  { name: 'TypeScript', color: '#3178c6', category: '语言', proficiency: 'expert' },
+  { name: 'Python', color: '#3572a5', category: '语言', proficiency: 'expert' },
+  { name: 'SQL', color: '#d33682', category: '语言', proficiency: 'advanced' },
   // 数据库/后端
-  { name: 'SQLAlchemy', color: '#d32f2f', category: '后端' },
-  { name: 'Neo4j', color: '#018bff', category: '后端' },
-  { name: 'Supabase', color: '#3ecf8e', category: '后端' },
-  { name: 'PostgreSQL', color: '#336791', category: '后端' },
+  { name: 'SQLAlchemy', color: '#d32f2f', category: '后端', proficiency: 'advanced' },
+  { name: 'Neo4j', color: '#018bff', category: '后端', proficiency: 'intermediate' },
+  { name: 'Supabase', color: '#3ecf8e', category: '后端', proficiency: 'advanced' },
+  { name: 'PostgreSQL', color: '#336791', category: '后端', proficiency: 'advanced' },
   // AI/LLM
-  { name: 'DeepSeek', color: '#4d6bfe', category: 'AI' },
-  { name: 'Prompt Engineering', color: '#f59e0b', category: 'AI' },
+  { name: 'DeepSeek', color: '#4d6bfe', category: 'AI', proficiency: 'expert' },
+  { name: 'Prompt Engineering', color: '#f59e0b', category: 'AI', proficiency: 'expert' },
   // 前端
-  { name: 'Tailwind CSS', color: '#06b6d4', category: '前端' },
-  { name: 'Chart.js', color: '#ff6384', category: '前端' },
-  { name: 'Framer Motion', color: '#e91e63', category: '前端' },
+  { name: 'Tailwind CSS', color: '#06b6d4', category: '前端', proficiency: 'expert' },
+  { name: 'Chart.js', color: '#ff6384', category: '前端', proficiency: 'intermediate' },
+  { name: 'Framer Motion', color: '#e91e63', category: '前端', proficiency: 'intermediate' },
   // 平台
-  { name: '微信小程序', color: '#07c160', category: '平台' },
-  { name: 'PWA', color: '#5a0fc8', category: '平台' },
-  { name: 'Vercel', color: '#e8e0d0', category: '平台' },
-  { name: 'GitHub Pages', color: '#8fa4b8', category: '平台' },
+  { name: '微信小程序', color: '#07c160', category: '平台', proficiency: 'advanced' },
+  { name: 'PWA', color: '#5a0fc8', category: '平台', proficiency: 'intermediate' },
+  { name: 'Vercel', color: '#e8e0d0', category: '平台', proficiency: 'advanced' },
+  { name: 'GitHub Pages', color: '#8fa4b8', category: '平台', proficiency: 'advanced' },
 ];
 
 export const githubUser = {
@@ -122,5 +163,7 @@ export const githubUser = {
   bio: '数据科学与大数据专业 · AI Agent 开发者 · Claude Code 深度用户。全栈开发，CRS 推荐系统与 LLM 应用实践经验。',
   tagline: '数据科学 · AI Agent 开发 · Claude Code 生态实践者',
   githubUrl: 'https://github.com/oldking-yes',
-  email: '2919178903@qq.com',
+  email: 'oldking.yes@outlook.com',
+  jobTarget: 'AI Agent 开发 / 全栈工程师 · 寻求 2026 校招 / 实习机会',
+  resumeUrl: '/resume.pdf',
 };

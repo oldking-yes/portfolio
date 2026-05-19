@@ -7,6 +7,7 @@ import { githubUser, repos } from '../data/repos';
 const name = githubUser.displayName;
 const chineseName = '王子轩';
 const tagline = '4 个 AI 原生项目 · 全栈落地';
+const jobTarget = githubUser.jobTarget;
 const tags = ['推荐系统', 'LLM 应用', 'AI Agent', '全栈开发'];
 
 function Hero(): JSX.Element {
@@ -167,6 +168,33 @@ function Hero(): JSX.Element {
           >
             {repos.length} 个项目 · 全栈闭环 · 可部署
           </Typography>
+
+          {/* Job target — prominent for HR */}
+          <Box
+            sx={{
+              mb: 4,
+              py: 1.5,
+              px: 3,
+              borderRadius: 2,
+              border: '1px solid rgba(143, 164, 184, 0.22)',
+              background: 'linear-gradient(135deg, rgba(143, 164, 184, 0.10), rgba(168, 188, 200, 0.06))',
+              display: 'inline-block',
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: { xs: '0.88rem', sm: '0.95rem' },
+                fontWeight: 600,
+                background: 'linear-gradient(135deg, #b8c8d8, #d0dce6)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                letterSpacing: '0.02em',
+              }}
+            >
+              {jobTarget}
+            </Typography>
+          </Box>
 
           <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
             <Button variant="contained" size="large" endIcon={<KeyboardArrowDownIcon />}

@@ -10,15 +10,24 @@ interface Cell {
 }
 
 const FONT_SIZE = 14;
-const CHAR_W = 12;
 const LINE_H = 22;
 const VERT_STRETCH = 1.28;
+
+function getCharWidth(): number {
+  return window.innerWidth < 768 ? 18 : 12;
+}
 
 function CanvasBackground(): JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const scrollRef = useRef(0);
+  const reducedMotionRef = useRef(false);
 
   useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    reducedMotionRef.current = mq.matches;
+    const handleChange = (e: MediaQueryListEvent) => { reducedMotionRef.current = e.matches; };
+    mq.addEventListener('change', handleChange);
+
     const handleScroll = () => {
       const heroHeight = window.innerHeight;
       const scrollY = window.scrollY;
@@ -26,7 +35,10 @@ function CanvasBackground(): JSX.Element {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      mq.removeEventListener('change', handleChange);
+    };
   }, []);
 
   useEffect(() => {
@@ -40,13 +52,21 @@ function CanvasBackground(): JSX.Element {
     let cells: Cell[][] = [];
     let COLS = 0;
     let ROWS = 0;
+    let CHAR_W = getCharWidth();
+    let frameCount = 0;
 
     const init = () => {
       const w = window.innerWidth;
       const h = window.innerHeight;
-      canvas.width = w;
-      canvas.height = h;
+      const dpr = window.innerWidth < 768 ? 1 : window.devicePixelRatio || 1;
 
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      CHAR_W = getCharWidth();
       COLS = Math.floor(w / CHAR_W) + 2;
       ROWS = Math.floor(h / LINE_H) + 2;
 
@@ -68,6 +88,46 @@ function CanvasBackground(): JSX.Element {
     window.addEventListener('resize', handleResize);
 
     const draw = () => {
+      frameCount++;
+
+      if (reducedMotionRef.current) {
+        // Minimal static render — draw once every 60 frames
+        if (frameCount % 60 !== 0) {
+          animId = requestAnimationFrame(draw);
+          return;
+        }
+        const progress = scrollRef.current;
+        ctx.fillStyle = '#0a0a0a';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        const fontStr = `${FONT_SIZE}px "SF Mono", "Fira Code", "monospace"`;
+        ctx.font = fontStr;
+        ctx.textBaseline = 'top';
+
+        for (let r = 0; r < ROWS; r++) {
+          for (let c = 0; c < COLS; c++) {
+            const cell = cells[r][c];
+            const x = c * CHAR_W;
+            const y = r * LINE_H;
+            const opacity = cell.brightness * (1 - progress * 0.35);
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.scale(1, VERT_STRETCH);
+            ctx.fillStyle = `rgba(200, 180, 150, ${opacity})`;
+            ctx.fillText(cell.char, 0, 0);
+            ctx.restore();
+          }
+        }
+        animId = requestAnimationFrame(draw);
+        return;
+      }
+
+      // On mobile, skip every other frame to reduce GPU load
+      if (window.innerWidth < 768 && frameCount % 2 !== 0) {
+        animId = requestAnimationFrame(draw);
+        return;
+      }
+
       const progress = scrollRef.current;
 
       ctx.fillStyle = '#0a0a0a';
@@ -112,13 +172,12 @@ function CanvasBackground(): JSX.Element {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
 
-      // 四边暗角：中心全亮，四边+四角狠狠压黑
+      // 四边暗角
       const W = canvas.width;
       const H = canvas.height;
       const edgeW = W * 0.28;
       const edgeH = H * 0.28;
 
-      // 左边缘
       const gl = ctx.createLinearGradient(0, 0, edgeW, 0);
       gl.addColorStop(0, 'rgba(0,0,0,0.75)');
       gl.addColorStop(0.3, 'rgba(0,0,0,0.35)');
@@ -126,7 +185,6 @@ function CanvasBackground(): JSX.Element {
       ctx.fillStyle = gl;
       ctx.fillRect(0, 0, edgeW, H);
 
-      // 右边缘
       const gr = ctx.createLinearGradient(W - edgeW, 0, W, 0);
       gr.addColorStop(0, 'rgba(0,0,0,0)');
       gr.addColorStop(0.7, 'rgba(0,0,0,0.35)');
@@ -134,7 +192,6 @@ function CanvasBackground(): JSX.Element {
       ctx.fillStyle = gr;
       ctx.fillRect(W - edgeW, 0, edgeW, H);
 
-      // 上边缘
       const gt = ctx.createLinearGradient(0, 0, 0, edgeH);
       gt.addColorStop(0, 'rgba(0,0,0,0.75)');
       gt.addColorStop(0.3, 'rgba(0,0,0,0.35)');
@@ -142,7 +199,6 @@ function CanvasBackground(): JSX.Element {
       ctx.fillStyle = gt;
       ctx.fillRect(0, 0, W, edgeH);
 
-      // 下边缘
       const gb = ctx.createLinearGradient(0, H - edgeH, 0, H);
       gb.addColorStop(0, 'rgba(0,0,0,0)');
       gb.addColorStop(0.7, 'rgba(0,0,0,0.35)');

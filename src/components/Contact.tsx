@@ -1,6 +1,7 @@
 import { Box, Container, Typography, Button } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import EmailIcon from '@mui/icons-material/Email';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { githubUser } from '../data/repos';
 
 function Contact(): JSX.Element {
@@ -44,6 +45,30 @@ function Contact(): JSX.Element {
             }}
           >
             <Box sx={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+              {/* Resume download — primary CTA */}
+              <Button
+                variant="contained"
+                size="large"
+                fullWidth
+                startIcon={<PictureAsPdfIcon />}
+                href={githubUser.resumeUrl}
+                download
+                sx={{
+                  py: 1.5, fontSize: '0.88rem', fontWeight: 700,
+                  background: 'linear-gradient(135deg, #8fa4b8, #a8bcc8)',
+                  color: '#0a0a0a',
+                  borderRadius: 2,
+                  '&:hover': {
+                    background: 'linear-gradient(135deg, #a0b8cc, #b8d0dc)',
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 8px 24px rgba(143, 164, 184, 0.30)',
+                  },
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                下载简历 (PDF)
+              </Button>
+
               <Button
                 variant="outlined" size="large" fullWidth
                 startIcon={<GitHubIcon />}
