@@ -196,16 +196,12 @@ function Hero(): JSX.Element {
         position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)',
         opacity: allDone ? 1 : 0,
         transition: 'opacity 0.8s ease-out 0.5s',
-      }}>
-        <Box sx={{
-          width: 40, height: 40, borderRadius: '50%',
-          border: '1px solid rgba(255,255,255,0.12)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          animation: 'float 2s ease-in-out infinite',
-          backdropFilter: 'blur(4px)',
-        }}>
-          <KeyboardArrowDownIcon sx={{ fontSize: 22, color: 'rgba(255,255,255,0.45)' }} />
-        </Box>
+        animation: allDone ? 'float 2s ease-in-out infinite' : 'none',
+        cursor: 'pointer',
+      }}
+        onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+      >
+        <KeyboardArrowDownIcon sx={{ fontSize: 32, color: 'rgba(255,255,255,0.35)' }} />
       </Box>
     </Box>
   );

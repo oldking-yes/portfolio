@@ -80,7 +80,7 @@ function Projects(): JSX.Element {
               '&::-webkit-scrollbar': { display: 'none' },
               msOverflowStyle: 'none',
               scrollbarWidth: 'none',
-              px: { xs: 'calc(50vw - 130px)', md: 'calc(50vw - 410px)' },
+              px: { xs: 'calc(50vw - 150px)', md: 'calc(50vw - 410px)' },
               gap: { xs: 3, md: 4 },
               alignItems: 'center',
               width: '100%',
@@ -114,8 +114,8 @@ function Projects(): JSX.Element {
                 rel="noopener noreferrer"
                 sx={{
                   flex: '0 0 auto',
-                  width: { xs: 'calc(100vw - 108px)', md: 720 },
-                  aspectRatio: { xs: '1/1.92', md: '3/4' },
+                  width: { xs: 'calc(100vw - 64px)', md: 720 },
+                  aspectRatio: { xs: '1/1.8', md: '3/4' },
                   scrollSnapAlign: 'center',
                   textDecoration: 'none',
                   borderRadius: 3,
@@ -152,24 +152,24 @@ function Projects(): JSX.Element {
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
                     <GitHubIcon sx={{ fontSize: 18, color: '#8ba8c0', flexShrink: 0 }} />
                     <Box sx={{ minWidth: 0, flex: 1 }}>
-                      <Typography sx={{ fontSize: { xs: '1rem', md: '1.2rem' }, fontWeight: 700, color: '#e8e0d0', lineHeight: 1.3, mb: 0.25 }}>
+                      <Typography sx={{ fontSize: { xs: '0.9rem', md: '1.2rem' }, fontWeight: 700, color: '#e8e0d0', lineHeight: 1.3, mb: 0.25 }}>
                         {repo.displayName}
                       </Typography>
-                      <Typography sx={{ color: '#8ba8c0', fontFamily: '"SF Mono", "Fira Code", monospace', fontSize: '0.65rem' }}>
+                      <Typography sx={{ color: '#8ba8c0', fontFamily: '"SF Mono", "Fira Code", monospace', fontSize: '0.6rem' }}>
                         {repo.name}
                       </Typography>
                     </Box>
                   </Box>
 
-                  <Typography sx={{ color: 'rgba(255,255,255,0.5)', fontSize: { xs: '0.8rem', md: '0.9rem' }, lineHeight: 1.65, mb: 2 }}>
+                  <Typography sx={{ color: 'rgba(255,255,255,0.5)', fontSize: { xs: '0.72rem', md: '0.9rem' }, lineHeight: 1.55, mb: 1.5 }}>
                     {repo.description}
                   </Typography>
 
-                  <Box sx={{ borderLeft: '2px solid rgba(143,164,184,0.30)', pl: 2.5, mb: 2, flex: 1 }}>
-                    <Typography sx={{ color: '#8ba8c0', fontFamily: '"SF Mono", "Fira Code", monospace', fontSize: '0.62rem', letterSpacing: '0.08em', mb: 0.5 }}>
+                  <Box sx={{ borderLeft: '2px solid rgba(143,164,184,0.30)', pl: 2.5, mb: 1.5, flex: 1 }}>
+                    <Typography sx={{ color: '#8ba8c0', fontFamily: '"SF Mono", "Fira Code", monospace', fontSize: '0.58rem', letterSpacing: '0.06em', mb: 0.25 }}>
                       THINKING
                     </Typography>
-                    <Typography sx={{ color: 'rgba(255,255,255,0.5)', fontSize: { xs: '0.75rem', md: '0.82rem' }, lineHeight: 1.7 }}>
+                    <Typography sx={{ color: 'rgba(255,255,255,0.5)', fontSize: { xs: '0.68rem', md: '0.82rem' }, lineHeight: 1.55 }}>
                       {repo.rationale}
                     </Typography>
                   </Box>
@@ -177,7 +177,7 @@ function Projects(): JSX.Element {
                   <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.75 }}>
                     {repo.techStack.map((tech) => (
                       <Chip key={tech} label={tech} size="small"
-                        sx={{ backgroundColor: 'rgba(143,164,184,0.08)', color: '#a8bcc8', border: '1px solid rgba(143,164,184,0.14)', fontSize: '0.65rem', fontWeight: 600, height: 24, '& .MuiChip-label': { px: 1.25 } }}
+                        sx={{ backgroundColor: 'rgba(143,164,184,0.08)', color: '#a8bcc8', border: '1px solid rgba(143,164,184,0.14)', fontSize: '0.58rem', fontWeight: 600, height: 20, '& .MuiChip-label': { px: 1 } }}
                       />
                     ))}
                   </Box>
