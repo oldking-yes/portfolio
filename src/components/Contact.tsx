@@ -6,17 +6,20 @@ import { githubUser } from '../data/repos';
 
 function Contact(): JSX.Element {
   return (
-    <Box component="section" id="contact" sx={{ py: { xs: 8, md: 12 }, textAlign: 'center' }}>
+    <Box component="section" id="contact" sx={{ py: { xs: 6, md: 10 }, textAlign: 'center' }}>
       <Container maxWidth="sm">
         <Box className="reveal">
-          <Typography variant="overline" sx={{ color: '#8ba8c0', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
+          <Typography
+            variant="overline"
+            sx={{ color: '#8ba8c0', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace' }}
+          >
             CONTACT
           </Typography>
-          <Typography variant="h2" sx={{ fontSize: { xs: '1.8rem', md: '2.5rem' }, fontWeight: 700, mt: 1, mb: 3 }}>
-            保持联系
+          <Typography variant="h2" sx={{ fontSize: { xs: '1.6rem', md: '2rem' }, fontWeight: 700, mt: 0.5, mb: 3 }}>
+            联系我
           </Typography>
-          <Typography variant="body1" sx={{ color: 'text.secondary', maxWidth: 400, mx: 'auto', mb: 5, fontSize: '0.9rem', lineHeight: 1.8 }}>
-            对项目感兴趣或想合作？欢迎联系。
+          <Typography variant="body1" sx={{ color: 'text.secondary', maxWidth: 400, mx: 'auto', mb: 5, fontSize: '0.88rem', lineHeight: 1.8 }}>
+            {githubUser.jobTarget}
           </Typography>
 
           {/* Card */}
@@ -45,23 +48,26 @@ function Contact(): JSX.Element {
             }}
           >
             <Box sx={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
-              {/* Resume download — primary CTA */}
+              {/* Resume download — BIG primary CTA */}
               <Button
                 variant="contained"
                 size="large"
                 fullWidth
                 startIcon={<PictureAsPdfIcon />}
-                href={githubUser.resumeUrl}
+                href={`${import.meta.env.BASE_URL}resume.pdf`}
                 download
                 sx={{
-                  py: 1.5, fontSize: '0.88rem', fontWeight: 700,
+                  py: 2,
+                  fontSize: '0.95rem',
+                  fontWeight: 700,
                   background: 'linear-gradient(135deg, #8fa4b8, #a8bcc8)',
                   color: '#0a0a0a',
                   borderRadius: 2,
+                  letterSpacing: '0.02em',
                   '&:hover': {
                     background: 'linear-gradient(135deg, #a0b8cc, #b8d0dc)',
                     transform: 'translateY(-2px)',
-                    boxShadow: '0 8px 24px rgba(143, 164, 184, 0.30)',
+                    boxShadow: '0 8px 28px rgba(143, 164, 184, 0.35)',
                   },
                   transition: 'all 0.3s ease',
                 }}
@@ -74,7 +80,7 @@ function Contact(): JSX.Element {
                 startIcon={<GitHubIcon />}
                 href={githubUser.githubUrl} target="_blank" rel="noopener noreferrer"
                 sx={{
-                  py: 1.5, fontSize: '0.85rem', fontWeight: 600,
+                  py: 1.5, fontSize: '0.82rem', fontWeight: 600,
                   borderColor: 'rgba(255,255,255,0.06)', color: 'text.primary', borderRadius: 2,
                   fontFamily: '"SF Mono", "Fira Code", monospace',
                   '&:hover': { borderColor: '#8fa4b8', backgroundColor: 'rgba(143, 164, 184, 0.06)', transform: 'translateY(-2px)' },
@@ -88,7 +94,7 @@ function Contact(): JSX.Element {
                 startIcon={<EmailIcon />}
                 href={`mailto:${githubUser.email}`}
                 sx={{
-                  py: 1.5, fontSize: '0.85rem', fontWeight: 600,
+                  py: 1.5, fontSize: '0.82rem', fontWeight: 600,
                   borderColor: 'rgba(255,255,255,0.06)', color: 'text.primary', borderRadius: 2,
                   fontFamily: '"SF Mono", "Fira Code", monospace',
                   '&:hover': { borderColor: '#8ba8c0', backgroundColor: 'rgba(139, 168, 192, 0.06)', color: '#8ba8c0', transform: 'translateY(-2px)' },

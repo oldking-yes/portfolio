@@ -66,7 +66,23 @@ export const repos: Repo[] = [
     icon: '🏛️',
     gradient: 'linear-gradient(135deg, #0c1929, #1a2a4a)',
     image: '/projects/项目截图/CRS推荐系统平台.png',
-    previewUrl: 'https://frontend-l76hlj7sd-kukik-s-projects.vercel.app',
+    previewUrl: 'https://heritage.refineyourself.asia/',
+  },
+  {
+    name: 'prd-agent-rag',
+    displayName: 'PRD Agent RAG',
+    description:
+      'AI 驱动产品需求文档生成——输入粗糙产品想法 → Agent 追问关键问题 + RAG 检索方法论 → 完整结构化 PRD。',
+    rationale:
+      '[RAG+Agent] FastAPI + PydanticAI Agent 编排，ChromaDB 向量知识库内置 JTBD 框架、RICE 排序等产品方法论。WebSocket 流式对话 + Markdown 实时渲染。JWT 邮箱注册登录，双域名部署（Zeabur 后端 + Vercel 前端）。独立域名 prd-app.refineyourself.asia。',
+    language: 'Python',
+    stars: 0,
+    url: 'https://github.com/oldking-yes/prd-agent-rag',
+    techStack: ['FastAPI', 'PydanticAI', 'ChromaDB', 'DeepSeek', 'React 18', 'WebSocket', 'JWT'],
+    icon: '📋',
+    gradient: 'linear-gradient(135deg, #0c1929, #1a2a4a)',
+    image: '/projects/项目截图/PRD.png',
+    previewUrl: 'https://prd-app.refineyourself.asia/',
   },
   {
     name: 'refine-yourself',

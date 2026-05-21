@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { Box } from '@mui/material';
 import CanvasBackground from './components/CanvasBackground';
 import Hero from './components/Hero';
-import About from './components/About';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
+import Timeline from './components/Timeline';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
@@ -33,8 +33,8 @@ function App(): JSX.Element {
       <Box sx={{ position: 'relative', zIndex: 1 }}>
         <Hero />
         <Projects />
-        <About />
         <Skills />
+        <Timeline />
         <Contact />
         <Footer />
       </Box>

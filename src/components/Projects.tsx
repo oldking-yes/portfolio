@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
 import { Box, Container, Typography, Chip, IconButton } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import LaunchIcon from '@mui/icons-material/Launch';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { repos } from '../data/repos';
@@ -49,27 +50,32 @@ function Projects(): JSX.Element {
   }, []);
 
   return (
-    <Box component="section" id="projects" sx={{ py: { xs: 3, md: 8 }, minHeight: { md: 'calc(100vh - 64px)' }, display: 'flex', flexDirection: 'column' }}>
-      <Container maxWidth={false} sx={{ flex: 1, display: 'flex', flexDirection: 'column', px: { xs: 0, md: 2 } }}>
-        <Box sx={{ textAlign: 'center', mb: { xs: 2, md: 4 }, flexShrink: 0 }} className="reveal">
+    <Box component="section" id="projects" sx={{ py: { xs: 4, md: 8 } }}>
+      <Container maxWidth={false} sx={{ px: { xs: 0, md: 2 } }}>
+        <Box sx={{ textAlign: 'center', mb: { xs: 2, md: 5 } }} className="reveal">
           <Typography variant="overline" sx={{ color: '#8ba8c0', fontSize: '0.75rem', letterSpacing: '0.12em', fontFamily: '"SF Mono", "Fira Code", monospace' }}>
             PROJECTS
           </Typography>
           <Typography variant="h2" sx={{ fontSize: { xs: '1.6rem', md: '2.2rem' }, fontWeight: 700, mt: 0.5 }}>
             开源项目
           </Typography>
+          <Typography sx={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.8rem', mt: 1 }}>
+            {repos.length} 个项目 · 左右滑动浏览
+          </Typography>
         </Box>
 
-        <Box sx={{ position: 'relative', flex: 1, display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+          {/* Arrows — desktop only */}
           <IconButton onClick={prev} disabled={realIndex === 0}
-            sx={{ display: { xs: 'none', md: 'flex' }, position: 'absolute', left: { md: 4 }, top: '50%', transform: 'translateY(-50%)', zIndex: 10, width: 52, height: 52, border: '1px solid rgba(143,164,184,0.20)', backgroundColor: 'rgba(10,10,10,0.55)', backdropFilter: 'blur(12px)', color: 'rgba(200,216,232,0.25)', '&:not(.Mui-disabled)': { color: '#c8d8e8' }, '&.Mui-disabled': { borderColor: 'rgba(143,164,184,0.08)', backgroundColor: 'rgba(10,10,10,0.30)' }, '&:hover:not(.Mui-disabled)': { borderColor: '#8ba8c0', backgroundColor: 'rgba(10,10,10,0.80)', color: '#fff' }, '& .MuiSvgIcon-root': { fontSize: 28 } }}>
+            sx={{ display: { xs: 'none', md: 'flex' }, position: 'absolute', left: { md: 4 }, top: '50%', transform: 'translateY(-50%)', zIndex: 10, width: 48, height: 48, border: '1px solid rgba(143,164,184,0.18)', backgroundColor: 'rgba(10,10,10,0.55)', backdropFilter: 'blur(12px)', color: 'rgba(200,216,232,0.22)', '&:not(.Mui-disabled)': { color: '#c8d8e8' }, '&.Mui-disabled': { borderColor: 'rgba(143,164,184,0.06)', backgroundColor: 'rgba(10,10,10,0.25)' }, '&:hover:not(.Mui-disabled)': { borderColor: '#8ba8c0', backgroundColor: 'rgba(10,10,10,0.80)', color: '#fff' } }}>
             <ChevronLeftIcon />
           </IconButton>
           <IconButton onClick={next} disabled={realIndex === repos.length - 1}
-            sx={{ display: { xs: 'none', md: 'flex' }, position: 'absolute', right: { md: 4 }, top: '50%', transform: 'translateY(-50%)', zIndex: 10, width: 52, height: 52, border: '1px solid rgba(143,164,184,0.20)', backgroundColor: 'rgba(10,10,10,0.55)', backdropFilter: 'blur(12px)', color: 'rgba(200,216,232,0.25)', '&:not(.Mui-disabled)': { color: '#c8d8e8' }, '&.Mui-disabled': { borderColor: 'rgba(143,164,184,0.08)', backgroundColor: 'rgba(10,10,10,0.30)' }, '&:hover:not(.Mui-disabled)': { borderColor: '#8ba8c0', backgroundColor: 'rgba(10,10,10,0.80)', color: '#fff' }, '& .MuiSvgIcon-root': { fontSize: 28 } }}>
+            sx={{ display: { xs: 'none', md: 'flex' }, position: 'absolute', right: { md: 4 }, top: '50%', transform: 'translateY(-50%)', zIndex: 10, width: 48, height: 48, border: '1px solid rgba(143,164,184,0.18)', backgroundColor: 'rgba(10,10,10,0.55)', backdropFilter: 'blur(12px)', color: 'rgba(200,216,232,0.22)', '&:not(.Mui-disabled)': { color: '#c8d8e8' }, '&.Mui-disabled': { borderColor: 'rgba(143,164,184,0.06)', backgroundColor: 'rgba(10,10,10,0.25)' }, '&:hover:not(.Mui-disabled)': { borderColor: '#8ba8c0', backgroundColor: 'rgba(10,10,10,0.80)', color: '#fff' } }}>
             <ChevronRightIcon />
           </IconButton>
 
+          {/* Scroll container */}
           <Box
             ref={scrollRef}
             sx={{
@@ -80,9 +86,10 @@ function Projects(): JSX.Element {
               '&::-webkit-scrollbar': { display: 'none' },
               msOverflowStyle: 'none',
               scrollbarWidth: 'none',
-              px: { xs: 'calc(50vw - 150px)', md: 'calc(50vw - 410px)' },
-              gap: { xs: 3, md: 4 },
-              alignItems: 'center',
+              px: { xs: 'calc(50vw - 160px)', md: 'calc(50vw - 370px)' },
+              gap: { xs: 4, md: 5 },
+              alignItems: 'stretch',
+              py: { xs: 1, md: 2 },
               width: '100%',
               position: 'relative',
               '&::before, &::after': {
@@ -90,17 +97,17 @@ function Projects(): JSX.Element {
                 position: 'absolute',
                 top: 0,
                 bottom: 0,
-                width: { xs: 40, md: 60 },
+                width: { xs: 44, md: 70 },
                 zIndex: 2,
                 pointerEvents: 'none',
               },
               '&::before': {
                 left: 0,
-                background: 'linear-gradient(to right, rgba(10,10,10,0.6), transparent)',
+                background: 'linear-gradient(to right, rgba(10,10,10,0.65), transparent)',
               },
               '&::after': {
                 right: 0,
-                background: 'linear-gradient(to left, rgba(10,10,10,0.6), transparent)',
+                background: 'linear-gradient(to left, rgba(10,10,10,0.65), transparent)',
               },
             }}
           >
@@ -114,8 +121,7 @@ function Projects(): JSX.Element {
                 rel="noopener noreferrer"
                 sx={{
                   flex: '0 0 auto',
-                  width: { xs: 'calc(100vw - 64px)', md: 720 },
-                  aspectRatio: { xs: '1/1.8', md: '3/4' },
+                  width: { xs: 'calc(100vw - 64px)', md: 640 },
                   scrollSnapAlign: 'center',
                   textDecoration: 'none',
                   borderRadius: 3,
@@ -132,14 +138,11 @@ function Projects(): JSX.Element {
                   },
                 }}
               >
-                <Box sx={{ flex: { xs: '0 0 40%', md: '0 0 38%' }, overflow: 'hidden', backgroundColor: '#0a0f14', position: 'relative', borderRadius: '16px 16px 0 0' }}>
+                {/* Screenshot */}
+                <Box sx={{ flex: { xs: '0 0 44%', md: '0 0 40%' }, overflow: 'hidden', backgroundColor: '#0a0f14' }}>
                   {repo.image ? (
                     <Box component="img" src={assetUrl(repo.image)} alt={repo.displayName}
-                      sx={{
-                        width: '100%', height: '100%', objectFit: 'cover',
-                        objectPosition: { xs: 'top', md: 'center top' },
-                        display: 'block',
-                      }}
+                      sx={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
                     />
                   ) : (
                     <Box sx={{ width: '100%', height: '100%', background: repo.gradient, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem', opacity: 0.3 }}>
@@ -148,38 +151,48 @@ function Projects(): JSX.Element {
                   )}
                 </Box>
 
-                <Box sx={{ flex: 1, p: { xs: 2.5, md: 3.5 }, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
-                    <GitHubIcon sx={{ fontSize: 18, color: '#8ba8c0', flexShrink: 0 }} />
-                    <Box sx={{ minWidth: 0, flex: 1 }}>
-                      <Typography sx={{ fontSize: { xs: '0.9rem', md: '1.2rem' }, fontWeight: 700, color: '#e8e0d0', lineHeight: 1.3, mb: 0.25 }}>
-                        {repo.displayName}
-                      </Typography>
-                      <Typography sx={{ color: '#8ba8c0', fontFamily: '"SF Mono", "Fira Code", monospace', fontSize: '0.6rem' }}>
-                        {repo.name}
-                      </Typography>
-                    </Box>
+                {/* Body */}
+                <Box sx={{ flex: 1, p: { xs: 2.5, md: 3 }, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.2, mb: 1 }}>
+                    <GitHubIcon sx={{ fontSize: 17, color: '#8ba8c0', flexShrink: 0 }} />
+                    <Typography sx={{ fontSize: { xs: '0.88rem', md: '1.1rem' }, fontWeight: 700, color: '#e8e0d0', lineHeight: 1.3 }}>
+                      {repo.displayName}
+                    </Typography>
                   </Box>
 
-                  <Typography sx={{ color: 'rgba(255,255,255,0.5)', fontSize: { xs: '0.72rem', md: '0.9rem' }, lineHeight: 1.55, mb: 1.5 }}>
+                  <Typography sx={{ color: 'rgba(255,255,255,0.5)', fontSize: { xs: '0.7rem', md: '0.82rem' }, lineHeight: 1.6, mb: 1.5, flex: 1 }}>
                     {repo.description}
                   </Typography>
 
-                  <Box sx={{ borderLeft: '2px solid rgba(143,164,184,0.30)', pl: 2.5, mb: 1.5, flex: 1 }}>
-                    <Typography sx={{ color: '#8ba8c0', fontFamily: '"SF Mono", "Fira Code", monospace', fontSize: '0.58rem', letterSpacing: '0.06em', mb: 0.25 }}>
-                      THINKING
-                    </Typography>
-                    <Typography sx={{ color: 'rgba(255,255,255,0.5)', fontSize: { xs: '0.68rem', md: '0.82rem' }, lineHeight: 1.55 }}>
-                      {repo.rationale}
-                    </Typography>
-                  </Box>
-
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.75 }}>
-                    {repo.techStack.map((tech) => (
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.75, mb: 1 }}>
+                    {repo.techStack.slice(0, 5).map((tech) => (
                       <Chip key={tech} label={tech} size="small"
-                        sx={{ backgroundColor: 'rgba(143,164,184,0.08)', color: '#a8bcc8', border: '1px solid rgba(143,164,184,0.14)', fontSize: '0.58rem', fontWeight: 600, height: 20, '& .MuiChip-label': { px: 1 } }}
+                        sx={{ backgroundColor: 'rgba(143,164,184,0.08)', color: '#a8bcc8', border: '1px solid rgba(143,164,184,0.14)', fontSize: '0.55rem', fontWeight: 600, height: 20, '& .MuiChip-label': { px: 0.8 } }}
                       />
                     ))}
+                    {repo.techStack.length > 5 && (
+                      <Chip label={`+${repo.techStack.length - 5}`} size="small"
+                        sx={{ backgroundColor: 'rgba(143,164,184,0.04)', color: '#6a8498', fontSize: '0.55rem', height: 20 }}
+                      />
+                    )}
+                  </Box>
+
+                  <Box sx={{ display: 'flex', gap: 2, mt: 'auto' }}>
+                    {repo.previewUrl && (
+                      <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.3, color: '#8fa4b8', fontSize: '0.68rem', fontWeight: 600 }}>
+                        <LaunchIcon sx={{ fontSize: 12 }} /> 预览
+                      </Box>
+                    )}
+                    <Box
+                      component="a"
+                      href={repo.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e: React.MouseEvent) => e.stopPropagation()}
+                      sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.3, color: '#8ba8c0', fontSize: '0.68rem', fontWeight: 500, textDecoration: 'none' }}
+                    >
+                      <GitHubIcon sx={{ fontSize: 12 }} /> 源码
+                    </Box>
                   </Box>
                 </Box>
               </Box>
@@ -187,10 +200,18 @@ function Projects(): JSX.Element {
           </Box>
         </Box>
 
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1.5, mt: { xs: 2, md: 4 }, flexShrink: 0 }}>
+        {/* Dot indicators */}
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1.5, mt: { xs: 2, md: 4 } }}>
           {repos.map((_, i) => (
             <Box key={i} onClick={() => snapTo(i)}
-              sx={{ width: i === realIndex ? 24 : 6, height: 6, borderRadius: 3, backgroundColor: i === realIndex ? '#8ba8c0' : 'rgba(255,255,255,0.12)', cursor: 'pointer', transition: 'all 0.3s ease' }}
+              sx={{
+                width: i === realIndex ? 22 : 6,
+                height: 6,
+                borderRadius: 3,
+                backgroundColor: i === realIndex ? '#8ba8c0' : 'rgba(255,255,255,0.12)',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+              }}
             />
           ))}
         </Box>
