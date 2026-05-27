@@ -184,12 +184,14 @@ function CanvasBackground(): JSX.Element {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
 
-      // Vignette — use CSS pixel dimensions (w,h), not physical (canvas.width/height)
+      // Vignette — use CSS pixel dimensions, not physical canvas pixels
       // because setTransform(dpr,...) already handles DPR scaling
-      const cx = w / 2;
-      const cy = h / 2;
-      const isMobile = w < 768;
-      const radius = Math.max(w, h) * 0.7;
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const cx = vw / 2;
+      const cy = vh / 2;
+      const isMobile = vw < 768;
+      const radius = Math.max(vw, vh) * 0.7;
 
       if (isMobile) {
         // Mobile: aggressive vignette, tight transparent center
@@ -212,7 +214,7 @@ function CanvasBackground(): JSX.Element {
         vd.addColorStop(1, 'rgba(0,0,0,0.55)');
         ctx.fillStyle = vd;
       }
-      ctx.fillRect(0, 0, w, h);
+      ctx.fillRect(0, 0, vw, vh);
 
       animId = requestAnimationFrame(draw);
     };
