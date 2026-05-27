@@ -9,15 +9,15 @@ interface Cell {
   changeTimer: number;
 }
 
-const FONT_SIZE = 13;
+const FONT_SIZE = 12;
 const VERT_STRETCH = 1.28;
 
 function getCharWidth(): number {
-  return window.innerWidth < 768 ? 14 : 13;
+  return window.innerWidth < 768 ? 11 : 13;
 }
 
 function getLineHeight(): number {
-  return window.innerWidth < 768 ? 17 : 20;
+  return window.innerWidth < 768 ? 14 : 20;
 }
 
 function CanvasBackground(): JSX.Element {
@@ -65,7 +65,7 @@ function CanvasBackground(): JSX.Element {
     const init = () => {
       const w = window.innerWidth;
       const h = window.innerHeight;
-      const dpr = window.innerWidth < 768 ? 1 : window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 3);
 
       canvas.width = w * dpr;
       canvas.height = h * dpr;
@@ -158,13 +158,13 @@ function CanvasBackground(): JSX.Element {
           if (cell.changeTimer <= 0) {
             cell.char = chars[Math.floor(Math.random() * chars.length)];
             cell.changeTimer = 30 + Math.floor(Math.random() * 80);
-            cell.brightness = 0.5 + Math.random() * 0.4;
+            cell.brightness = 0.4 + Math.random() * 0.32;
           }
 
           cell.brightness = Math.max(0.03, cell.brightness - 0.0012);
 
           if (Math.random() < 0.001) {
-            cell.brightness = 0.65;
+            cell.brightness = 0.52;
           }
 
           const opacity = cell.brightness * (1 - progress * 0.35);
@@ -190,12 +190,13 @@ function CanvasBackground(): JSX.Element {
       const cy = H / 2;
       const radius = Math.max(W, H) * 0.7;
 
-      const vg = ctx.createRadialGradient(cx, cy, radius * 0.45, cx, cy, radius);
+      const vg = ctx.createRadialGradient(cx, cy, radius * 0.35, cx, cy, radius);
       vg.addColorStop(0, 'rgba(0,0,0,0)');
-      vg.addColorStop(0.55, 'rgba(0,0,0,0)');
-      vg.addColorStop(0.75, 'rgba(0,0,0,0.08)');
-      vg.addColorStop(0.9, 'rgba(0,0,0,0.20)');
-      vg.addColorStop(1, 'rgba(0,0,0,0.35)');
+      vg.addColorStop(0.45, 'rgba(0,0,0,0)');
+      vg.addColorStop(0.65, 'rgba(0,0,0,0.06)');
+      vg.addColorStop(0.8, 'rgba(0,0,0,0.18)');
+      vg.addColorStop(0.92, 'rgba(0,0,0,0.35)');
+      vg.addColorStop(1, 'rgba(0,0,0,0.50)');
       ctx.fillStyle = vg;
       ctx.fillRect(0, 0, W, H);
 
