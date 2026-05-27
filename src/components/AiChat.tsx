@@ -39,7 +39,7 @@ function AiChat(): JSX.Element {
       if (done) break;
 
       buffer += decoder.decode(value, { stream: true });
-      const lines = buffer.split('\n');
+      const lines = buffer.split('\\n');
       buffer = lines.pop() || '';
 
       for (const line of lines) {
@@ -104,7 +104,7 @@ function AiChat(): JSX.Element {
       if (err.name === 'AbortError') return;
       setMessages((prev) => [
         ...prev.slice(0, -1),
-        { role: 'assistant', content: `抱歉，出错了：${err.message}。请稍后再试或直接发邮件到 oldking.yes@outlook.com` },
+        { role: 'assistant', content: `抱歉，出错了：${err.message}。请稍后再试或直接发邮件到 2919178903@qq.com` },
       ]);
     } finally {
       setLoading(false);
