@@ -1,10 +1,9 @@
 import { Box, Container, Typography, Chip } from '@mui/material';
 import SchoolIcon from '@mui/icons-material/School';
-import CodeIcon from '@mui/icons-material/Code';
 import BuildIcon from '@mui/icons-material/Build';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import BrushIcon from '@mui/icons-material/Brush';
-import { education, repos } from '../data/repos';
+import { education } from '../data/repos';
 
 const projectCards = [
   {
