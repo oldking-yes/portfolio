@@ -183,18 +183,19 @@ function CanvasBackground(): JSX.Element {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
 
-      // Vignette — single radial gradient (fixes bottom-right corner bug)
+      // Vignette — Xiaomi style: subtle, large transparent center, gentle falloff
       const W = canvas.width;
       const H = canvas.height;
       const cx = W / 2;
       const cy = H / 2;
-      const radius = Math.max(W, H) * 0.65;
+      const radius = Math.max(W, H) * 0.7;
 
-      const vg = ctx.createRadialGradient(cx, cy, radius * 0.3, cx, cy, radius);
+      const vg = ctx.createRadialGradient(cx, cy, radius * 0.45, cx, cy, radius);
       vg.addColorStop(0, 'rgba(0,0,0,0)');
-      vg.addColorStop(0.5, 'rgba(0,0,0,0)');
-      vg.addColorStop(0.8, 'rgba(0,0,0,0.3)');
-      vg.addColorStop(1, 'rgba(0,0,0,0.7)');
+      vg.addColorStop(0.55, 'rgba(0,0,0,0)');
+      vg.addColorStop(0.75, 'rgba(0,0,0,0.08)');
+      vg.addColorStop(0.9, 'rgba(0,0,0,0.20)');
+      vg.addColorStop(1, 'rgba(0,0,0,0.35)');
       ctx.fillStyle = vg;
       ctx.fillRect(0, 0, W, H);
 
