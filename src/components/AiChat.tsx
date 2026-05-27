@@ -413,13 +413,6 @@ function AiChat(): JSX.Element {
             flexShrink: 0,
           }}
         >
-            display: 'flex',
-            gap: 1,
-            alignItems: 'flex-end',
-            backgroundColor: 'rgba(10,10,10,0.4)',
-            flexShrink: 0,
-          }}
-        >
           <TextField
             fullWidth
             multiline
