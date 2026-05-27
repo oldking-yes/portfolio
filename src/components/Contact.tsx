@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Box, Container, Typography, Button, Modal, IconButton } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import EmailIcon from '@mui/icons-material/Email';
@@ -10,9 +10,9 @@ import { githubUser } from '../data/repos';
 function Contact(): JSX.Element {
   const [copied, setCopied] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const resumeUrl = `${import.meta.env.BASE_URL}resume.pdf`;
+  const isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const handleCopyEmail = async () => {
     try {
@@ -32,17 +32,22 @@ function Contact(): JSX.Element {
   };
 
   const handleDownload = async () => {
+    if (isIOS) {
+      // iOS Safari: blob download doesn't work, open PDF directly
+      window.open(resumeUrl, '_blank');
+      return;
+    }
     try {
       const res = await fetch(resumeUrl);
       const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
+      const blobUrl = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = url;
+      a.href = blobUrl;
       a.download = '王子轩-简历.pdf';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      URL.revokeObjectURL(blobUrl);
     } catch {
       window.open(resumeUrl, '_blank');
     }
@@ -162,18 +167,18 @@ function Contact(): JSX.Element {
       <Modal
         open={previewOpen}
         onClose={() => setPreviewOpen(false)}
-        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: { xs: 0.5, sm: 2 } }}
+        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: { xs: 0, sm: 2 } }}
       >
         <Box
           sx={{
             position: 'relative',
-            width: '100%',
-            maxWidth: 520,
-            height: { xs: '85vh', sm: '80vh' },
-            backgroundColor: '#1a1a1e',
-            borderRadius: { xs: 2, sm: 3 },
-            border: '1px solid rgba(143,164,184,0.15)',
-            boxShadow: '0 16px 48px rgba(0,0,0,0.6)',
+            width: { xs: '100vw', sm: '90vw' },
+            maxWidth: 560,
+            height: { xs: '100vh', sm: '85vh' },
+            backgroundColor: '#111',
+            borderRadius: { xs: 0, sm: 3 },
+            border: { xs: 'none', sm: '1px solid rgba(143,164,184,0.15)' },
+            boxShadow: { xs: 'none', sm: '0 16px 48px rgba(0,0,0,0.6)' },
             display: 'flex',
             flexDirection: 'column',
             overflow: 'hidden',
@@ -183,15 +188,16 @@ function Contact(): JSX.Element {
           <Box
             sx={{
               px: 2,
-              py: 1.2,
+              py: 1,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
               borderBottom: '1px solid rgba(143,164,184,0.1)',
               flexShrink: 0,
+              backgroundColor: '#1a1a1e',
             }}
           >
-            <Typography sx={{ fontSize: '0.85rem', fontWeight: 600, color: '#e8e0d0' }}>
+            <Typography sx={{ fontSize: '0.82rem', fontWeight: 600, color: '#e8e0d0' }}>
               简历预览
             </Typography>
             <IconButton onClick={() => setPreviewOpen(false)} size="small" sx={{ color: 'rgba(255,255,255,0.5)' }}>
@@ -199,42 +205,50 @@ function Contact(): JSX.Element {
             </IconButton>
           </Box>
 
-          {/* PDF viewer — fills remaining space */}
+          {/* PDF viewer — object tag for better mobile support */}
           <Box
             sx={{
               flex: 1,
               minHeight: 0,
-              overflow: 'hidden',
+              overflow: 'auto',
+              backgroundColor: '#fff',
             }}
           >
-            <iframe
-              ref={iframeRef}
-              src={resumeUrl}
+            <object
+              data={resumeUrl}
+              type="application/pdf"
               style={{
                 width: '100%',
                 height: '100%',
                 border: 'none',
                 display: 'block',
+                minHeight: '100%',
               }}
-              title="简历预览"
-            />
+            >
+              <Box sx={{ p: 3, textAlign: 'center', color: '#666' }}>
+                <Typography sx={{ fontSize: '0.85rem', mb: 2 }}>无法加载 PDF 预览</Typography>
+                <Button variant="outlined" onClick={handleDownload} sx={{ fontSize: '0.8rem' }}>
+                  点击下载查看
+                </Button>
+              </Box>
+            </object>
           </Box>
 
-          {/* Download hint + button */}
+          {/* Download bar */}
           <Box
             sx={{
               px: 2,
-              py: 1.2,
+              py: 1,
               borderTop: '1px solid rgba(143,164,184,0.1)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              gap: 2,
               flexShrink: 0,
+              backgroundColor: '#1a1a1e',
             }}
           >
-            <Typography sx={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)' }}>
-              手机端长按图片可保存
+            <Typography sx={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.35)' }}>
+              {isIOS ? '点击下载在新标签页中打开' : '手机端长按可保存'}
             </Typography>
             <Button
               variant="contained"
@@ -242,7 +256,7 @@ function Contact(): JSX.Element {
               startIcon={<PictureAsPdfIcon />}
               onClick={handleDownload}
               sx={{
-                fontSize: '0.78rem',
+                fontSize: '0.75rem',
                 fontWeight: 600,
                 background: 'linear-gradient(135deg, #8fa4b8, #a8bcc8)',
                 color: '#0a0a0a',
