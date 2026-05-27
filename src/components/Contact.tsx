@@ -1,10 +1,33 @@
+import { useState } from 'react';
 import { Box, Container, Typography, Button } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import EmailIcon from '@mui/icons-material/Email';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import CheckIcon from '@mui/icons-material/Check';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { githubUser } from '../data/repos';
 
 function Contact(): JSX.Element {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(githubUser.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // fallback
+      const ta = document.createElement('textarea');
+      ta.value = githubUser.email;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
   return (
     <Box component="section" id="contact" sx={{ py: { xs: 6, md: 10 }, textAlign: 'center' }}>
       <Container maxWidth="sm">
@@ -48,7 +71,7 @@ function Contact(): JSX.Element {
             }}
           >
             <Box sx={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
-              {/* Resume download — BIG primary CTA */}
+              {/* Resume download */}
               <Button
                 variant="contained"
                 size="large"
@@ -89,19 +112,28 @@ function Contact(): JSX.Element {
               >
                 {githubUser.githubUrl}
               </Button>
+
+              {/* Email — click to copy */}
               <Button
                 variant="outlined" size="large" fullWidth
-                startIcon={<EmailIcon />}
-                href={`mailto:${githubUser.email}`}
+                startIcon={copied ? <CheckIcon /> : <EmailIcon />}
+                onClick={handleCopyEmail}
                 sx={{
                   py: 1.5, fontSize: '0.82rem', fontWeight: 600,
-                  borderColor: 'rgba(255,255,255,0.06)', color: 'text.primary', borderRadius: 2,
+                  borderColor: copied ? 'rgba(62,207,142,0.4)' : 'rgba(255,255,255,0.06)',
+                  color: copied ? '#3ecf8e' : 'text.primary',
+                  borderRadius: 2,
                   fontFamily: '"SF Mono", "Fira Code", monospace',
-                  '&:hover': { borderColor: '#8ba8c0', backgroundColor: 'rgba(139, 168, 192, 0.06)', color: '#8ba8c0', transform: 'translateY(-2px)' },
+                  '&:hover': {
+                    borderColor: copied ? '#3ecf8e' : '#8ba8c0',
+                    backgroundColor: copied ? 'rgba(62,207,142,0.06)' : 'rgba(139, 168, 192, 0.06)',
+                    color: copied ? '#3ecf8e' : '#8ba8c0',
+                    transform: 'translateY(-2px)',
+                  },
                   transition: 'all 0.3s ease',
                 }}
               >
-                {githubUser.email}
+                {copied ? '已复制' : githubUser.email}
               </Button>
             </Box>
           </Box>
