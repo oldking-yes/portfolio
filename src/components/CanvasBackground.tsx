@@ -9,15 +9,15 @@ interface Cell {
   changeTimer: number;
 }
 
-const FONT_SIZE = 14;
+const FONT_SIZE = 13;
 const VERT_STRETCH = 1.28;
 
 function getCharWidth(): number {
-  return window.innerWidth < 768 ? 11 : 12;
+  return window.innerWidth < 768 ? 14 : 15;
 }
 
 function getLineHeight(): number {
-  return window.innerWidth < 768 ? 15 : 22;
+  return window.innerWidth < 768 ? 17 : 24;
 }
 
 function CanvasBackground(): JSX.Element {
@@ -48,8 +48,12 @@ function CanvasBackground(): JSX.Element {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: false });
     if (!ctx) return;
+
+    // Enable smooth font rendering
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
 
     let animId: number;
     let cells: Cell[][] = [];
@@ -69,6 +73,9 @@ function CanvasBackground(): JSX.Element {
       canvas.style.width = `${w}px`;
       canvas.style.height = `${h}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
 
       CHAR_W = getCharWidth();
       LINE_H = getLineHeight();
@@ -104,9 +111,10 @@ function CanvasBackground(): JSX.Element {
         ctx.fillStyle = '#0a0a0a';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        const fontStr = `${FONT_SIZE}px "SF Mono", "Fira Code", "monospace"`;
+        const fontStr = `${FONT_SIZE}px "Courier New", "Lucida Console", monospace`;
         ctx.font = fontStr;
         ctx.textBaseline = 'top';
+        ctx.textAlign = 'left';
 
         for (let r = 0; r < ROWS; r++) {
           for (let c = 0; c < COLS; c++) {
@@ -136,9 +144,10 @@ function CanvasBackground(): JSX.Element {
       ctx.fillStyle = '#0a0a0a';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      const fontStr = `${FONT_SIZE}px "SF Mono", "Fira Code", "monospace"`;
+      const fontStr = `${FONT_SIZE}px "Courier New", "Lucida Console", monospace`;
       ctx.font = fontStr;
       ctx.textBaseline = 'top';
+      ctx.textAlign = 'left';
 
       for (let r = 0; r < ROWS; r++) {
         for (let c = 0; c < COLS; c++) {
