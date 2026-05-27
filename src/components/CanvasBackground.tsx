@@ -184,37 +184,6 @@ function CanvasBackground(): JSX.Element {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
 
-      // Vignette — use CSS pixel dimensions, not physical canvas pixels
-      // because setTransform(dpr,...) already handles DPR scaling
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      const cx = vw / 2;
-      const cy = vh / 2;
-      const isMobile = vw < 768;
-      const radius = Math.max(vw, vh) * 0.7;
-
-      if (isMobile) {
-        // Mobile: aggressive vignette, tight transparent center
-        const vm = ctx.createRadialGradient(cx, cy, radius * 0.18, cx, cy, radius);
-        vm.addColorStop(0, 'rgba(0,0,0,0)');
-        vm.addColorStop(0.25, 'rgba(0,0,0,0)');
-        vm.addColorStop(0.45, 'rgba(0,0,0,0.10)');
-        vm.addColorStop(0.65, 'rgba(0,0,0,0.30)');
-        vm.addColorStop(0.82, 'rgba(0,0,0,0.55)');
-        vm.addColorStop(1, 'rgba(0,0,0,0.75)');
-        ctx.fillStyle = vm;
-      } else {
-        // Desktop: moderate vignette
-        const vd = ctx.createRadialGradient(cx, cy, radius * 0.35, cx, cy, radius);
-        vd.addColorStop(0, 'rgba(0,0,0,0)');
-        vd.addColorStop(0.45, 'rgba(0,0,0,0)');
-        vd.addColorStop(0.65, 'rgba(0,0,0,0.08)');
-        vd.addColorStop(0.80, 'rgba(0,0,0,0.22)');
-        vd.addColorStop(0.92, 'rgba(0,0,0,0.40)');
-        vd.addColorStop(1, 'rgba(0,0,0,0.55)');
-        ctx.fillStyle = vd;
-      }
-      ctx.fillRect(0, 0, vw, vh);
 
       animId = requestAnimationFrame(draw);
     };
@@ -228,18 +197,35 @@ function CanvasBackground(): JSX.Element {
   }, []);
 
   return (
-    <Box
-      component="canvas"
-      ref={canvasRef}
-      sx={{
-        position: 'fixed',
-        inset: 0,
-        width: '100%',
-        height: '100vh',
-        zIndex: 0,
-        pointerEvents: 'none',
-      }}
-    />
+    <>
+      <Box
+        component="canvas"
+        ref={canvasRef}
+        sx={{
+          position: 'fixed',
+          inset: 0,
+          width: '100%',
+          height: '100vh',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}
+      />
+      {/* Vignette overlay — pure CSS, no coordinate issues */}
+      <Box
+        sx={{
+          position: 'fixed',
+          inset: 0,
+          width: '100%',
+          height: '100vh',
+          zIndex: 0,
+          pointerEvents: 'none',
+          background: {
+            xs: 'radial-gradient(ellipse 55% 50% at 50% 50%, transparent 0%, rgba(0,0,0,0.08) 35%, rgba(0,0,0,0.28) 60%, rgba(0,0,0,0.55) 80%, rgba(0,0,0,0.72) 100%)',
+            md: 'radial-gradient(ellipse 65% 55% at 50% 50%, transparent 0%, rgba(0,0,0,0.05) 40%, rgba(0,0,0,0.18) 65%, rgba(0,0,0,0.38) 85%, rgba(0,0,0,0.50) 100%)',
+          },
+        }}
+      />
+    </>
   );
 }
 
