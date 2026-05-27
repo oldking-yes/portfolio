@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { Box, Typography, IconButton, TextField, CircularProgress } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
-const WORKER_URL = '/api/chat';
+const WORKER_URL = 'https://106.55.55.54:8080/api/chat';
 
 interface Message {
   role: 'user' | 'assistant';

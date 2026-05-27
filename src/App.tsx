@@ -3,10 +3,10 @@ import { Box } from '@mui/material';
 import CanvasBackground from './components/CanvasBackground';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import AiChat from './components/AiChat';
 import About from './components/About';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
-import AiChat from './components/AiChat';
 import Timeline from './components/Timeline';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -36,10 +36,10 @@ function App(): JSX.Element {
       <Navbar />
       <Box sx={{ position: 'relative', zIndex: 1 }}>
         <Hero />
+        <AiChat />
         <About />
         <Projects />
         <Skills />
-        <AiChat />
         <Timeline />
         <Contact />
         <Footer />
