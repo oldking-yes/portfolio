@@ -13,11 +13,11 @@ const FONT_SIZE = 13;
 const VERT_STRETCH = 1.28;
 
 function getCharWidth(): number {
-  return window.innerWidth < 768 ? 14 : 15;
+  return window.innerWidth < 768 ? 14 : 13;
 }
 
 function getLineHeight(): number {
-  return window.innerWidth < 768 ? 17 : 24;
+  return window.innerWidth < 768 ? 17 : 20;
 }
 
 function CanvasBackground(): JSX.Element {
@@ -51,7 +51,6 @@ function CanvasBackground(): JSX.Element {
     const ctx = canvas.getContext('2d', { alpha: false });
     if (!ctx) return;
 
-    // Enable smooth font rendering
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
 
@@ -178,43 +177,26 @@ function CanvasBackground(): JSX.Element {
         }
       }
 
+      // Scroll dimming
       if (progress > 0) {
         ctx.fillStyle = `rgba(0, 0, 0, ${progress * 0.3})`;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
 
+      // Vignette — single radial gradient (fixes bottom-right corner bug)
       const W = canvas.width;
       const H = canvas.height;
-      const edgeW = W * 0.28;
-      const edgeH = H * 0.28;
+      const cx = W / 2;
+      const cy = H / 2;
+      const radius = Math.max(W, H) * 0.65;
 
-      const gl = ctx.createLinearGradient(0, 0, edgeW, 0);
-      gl.addColorStop(0, 'rgba(0,0,0,0.75)');
-      gl.addColorStop(0.3, 'rgba(0,0,0,0.35)');
-      gl.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.fillStyle = gl;
-      ctx.fillRect(0, 0, edgeW, H);
-
-      const gr = ctx.createLinearGradient(W - edgeW, 0, W, 0);
-      gr.addColorStop(0, 'rgba(0,0,0,0)');
-      gr.addColorStop(0.7, 'rgba(0,0,0,0.35)');
-      gr.addColorStop(1, 'rgba(0,0,0,0.75)');
-      ctx.fillStyle = gr;
-      ctx.fillRect(W - edgeW, 0, edgeW, H);
-
-      const gt = ctx.createLinearGradient(0, 0, 0, edgeH);
-      gt.addColorStop(0, 'rgba(0,0,0,0.75)');
-      gt.addColorStop(0.3, 'rgba(0,0,0,0.35)');
-      gt.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.fillStyle = gt;
-      ctx.fillRect(0, 0, W, edgeH);
-
-      const gb = ctx.createLinearGradient(0, H - edgeH, 0, H);
-      gb.addColorStop(0, 'rgba(0,0,0,0)');
-      gb.addColorStop(0.7, 'rgba(0,0,0,0.35)');
-      gb.addColorStop(1, 'rgba(0,0,0,0.75)');
-      ctx.fillStyle = gb;
-      ctx.fillRect(0, H - edgeH, W, edgeH);
+      const vg = ctx.createRadialGradient(cx, cy, radius * 0.3, cx, cy, radius);
+      vg.addColorStop(0, 'rgba(0,0,0,0)');
+      vg.addColorStop(0.5, 'rgba(0,0,0,0)');
+      vg.addColorStop(0.8, 'rgba(0,0,0,0.3)');
+      vg.addColorStop(1, 'rgba(0,0,0,0.7)');
+      ctx.fillStyle = vg;
+      ctx.fillRect(0, 0, W, H);
 
       animId = requestAnimationFrame(draw);
     };
