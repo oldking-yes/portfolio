@@ -193,17 +193,17 @@ function AiChat(): JSX.Element {
                 px: 2,
                 py: 1,
                 borderRadius: '24px',
-                border: '1px solid rgba(143, 164, 184, 0.15)',
-                backgroundColor: 'rgba(143, 164, 184, 0.04)',
-                color: 'rgba(200, 208, 216, 0.6)',
+                border: '1px solid rgba(143, 164, 184, 0.18)',
+                backgroundColor: 'rgba(143, 164, 184, 0.06)',
+                color: 'rgba(200, 208, 216, 0.7)',
                 fontSize: { xs: '0.78rem', sm: '0.82rem' },
                 cursor: 'pointer',
                 transition: 'all 0.25s ease',
                 lineHeight: 1.4,
                 userSelect: 'none',
                 '&:hover': {
-                  backgroundColor: 'rgba(143, 164, 184, 0.10)',
-                  borderColor: 'rgba(143, 164, 184, 0.30)',
+                  backgroundColor: 'rgba(143, 164, 184, 0.14)',
+                  borderColor: 'rgba(143, 164, 184, 0.35)',
                   color: '#e8e0d0',
                   transform: 'translateY(-1px)',
                 },
@@ -217,13 +217,16 @@ function AiChat(): JSX.Element {
           ))}
         </Box>
 
-        {/* Chat area */}
+        {/* Chat area — frosted glass */}
         <Box
           className="reveal"
           sx={{
-            border: '1px solid rgba(143, 164, 184, 0.08)',
+            border: '1px solid rgba(143, 164, 184, 0.12)',
             borderRadius: 3,
-            backgroundColor: 'rgba(143, 164, 184, 0.02)',
+            backgroundColor: 'rgba(16, 16, 20, 0.65)',
+            backdropFilter: 'blur(24px) saturate(1.2)',
+            WebkitBackdropFilter: 'blur(24px) saturate(1.2)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04)',
             overflow: 'hidden',
           }}
         >
@@ -241,7 +244,7 @@ function AiChat(): JSX.Element {
               scrollBehavior: 'smooth',
               '&::-webkit-scrollbar': { width: 3 },
               '&::-webkit-scrollbar-thumb': {
-                backgroundColor: 'rgba(143, 164, 184, 0.15)',
+                backgroundColor: 'rgba(143, 164, 184, 0.2)',
                 borderRadius: 2,
               },
             }}
@@ -257,7 +260,7 @@ function AiChat(): JSX.Element {
               >
                 <Typography
                   sx={{
-                    color: 'rgba(255,255,255,0.15)',
+                    color: 'rgba(255,255,255,0.2)',
                     fontSize: '0.85rem',
                     textAlign: 'center',
                   }}
@@ -280,7 +283,7 @@ function AiChat(): JSX.Element {
                 <Typography
                   sx={{
                     fontSize: '0.7rem',
-                    color: msg.role === 'user' ? 'rgba(143, 164, 184, 0.5)' : 'rgba(143, 164, 184, 0.4)',
+                    color: msg.role === 'user' ? 'rgba(143, 164, 184, 0.6)' : 'rgba(143, 164, 184, 0.5)',
                     mb: 0.5,
                     fontWeight: 600,
                     letterSpacing: '0.03em',
@@ -295,13 +298,17 @@ function AiChat(): JSX.Element {
                     borderRadius: msg.role === 'user' ? '14px 14px 4px 14px' : '14px 14px 14px 4px',
                     backgroundColor:
                       msg.role === 'user'
-                        ? 'rgba(143, 164, 184, 0.10)'
-                        : 'rgba(255, 255, 255, 0.03)',
+                        ? 'rgba(143, 164, 184, 0.12)'
+                        : 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid',
+                    borderColor: msg.role === 'user'
+                      ? 'rgba(143, 164, 184, 0.15)'
+                      : 'rgba(255, 255, 255, 0.06)',
                   }}
                 >
                   <Typography
                     sx={{
-                      color: msg.role === 'user' ? '#c8d0d8' : '#b0b8c0',
+                      color: msg.role === 'user' ? '#d0d8e0' : '#c0c8d0',
                       fontSize: { xs: '0.83rem', sm: '0.88rem' },
                       lineHeight: 1.7,
                       whiteSpace: 'pre-wrap',
@@ -321,7 +328,7 @@ function AiChat(): JSX.Element {
                               width: 5,
                               height: 5,
                               borderRadius: '50%',
-                              backgroundColor: 'rgba(143, 164, 184, 0.5)',
+                              backgroundColor: 'rgba(143, 164, 184, 0.6)',
                               display: 'inline-block',
                             }}
                           />
@@ -339,10 +346,11 @@ function AiChat(): JSX.Element {
             sx={{
               px: { xs: 2, sm: 3 },
               py: 1.5,
-              borderTop: '1px solid rgba(143, 164, 184, 0.06)',
+              borderTop: '1px solid rgba(143, 164, 184, 0.08)',
               display: 'flex',
               gap: 1,
               alignItems: 'flex-end',
+              backgroundColor: 'rgba(16, 16, 20, 0.4)',
             }}
           >
             <TextField
@@ -358,18 +366,22 @@ function AiChat(): JSX.Element {
               InputProps={{
                 disableUnderline: true,
                 sx: {
-                  color: '#e8e0d0',
+                  color: '#e0e4e8',
                   fontSize: '0.85rem',
-                  backgroundColor: 'rgba(255,255,255,0.03)',
+                  backgroundColor: 'rgba(255,255,255,0.05)',
                   borderRadius: 2,
                   px: 1.5,
                   py: 0.8,
-                  '&::placeholder': { color: 'rgba(255,255,255,0.2)' },
+                  border: '1px solid rgba(143, 164, 184, 0.08)',
+                  '&::placeholder': { color: 'rgba(255,255,255,0.25)' },
+                  '&:focus-within': {
+                    borderColor: 'rgba(143, 164, 184, 0.25)',
+                  },
                 },
               }}
               sx={{
                 '& .MuiInputBase-root': {
-                  backgroundColor: 'rgba(255,255,255,0.03)',
+                  backgroundColor: 'rgba(255,255,255,0.05)',
                   borderRadius: 2,
                 },
               }}
@@ -380,8 +392,8 @@ function AiChat(): JSX.Element {
               sx={{
                 width: 38,
                 height: 38,
-                backgroundColor: loading || !input.trim() ? 'transparent' : 'rgba(143, 164, 184, 0.12)',
-                '&:hover': { backgroundColor: 'rgba(143, 164, 184, 0.22)' },
+                backgroundColor: loading || !input.trim() ? 'transparent' : 'rgba(143, 164, 184, 0.15)',
+                '&:hover': { backgroundColor: 'rgba(143, 164, 184, 0.25)' },
                 '&.Mui-disabled': { backgroundColor: 'transparent' },
                 transition: 'background-color 0.2s',
                 flexShrink: 0,
@@ -390,7 +402,7 @@ function AiChat(): JSX.Element {
               {loading ? (
                 <CircularProgress size={18} sx={{ color: '#8fa4b8' }} />
               ) : (
-                <SendIcon sx={{ color: input.trim() ? '#8fa4b8' : 'rgba(143,164,184,0.3)', fontSize: 18, transition: 'color 0.2s' }} />
+                <SendIcon sx={{ color: input.trim() ? '#8fa4b8' : 'rgba(143,164,184,0.35)', fontSize: 18, transition: 'color 0.2s' }} />
               )}
             </IconButton>
           </Box>
