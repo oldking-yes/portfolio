@@ -22,7 +22,6 @@ function Hero(): JSX.Element {
   useEffect(() => {
     const cursorInt = setInterval(() => setShowCursor((c) => !c), 480);
 
-    // All three lines type in parallel
     let ni = 0; let cj = 0; let tj = 0;
 
     const nameInt = setInterval(() => {
@@ -37,7 +36,6 @@ function Hero(): JSX.Element {
       if (tj < tagline.length) { setTaglineText(tagline.slice(0, ++tj)); } else clearInterval(tagInt);
     }, 55);
 
-    // Poll for all done
     const doneCheck = setInterval(() => {
       if (ni >= name.length && cj >= chineseName.length && tj >= tagline.length) {
         clearInterval(doneCheck);
@@ -69,7 +67,7 @@ function Hero(): JSX.Element {
           position: 'absolute',
           inset: 0,
           background:
-            'radial-gradient(ellipse 70% 55% at 50% 48%, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.68) 18%, rgba(0,0,0,0.48) 40%, rgba(0,0,0,0.18) 68%, rgba(0,0,0,0) 100%)',
+            'radial-gradient(ellipse 60% 50% at 50% 48%, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.65) 20%, rgba(0,0,0,0.50) 40%, rgba(0,0,0,0.25) 65%, rgba(0,0,0,0.08) 85%, rgba(0,0,0,0) 100%)',
           pointerEvents: 'none',
         },
       }}
@@ -169,7 +167,6 @@ function Hero(): JSX.Element {
             {repos.length} 个项目 · 全栈闭环 · 可部署
           </Typography>
 
-          {/* Job target — prominent for HR */}
           <Box
             sx={{
               mb: 4,
