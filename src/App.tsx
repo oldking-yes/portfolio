@@ -4,7 +4,6 @@ import CanvasBackground from './components/CanvasBackground';
 import Hero from './components/Hero';
 import AiChat from './components/AiChat';
 import Projects from './components/Projects';
-import Skills from './components/Skills';
 import Timeline from './components/Timeline';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -35,7 +34,6 @@ function App(): JSX.Element {
         <Hero />
         <AiChat />
         <Projects />
-        <Skills />
         <Timeline />
         <Contact />
         <Footer />
