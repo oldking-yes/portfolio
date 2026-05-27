@@ -141,25 +141,6 @@ function AiChat(): JSX.Element {
     overflow: 'hidden' as const,
   };
 
-  /* Refraction highlight — the arc of light across the top */
-  const refractionHighlight = {
-    content: '""',
-    position: 'absolute' as const,
-    top: 0,
-    left: 0,
-    right: 0,
-    height: '50%',
-    background: `linear-gradient(
-      180deg,
-      rgba(255,255,255,0.10) 0%,
-      rgba(255,255,255,0.03) 40%,
-      transparent 100%
-    )`,
-    borderRadius: 'inherit',
-    pointerEvents: 'none' as const,
-    zIndex: 0,
-  };
-
   return (
     <Box
       component="section"
