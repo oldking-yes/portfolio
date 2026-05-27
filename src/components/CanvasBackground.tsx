@@ -184,36 +184,35 @@ function CanvasBackground(): JSX.Element {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
 
-      // Vignette — mobile gets heavier edges
-      const W = canvas.width;
-      const H = canvas.height;
-      const cx = W / 2;
-      const cy = H / 2;
-      const isMobile = window.innerWidth < 768;
-      const radius = Math.max(W, H) * 0.7;
+      // Vignette — use CSS pixel dimensions (w,h), not physical (canvas.width/height)
+      // because setTransform(dpr,...) already handles DPR scaling
+      const cx = w / 2;
+      const cy = h / 2;
+      const isMobile = w < 768;
+      const radius = Math.max(w, h) * 0.7;
 
       if (isMobile) {
-        // Mobile: aggressive vignette, smaller transparent center
-        const vm = ctx.createRadialGradient(cx, cy, radius * 0.22, cx, cy, radius);
+        // Mobile: aggressive vignette, tight transparent center
+        const vm = ctx.createRadialGradient(cx, cy, radius * 0.18, cx, cy, radius);
         vm.addColorStop(0, 'rgba(0,0,0,0)');
-        vm.addColorStop(0.30, 'rgba(0,0,0,0)');
-        vm.addColorStop(0.50, 'rgba(0,0,0,0.08)');
-        vm.addColorStop(0.70, 'rgba(0,0,0,0.25)');
-        vm.addColorStop(0.85, 'rgba(0,0,0,0.50)');
-        vm.addColorStop(1, 'rgba(0,0,0,0.70)');
+        vm.addColorStop(0.25, 'rgba(0,0,0,0)');
+        vm.addColorStop(0.45, 'rgba(0,0,0,0.10)');
+        vm.addColorStop(0.65, 'rgba(0,0,0,0.30)');
+        vm.addColorStop(0.82, 'rgba(0,0,0,0.55)');
+        vm.addColorStop(1, 'rgba(0,0,0,0.75)');
         ctx.fillStyle = vm;
       } else {
         // Desktop: moderate vignette
         const vd = ctx.createRadialGradient(cx, cy, radius * 0.35, cx, cy, radius);
         vd.addColorStop(0, 'rgba(0,0,0,0)');
         vd.addColorStop(0.45, 'rgba(0,0,0,0)');
-        vd.addColorStop(0.65, 'rgba(0,0,0,0.06)');
-        vd.addColorStop(0.8, 'rgba(0,0,0,0.18)');
-        vd.addColorStop(0.92, 'rgba(0,0,0,0.35)');
-        vd.addColorStop(1, 'rgba(0,0,0,0.50)');
+        vd.addColorStop(0.65, 'rgba(0,0,0,0.08)');
+        vd.addColorStop(0.80, 'rgba(0,0,0,0.22)');
+        vd.addColorStop(0.92, 'rgba(0,0,0,0.40)');
+        vd.addColorStop(1, 'rgba(0,0,0,0.55)');
         ctx.fillStyle = vd;
       }
-      ctx.fillRect(0, 0, W, H);
+      ctx.fillRect(0, 0, w, h);
 
       animId = requestAnimationFrame(draw);
     };
