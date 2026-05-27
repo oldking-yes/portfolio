@@ -67,7 +67,7 @@ function Hero(): JSX.Element {
           position: 'absolute',
           inset: 0,
           background:
-            'radial-gradient(ellipse 60% 50% at 50% 48%, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.65) 20%, rgba(0,0,0,0.50) 40%, rgba(0,0,0,0.25) 65%, rgba(0,0,0,0.08) 85%, rgba(0,0,0,0) 100%)',
+            'radial-gradient(ellipse 65% 55% at 50% 48%, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.48) 25%, rgba(0,0,0,0.30) 50%, rgba(0,0,0,0.12) 75%, rgba(0,0,0,0) 100%)',
           pointerEvents: 'none',
         },
       }}
