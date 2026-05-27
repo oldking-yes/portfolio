@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Box, Typography, IconButton, TextField, CircularProgress } from '@mui/material';
+import { Box, Container, Typography, IconButton, TextField, CircularProgress } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
 const WORKER_URL = '/api/chat';
@@ -39,7 +39,7 @@ function AiChat(): JSX.Element {
       if (done) break;
 
       buffer += decoder.decode(value, { stream: true });
-      const lines = buffer.split('\\n');
+      const lines = buffer.split('\n');
       buffer = lines.pop() || '';
 
       for (const line of lines) {
@@ -119,28 +119,6 @@ function AiChat(): JSX.Element {
     }
   };
 
-  /* ── Liquid Glass shared styles ── */
-  const glassOuter = {
-    background: `linear-gradient(
-      135deg,
-      rgba(255,255,255,0.12) 0%,
-      rgba(255,255,255,0.04) 30%,
-      rgba(255,255,255,0.01) 50%,
-      rgba(255,255,255,0.06) 70%,
-      rgba(255,255,255,0.10) 100%
-    )`,
-    backdropFilter: 'blur(40px) saturate(1.8) brightness(1.1)',
-    WebkitBackdropFilter: 'blur(40px) saturate(1.8) brightness(1.1)',
-    border: '1px solid rgba(255,255,255,0.18)',
-    boxShadow: (
-      '0 8px 32px rgba(0,0,0,0.25),'
-      + 'inset 0 1px 0 rgba(255,255,255,0.15),'
-      + 'inset 0 -1px 0 rgba(255,255,255,0.05)'
-    ),
-    position: 'relative' as const,
-    overflow: 'hidden' as const,
-  };
-
   return (
     <Box
       component="section"
@@ -155,87 +133,59 @@ function AiChat(): JSX.Element {
         position: 'relative',
       }}
     >
-      {/* ── Liquid Glass capsule ── */}
       <Box
         className="reveal"
         sx={{
-          ...glassOuter,
           width: '100%',
           maxWidth: 800,
           height: { xs: 'calc(100vh - 32px)', sm: 'calc(100vh - 48px)' },
           maxHeight: { xs: 'calc(100vh - 32px)', sm: 'calc(100vh - 48px)' },
           display: 'flex',
           flexDirection: 'column',
-          borderRadius: { xs: '28px', sm: '32px' },
+          borderRadius: 3,
+          backgroundColor: 'rgba(143,164,184,0.03)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: '1px solid rgba(143,164,184,0.08)',
+          overflow: 'hidden',
         }}
       >
-        {/* Refraction arc highlight */}
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: '45%',
-            background: `linear-gradient(
-              180deg,
-              rgba(255,255,255,0.09) 0%,
-              rgba(255,255,255,0.03) 35%,
-              transparent 100%
-            )`,
-            borderRadius: 'inherit',
-            pointerEvents: 'none',
-            zIndex: 0,
-          }}
-        />
-
-        {/* ── Top bar — glass panel ── */}
+        {/* Header */}
         <Box
           sx={{
             px: { xs: 2.5, sm: 3.5 },
-            py: 1.6,
-            borderBottom: '1px solid rgba(255,255,255,0.08)',
+            py: 1.8,
+            borderBottom: '1px solid rgba(143,164,184,0.08)',
             display: 'flex',
             alignItems: 'center',
             gap: 1.2,
             flexShrink: 0,
-            position: 'relative',
-            zIndex: 1,
-            background: 'rgba(255,255,255,0.03)',
           }}
         >
-          {/* Glass icon pill */}
-          <Box
+          <Typography
             sx={{
-              width: 32,
-              height: 32,
-              borderRadius: '10px',
-              background: 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05))',
-              border: '1px solid rgba(255,255,255,0.15)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backdropFilter: 'blur(10px)',
-              WebkitBackdropFilter: 'blur(10px)',
+              fontFamily: '"SF Mono", "Fira Code", monospace',
+              fontSize: '0.75rem',
+              color: '#8ba8c0',
+              letterSpacing: '0.12em',
+              fontWeight: 600,
             }}
           >
-            <Typography sx={{ fontSize: '0.85rem', lineHeight: 1, color: 'rgba(255,255,255,0.8)' }}>✦</Typography>
-          </Box>
-          <Box>
-            <Typography
-              sx={{
-                fontSize: { xs: '0.9rem', sm: '1rem' },
-                fontWeight: 600,
-                color: 'rgba(255,255,255,0.9)',
-                lineHeight: 1.3,
-              }}
-            >
-              AI 对话
-            </Typography>
-          </Box>
+            AI CHAT
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: { xs: '0.95rem', sm: '1.05rem' },
+              fontWeight: 700,
+              color: '#e8e0d0',
+              lineHeight: 1.3,
+            }}
+          >
+            AI 对话
+          </Typography>
         </Box>
 
-        {/* ── Messages ── */}
+        {/* Messages */}
         <Box
           ref={listRef}
           sx={{
@@ -247,11 +197,9 @@ function AiChat(): JSX.Element {
             flexDirection: 'column',
             gap: 2,
             scrollBehavior: 'smooth',
-            position: 'relative',
-            zIndex: 1,
             '&::-webkit-scrollbar': { width: 3 },
             '&::-webkit-scrollbar-thumb': {
-              backgroundColor: 'rgba(255,255,255,0.15)',
+              backgroundColor: 'rgba(143,164,184,0.2)',
               borderRadius: 2,
             },
           }}
@@ -265,59 +213,40 @@ function AiChat(): JSX.Element {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: 2.5,
+                gap: 3,
               }}
             >
-              {/* Glass orb */}
-              <Box
-                sx={{
-                  width: 56,
-                  height: 56,
-                  borderRadius: '18px',
-                  background: 'linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04))',
-                  border: '1px solid rgba(255,255,255,0.15)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.12)',
-                }}
-              >
-                <Typography sx={{ fontSize: '1.3rem', lineHeight: 1, color: 'rgba(255,255,255,0.85)' }}>✦</Typography>
-              </Box>
               <Box sx={{ textAlign: 'center' }}>
                 <Typography
                   sx={{
-                    fontSize: { xs: '1.1rem', sm: '1.25rem' },
-                    fontWeight: 600,
-                    color: 'rgba(255,255,255,0.9)',
-                    mb: 0.6,
+                    fontSize: { xs: '1.1rem', sm: '1.3rem' },
+                    fontWeight: 700,
+                    color: '#e8e0d0',
+                    mb: 1,
                   }}
                 >
                   你好，随便问
                 </Typography>
                 <Typography
                   sx={{
-                    fontSize: { xs: '0.75rem', sm: '0.82rem' },
-                    color: 'rgba(255,255,255,0.35)',
+                    fontSize: { xs: '0.78rem', sm: '0.85rem' },
+                    color: 'rgba(255,255,255,0.3)',
                     lineHeight: 1.6,
-                    maxWidth: 280,
-                    mx: 'auto',
+                    maxWidth: 320,
                   }}
                 >
-                  项目经历、技术选型、求职方向
+                  关于项目经历、技术选型、或求职方向
                 </Typography>
               </Box>
 
-              {/* Quick prompts — glass chips */}
+              {/* Quick prompts */}
               <Box
                 sx={{
                   display: 'flex',
                   flexWrap: 'wrap',
                   justifyContent: 'center',
-                  gap: 0.7,
-                  maxWidth: 400,
+                  gap: 0.8,
+                  maxWidth: 420,
                 }}
               >
                 {QUICK_PROMPTS.map((qp) => (
@@ -325,26 +254,23 @@ function AiChat(): JSX.Element {
                     key={qp.label}
                     onClick={() => sendMessage(qp.prompt)}
                     sx={{
-                      px: 1.6,
-                      py: 0.7,
-                      borderRadius: '20px',
-                      background: 'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03))',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
-                      color: 'rgba(255,255,255,0.55)',
-                      fontSize: { xs: '0.72rem', sm: '0.76rem' },
+                      px: 2,
+                      py: 0.8,
+                      borderRadius: '24px',
+                      border: '1px solid rgba(143,164,184,0.14)',
+                      backgroundColor: 'rgba(143,164,184,0.06)',
+                      color: 'rgba(200,208,216,0.65)',
+                      fontSize: { xs: '0.75rem', sm: '0.8rem' },
                       cursor: 'pointer',
                       transition: 'all 0.25s ease',
                       lineHeight: 1.4,
                       userSelect: 'none',
                       whiteSpace: 'nowrap',
                       '&:hover': {
-                        background: 'linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.06))',
-                        borderColor: 'rgba(255,255,255,0.2)',
-                        color: 'rgba(255,255,255,0.85)',
+                        backgroundColor: 'rgba(143,164,184,0.12)',
+                        borderColor: 'rgba(143,164,184,0.3)',
+                        color: '#e8e0d0',
                         transform: 'translateY(-1px)',
-                        boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
                       },
                       '&:active': {
                         transform: 'translateY(0)',
@@ -358,7 +284,7 @@ function AiChat(): JSX.Element {
             </Box>
           )}
 
-          {/* Messages */}
+          {/* Chat messages */}
           {messages.map((msg, i) => (
             <Box
               key={i}
@@ -370,10 +296,11 @@ function AiChat(): JSX.Element {
             >
               <Typography
                 sx={{
-                  fontSize: '0.65rem',
-                  color: 'rgba(255,255,255,0.3)',
+                  fontSize: '0.68rem',
+                  color: msg.role === 'user' ? 'rgba(143,164,184,0.55)' : 'rgba(143,164,184,0.45)',
                   mb: 0.4,
-                  fontWeight: 500,
+                  fontWeight: 600,
+                  letterSpacing: '0.03em',
                 }}
               >
                 {msg.role === 'user' ? '你' : 'AI'}
@@ -382,21 +309,20 @@ function AiChat(): JSX.Element {
                 sx={{
                   px: 2,
                   py: 1.2,
-                  borderRadius: msg.role === 'user' ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
-                  background: msg.role === 'user'
-                    ? 'linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04))'
-                    : 'linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02))',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  backdropFilter: 'blur(12px)',
-                  WebkitBackdropFilter: 'blur(12px)',
-                  boxShadow: msg.role === 'user'
-                    ? '0 2px 8px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.08)'
-                    : 'inset 0 1px 0 rgba(255,255,255,0.05)',
+                  borderRadius: msg.role === 'user' ? '14px 14px 4px 14px' : '14px 14px 14px 4px',
+                  backgroundColor:
+                    msg.role === 'user'
+                      ? 'rgba(143,164,184,0.12)'
+                      : 'rgba(255,255,255,0.05)',
+                  border: '1px solid',
+                  borderColor: msg.role === 'user'
+                    ? 'rgba(143,164,184,0.15)'
+                    : 'rgba(255,255,255,0.06)',
                 }}
               >
                 <Typography
                   sx={{
-                    color: 'rgba(255,255,255,0.82)',
+                    color: msg.role === 'user' ? '#d0d8e0' : '#c0c8d0',
                     fontSize: { xs: '0.82rem', sm: '0.87rem' },
                     lineHeight: 1.7,
                     whiteSpace: 'pre-wrap',
@@ -416,7 +342,7 @@ function AiChat(): JSX.Element {
                             width: 5,
                             height: 5,
                             borderRadius: '50%',
-                            backgroundColor: 'rgba(255,255,255,0.4)',
+                            backgroundColor: 'rgba(143,164,184,0.6)',
                             display: 'inline-block',
                           }}
                         />
@@ -429,19 +355,17 @@ function AiChat(): JSX.Element {
           ))}
         </Box>
 
-        {/* ── Input bar — glass surface ── */}
+        {/* Input bar */}
         <Box
           sx={{
-            px: { xs: 1.8, sm: 2.5 },
-            py: 1.4,
-            borderTop: '1px solid rgba(255,255,255,0.08)',
+            px: { xs: 2, sm: 2.5 },
+            py: 1.5,
+            borderTop: '1px solid rgba(143,164,184,0.08)',
             display: 'flex',
             gap: 1,
             alignItems: 'flex-end',
-            background: 'rgba(255,255,255,0.03)',
+            backgroundColor: 'rgba(10,10,10,0.4)',
             flexShrink: 0,
-            position: 'relative',
-            zIndex: 1,
           }}
         >
           <TextField
@@ -457,26 +381,23 @@ function AiChat(): JSX.Element {
             InputProps={{
               disableUnderline: true,
               sx: {
-                color: 'rgba(255,255,255,0.9)',
+                color: '#e0e4e8',
                 fontSize: '0.85rem',
-                background: 'linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))',
-                borderRadius: '14px',
+                backgroundColor: 'rgba(143,164,184,0.06)',
+                borderRadius: 2,
                 px: 1.5,
                 py: 0.8,
-                border: '1px solid rgba(255,255,255,0.08)',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
-                '&::placeholder': { color: 'rgba(255,255,255,0.22)' },
+                border: '1px solid rgba(143,164,184,0.1)',
+                '&::placeholder': { color: 'rgba(255,255,255,0.25)' },
                 '&:focus-within': {
-                  borderColor: 'rgba(255,255,255,0.18)',
-                  boxShadow: '0 0 0 1px rgba(255,255,255,0.05)',
+                  borderColor: 'rgba(143,164,184,0.25)',
                 },
               },
             }}
             sx={{
               '& .MuiInputBase-root': {
-                background: 'linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))',
-                borderRadius: '14px',
+                backgroundColor: 'rgba(143,164,184,0.06)',
+                borderRadius: 2,
               },
             }}
           />
@@ -486,23 +407,31 @@ function AiChat(): JSX.Element {
             sx={{
               width: 38,
               height: 38,
-              borderRadius: '12px',
-              background: loading || !input.trim()
-                ? 'transparent'
-                : 'linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05))',
-              border: '1px solid rgba(255,255,255,0.08)',
+              border: '1px solid rgba(143,164,184,0.18)',
+              backgroundColor: loading || !input.trim()
+                ? 'rgba(10,10,10,0.25)'
+                : 'rgba(10,10,10,0.55)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              color: input.trim() ? '#c8d8e8' : 'rgba(200,216,232,0.22)',
               '&:hover': {
-                background: 'linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.08))',
+                backgroundColor: 'rgba(10,10,10,0.80)',
+                borderColor: '#8ba8c0',
+                color: '#fff',
               },
-              '&.Mui-disabled': { background: 'transparent', border: '1px solid transparent' },
+              '&.Mui-disabled': {
+                backgroundColor: 'rgba(10,10,10,0.25)',
+                borderColor: 'rgba(143,164,184,0.06)',
+                color: 'rgba(200,216,232,0.1)',
+              },
               transition: 'all 0.2s',
               flexShrink: 0,
             }}
           >
             {loading ? (
-              <CircularProgress size={18} sx={{ color: 'rgba(255,255,255,0.6)' }} />
+              <CircularProgress size={18} sx={{ color: '#8fa4b8' }} />
             ) : (
-              <SendIcon sx={{ color: input.trim() ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.2)', fontSize: 18, transition: 'color 0.2s' }} />
+              <SendIcon sx={{ fontSize: 18 }} />
             )}
           </IconButton>
         </Box>
