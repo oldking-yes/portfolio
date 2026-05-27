@@ -1,9 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Box, Typography, IconButton, TextField, CircularProgress } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Box, Container, Typography, IconButton, TextField, CircularProgress } from '@mui/material';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 import SendIcon from '@mui/icons-material/Send';
-import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 
 const WORKER_URL = '/api/chat';
 
@@ -21,10 +19,7 @@ const QUICK_PROMPTS = [
 ];
 
 function AiChat(): JSX.Element {
-  const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: '你好！我是王子轩的 AI 助手。你可以问我关于他的技术能力、项目经历或求职方向的任何问题 👋' },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
@@ -110,7 +105,7 @@ function AiChat(): JSX.Element {
       if (err.name === 'AbortError') return;
       setMessages((prev) => [
         ...prev.slice(0, -1),
-        { role: 'assistant', content: `抱歉，出错了：${err.message}。请稍后再试或直接发邮件到 2919178903@qq.com` },
+        { role: 'assistant', content: `抱歉，出错了：${err.message}。请稍后再试。` },
       ]);
     } finally {
       setLoading(false);
@@ -125,136 +120,189 @@ function AiChat(): JSX.Element {
     }
   };
 
-  const handleClose = () => {
-    if (loading && abortRef.current) {
-      abortRef.current.abort();
-    }
-    setOpen(false);
-  };
-
-  const handleQuickPrompt = (prompt: string) => {
-    sendMessage(prompt);
-  };
-
   return (
-    <>
-      {/* Floating button */}
-      {!open && (
+    <Box
+      component="section"
+      id="ai-chat"
+      sx={{
+        py: { xs: 8, sm: 10, md: 12 },
+        position: 'relative',
+      }}
+    >
+      <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1 }}>
+        {/* Header */}
+        <Box className="reveal" sx={{ textAlign: 'center', mb: { xs: 4, sm: 5 } }}>
+          <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, mb: 2 }}>
+            <SmartToyIcon sx={{ color: '#8fa4b8', fontSize: 24 }} />
+            <Typography
+              sx={{
+                fontSize: { xs: '0.8rem', sm: '0.85rem' },
+                color: 'rgba(143, 164, 184, 0.7)',
+                fontWeight: 600,
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+              }}
+            >
+              AI Assistant
+            </Typography>
+          </Box>
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: '1.5rem', sm: '2rem', md: '2.2rem' },
+              fontWeight: 700,
+              mb: 1.5,
+              background: 'linear-gradient(135deg, #dce3ea 0%, #8fa4b8 50%, #dce3ea 100%)',
+              backgroundSize: '200% auto',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            试试和 AI 聊聊
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: { xs: '0.85rem', sm: '0.95rem' },
+              color: 'rgba(255,255,255,0.4)',
+              maxWidth: 480,
+              mx: 'auto',
+              lineHeight: 1.6,
+            }}
+          >
+            我的 AI 助手了解我的所有项目经历和技术栈，你可以直接问我任何问题
+          </Typography>
+        </Box>
+
+        {/* Quick prompts */}
         <Box
-          onClick={() => setOpen(true)}
+          className="reveal"
           sx={{
-            position: 'fixed',
-            bottom: 24,
-            right: 24,
-            zIndex: 9999,
-            width: 56,
-            height: 56,
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, #8fa4b8, #6a8ca8)',
             display: 'flex',
-            alignItems: 'center',
+            flexWrap: 'wrap',
             justifyContent: 'center',
-            cursor: 'pointer',
-            boxShadow: '0 4px 20px rgba(143, 164, 184, 0.3)',
-            transition: 'all 0.3s ease',
-            '&:hover': {
-              transform: 'scale(1.08)',
-              boxShadow: '0 6px 28px rgba(143, 164, 184, 0.45)',
-            },
-            animation: 'pulse-glow 3s ease-in-out infinite',
-            '@keyframes pulse-glow': {
-              '0%, 100%': { boxShadow: '0 4px 20px rgba(143, 164, 184, 0.3)' },
-              '50%': { boxShadow: '0 4px 28px rgba(143, 164, 184, 0.55)' },
-            },
+            gap: 1,
+            mb: { xs: 3, sm: 4 },
           }}
         >
-          <AutoFixHighIcon sx={{ color: '#0a0a0a', fontSize: 28 }} />
+          {QUICK_PROMPTS.map((qp) => (
+            <Box
+              key={qp.label}
+              onClick={() => sendMessage(qp.prompt)}
+              sx={{
+                px: 2,
+                py: 1,
+                borderRadius: '24px',
+                border: '1px solid rgba(143, 164, 184, 0.15)',
+                backgroundColor: 'rgba(143, 164, 184, 0.04)',
+                color: 'rgba(200, 208, 216, 0.6)',
+                fontSize: { xs: '0.78rem', sm: '0.82rem' },
+                cursor: 'pointer',
+                transition: 'all 0.25s ease',
+                lineHeight: 1.4,
+                userSelect: 'none',
+                '&:hover': {
+                  backgroundColor: 'rgba(143, 164, 184, 0.10)',
+                  borderColor: 'rgba(143, 164, 184, 0.30)',
+                  color: '#e8e0d0',
+                  transform: 'translateY(-1px)',
+                },
+                '&:active': {
+                  transform: 'translateY(0)',
+                },
+              }}
+            >
+              {qp.label}
+            </Box>
+          ))}
         </Box>
-      )}
 
-      {/* Chat panel */}
-      {open && (
+        {/* Chat area */}
         <Box
+          className="reveal"
           sx={{
-            position: 'fixed',
-            bottom: 24,
-            right: 24,
-            zIndex: 9999,
-            width: { xs: 'calc(100vw - 32px)', sm: 400 },
-            maxWidth: 400,
-            height: 560,
-            maxHeight: 'calc(100vh - 80px)',
-            display: 'flex',
-            flexDirection: 'column',
+            border: '1px solid rgba(143, 164, 184, 0.08)',
             borderRadius: 3,
-            backgroundColor: 'rgba(10, 10, 12, 0.95)',
-            border: '1px solid rgba(143, 164, 184, 0.1)',
-            boxShadow: '0 20px 60px rgba(0,0,0,0.6)',
+            backgroundColor: 'rgba(143, 164, 184, 0.02)',
             overflow: 'hidden',
           }}
         >
-          {/* Header */}
-          <Box
-            sx={{
-              px: 2.5,
-              py: 1.5,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              borderBottom: '1px solid rgba(143, 164, 184, 0.08)',
-              flexShrink: 0,
-            }}
-          >
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <SmartToyIcon sx={{ color: '#8fa4b8', fontSize: 20 }} />
-              <Typography sx={{ color: '#e8e0d0', fontSize: '0.85rem', fontWeight: 600 }}>
-                AI · 王子轩
-              </Typography>
-            </Box>
-            <IconButton size="small" onClick={handleClose} sx={{ color: 'rgba(255,255,255,0.3)' }}>
-              <CloseIcon fontSize="small" />
-            </IconButton>
-          </Box>
-
           {/* Messages */}
           <Box
             ref={listRef}
             sx={{
-              flex: 1,
+              height: { xs: 320, sm: 400 },
               overflowY: 'auto',
-              px: 2.5,
-              py: 2,
+              px: { xs: 2.5, sm: 3.5 },
+              py: 2.5,
               display: 'flex',
               flexDirection: 'column',
-              gap: 2,
+              gap: 2.5,
               scrollBehavior: 'smooth',
               '&::-webkit-scrollbar': { width: 3 },
-              '&::-webkit-scrollbar-thumb': { backgroundColor: 'rgba(143, 164, 184, 0.15)', borderRadius: 2 },
+              '&::-webkit-scrollbar-thumb': {
+                backgroundColor: 'rgba(143, 164, 184, 0.15)',
+                borderRadius: 2,
+              },
             }}
           >
+            {messages.length === 0 && (
+              <Box
+                sx={{
+                  flex: 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Typography
+                  sx={{
+                    color: 'rgba(255,255,255,0.15)',
+                    fontSize: '0.85rem',
+                    textAlign: 'center',
+                  }}
+                >
+                  点击上方问题，或直接输入你的问题
+                </Typography>
+              </Box>
+            )}
+
             {messages.map((msg, i) => (
               <Box
                 key={i}
                 sx={{
                   alignSelf: msg.role === 'user' ? 'flex-end' : 'flex-start',
-                  maxWidth: '90%',
+                  maxWidth: { xs: '88%', sm: '75%' },
+                  animation: 'fadeInUp 0.3s ease-out',
                 }}
               >
+                {/* Role label */}
+                <Typography
+                  sx={{
+                    fontSize: '0.7rem',
+                    color: msg.role === 'user' ? 'rgba(143, 164, 184, 0.5)' : 'rgba(143, 164, 184, 0.4)',
+                    mb: 0.5,
+                    fontWeight: 600,
+                    letterSpacing: '0.03em',
+                  }}
+                >
+                  {msg.role === 'user' ? '你' : 'AI'}
+                </Typography>
                 <Box
                   sx={{
                     px: 2,
-                    py: 1.2,
-                    borderRadius: msg.role === 'user' ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
+                    py: 1.3,
+                    borderRadius: msg.role === 'user' ? '14px 14px 4px 14px' : '14px 14px 14px 4px',
                     backgroundColor:
                       msg.role === 'user'
-                        ? 'rgba(143, 164, 184, 0.12)'
+                        ? 'rgba(143, 164, 184, 0.10)'
                         : 'rgba(255, 255, 255, 0.03)',
                   }}
                 >
                   <Typography
                     sx={{
-                      color: msg.role === 'user' ? '#c8d0d8' : '#b8c0c8',
-                      fontSize: '0.85rem',
+                      color: msg.role === 'user' ? '#c8d0d8' : '#b0b8c0',
+                      fontSize: { xs: '0.83rem', sm: '0.88rem' },
                       lineHeight: 1.7,
                       whiteSpace: 'pre-wrap',
                       wordBreak: 'break-word',
@@ -284,53 +332,17 @@ function AiChat(): JSX.Element {
                 </Box>
               </Box>
             ))}
-
-            {/* Quick prompts - only show when no user messages yet */}
-            {messages.length === 1 && (
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 0.5 }}>
-                <Typography sx={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.72rem', px: 0.5 }}>
-                  试试问我：
-                </Typography>
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.8 }}>
-                  {QUICK_PROMPTS.map((qp) => (
-                    <Box
-                      key={qp.label}
-                      onClick={() => handleQuickPrompt(qp.prompt)}
-                      sx={{
-                        px: 1.5,
-                        py: 0.7,
-                        borderRadius: '20px',
-                        border: '1px solid rgba(143, 164, 184, 0.15)',
-                        backgroundColor: 'rgba(143, 164, 184, 0.05)',
-                        color: 'rgba(200, 208, 216, 0.7)',
-                        fontSize: '0.78rem',
-                        cursor: 'pointer',
-                        transition: 'all 0.2s ease',
-                        lineHeight: 1.4,
-                        '&:hover': {
-                          backgroundColor: 'rgba(143, 164, 184, 0.12)',
-                          borderColor: 'rgba(143, 164, 184, 0.3)',
-                          color: '#e8e0d0',
-                        },
-                      }}
-                    >
-                      {qp.label}
-                    </Box>
-                  ))}
-                </Box>
-              </Box>
-            )}
           </Box>
 
           {/* Input */}
           <Box
             sx={{
-              px: 2,
+              px: { xs: 2, sm: 3 },
               py: 1.5,
               borderTop: '1px solid rgba(143, 164, 184, 0.06)',
               display: 'flex',
               gap: 1,
-              flexShrink: 0,
+              alignItems: 'flex-end',
             }}
           >
             <TextField
@@ -347,7 +359,7 @@ function AiChat(): JSX.Element {
                 disableUnderline: true,
                 sx: {
                   color: '#e8e0d0',
-                  fontSize: '0.82rem',
+                  fontSize: '0.85rem',
                   backgroundColor: 'rgba(255,255,255,0.03)',
                   borderRadius: 2,
                   px: 1.5,
@@ -366,25 +378,25 @@ function AiChat(): JSX.Element {
               onClick={() => sendMessage()}
               disabled={loading || !input.trim()}
               sx={{
-                alignSelf: 'flex-end',
-                width: 36,
-                height: 36,
+                width: 38,
+                height: 38,
                 backgroundColor: loading || !input.trim() ? 'transparent' : 'rgba(143, 164, 184, 0.12)',
                 '&:hover': { backgroundColor: 'rgba(143, 164, 184, 0.22)' },
                 '&.Mui-disabled': { backgroundColor: 'transparent' },
                 transition: 'background-color 0.2s',
+                flexShrink: 0,
               }}
             >
               {loading ? (
-                <CircularProgress size={16} sx={{ color: '#8fa4b8' }} />
+                <CircularProgress size={18} sx={{ color: '#8fa4b8' }} />
               ) : (
-                <SendIcon sx={{ color: input.trim() ? '#8fa4b8' : 'rgba(143,164,184,0.3)', fontSize: 17, transition: 'color 0.2s' }} />
+                <SendIcon sx={{ color: input.trim() ? '#8fa4b8' : 'rgba(143,164,184,0.3)', fontSize: 18, transition: 'color 0.2s' }} />
               )}
             </IconButton>
           </Box>
         </Box>
-      )}
-    </>
+      </Container>
+    </Box>
   );
 }
 
