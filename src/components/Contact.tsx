@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Box, Container, Typography, Button, Modal, IconButton } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import EmailIcon from '@mui/icons-material/Email';
@@ -10,6 +10,7 @@ import { githubUser } from '../data/repos';
 function Contact(): JSX.Element {
   const [copied, setCopied] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const resumeUrl = `${import.meta.env.BASE_URL}resume.pdf`;
 
@@ -30,6 +31,23 @@ function Contact(): JSX.Element {
     }
   };
 
+  const handleDownload = async () => {
+    try {
+      const res = await fetch(resumeUrl);
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = '王子轩-简历.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch {
+      window.open(resumeUrl, '_blank');
+    }
+  };
+
   return (
     <Box component="section" id="contact" sx={{ py: { xs: 6, md: 10 }, textAlign: 'center' }}>
       <Container maxWidth="sm">
@@ -47,7 +65,6 @@ function Contact(): JSX.Element {
             {githubUser.jobTarget}
           </Typography>
 
-          {/* Card */}
           <Box
             sx={{
               p: { xs: 4, md: 5 },
@@ -73,7 +90,6 @@ function Contact(): JSX.Element {
             }}
           >
             <Box sx={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
-              {/* Resume preview button */}
               <Button
                 variant="contained"
                 size="large"
@@ -116,7 +132,6 @@ function Contact(): JSX.Element {
                 {githubUser.githubUrl}
               </Button>
 
-              {/* Email — click to copy */}
               <Button
                 variant="outlined" size="large" fullWidth
                 startIcon={copied ? <CheckIcon /> : <EmailIcon />}
@@ -147,16 +162,16 @@ function Contact(): JSX.Element {
       <Modal
         open={previewOpen}
         onClose={() => setPreviewOpen(false)}
-        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: { xs: 1, sm: 2 } }}
+        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', p: { xs: 0.5, sm: 2 } }}
       >
         <Box
           sx={{
             position: 'relative',
             width: '100%',
-            maxWidth: 600,
-            maxHeight: { xs: '90vh', sm: '85vh' },
+            maxWidth: 520,
+            height: { xs: '85vh', sm: '80vh' },
             backgroundColor: '#1a1a1e',
-            borderRadius: 3,
+            borderRadius: { xs: 2, sm: 3 },
             border: '1px solid rgba(143,164,184,0.15)',
             boxShadow: '0 16px 48px rgba(0,0,0,0.6)',
             display: 'flex',
@@ -168,7 +183,7 @@ function Contact(): JSX.Element {
           <Box
             sx={{
               px: 2,
-              py: 1.5,
+              py: 1.2,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -184,17 +199,23 @@ function Contact(): JSX.Element {
             </IconButton>
           </Box>
 
-          {/* PDF viewer */}
+          {/* PDF viewer — fills remaining space */}
           <Box
             sx={{
               flex: 1,
-              overflow: 'auto',
               minHeight: 0,
+              overflow: 'hidden',
             }}
           >
             <iframe
+              ref={iframeRef}
               src={resumeUrl}
-              style={{ width: '100%', height: '100%', minHeight: '60vh', border: 'none' }}
+              style={{
+                width: '100%',
+                height: '100%',
+                border: 'none',
+                display: 'block',
+              }}
               title="简历预览"
             />
           </Box>
@@ -203,7 +224,7 @@ function Contact(): JSX.Element {
           <Box
             sx={{
               px: 2,
-              py: 1.5,
+              py: 1.2,
               borderTop: '1px solid rgba(143,164,184,0.1)',
               display: 'flex',
               alignItems: 'center',
@@ -219,8 +240,7 @@ function Contact(): JSX.Element {
               variant="contained"
               size="small"
               startIcon={<PictureAsPdfIcon />}
-              href={resumeUrl}
-              download
+              onClick={handleDownload}
               sx={{
                 fontSize: '0.78rem',
                 fontWeight: 600,
