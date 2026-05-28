@@ -24,10 +24,34 @@ function App(): JSX.Element {
       { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
     );
 
-    const elements = document.querySelectorAll('.reveal');
-    elements.forEach((el) => observer.observe(el));
+    // Observe already-present .reveal elements
+    const observeReveals = (root: ParentNode) => {
+      root.querySelectorAll('.reveal').forEach((el) => {
+        if (!el.classList.contains('visible')) {
+          observer.observe(el);
+        }
+      });
+    };
 
-    return () => observer.disconnect();
+    observeReveals(document);
+
+    // Watch for new .reveal elements added by lazy-loaded components
+    const mutator = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        for (const node of m.addedNodes) {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            observeReveals(node as ParentNode);
+          }
+        }
+      }
+    });
+
+    mutator.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+      mutator.disconnect();
+    };
   }, []);
 
   return (
