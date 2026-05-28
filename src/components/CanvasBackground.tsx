@@ -9,7 +9,7 @@ interface Cell {
   changeTimer: number;
 }
 
-const FONT_SIZE = 12;
+const FONT_SIZE = 13;
 const VERT_STRETCH = 1.28;
 
 function getCharWidth(): number {
@@ -88,7 +88,7 @@ function CanvasBackground(): JSX.Element {
           const isM = window.innerWidth < 768;
           cells[r][c] = {
             char: chars[Math.floor(Math.random() * chars.length)],
-            brightness: isM ? (0.18 + Math.random() * 0.22) : (0.30 + Math.random() * 0.35),
+            brightness: isM ? (0.12 + Math.random() * 0.18) : (0.22 + Math.random() * 0.28),
             changeTimer: Math.floor(Math.random() * 120),
           };
         }
@@ -108,10 +108,10 @@ function CanvasBackground(): JSX.Element {
           return;
         }
         const progress = scrollRef.current;
-        ctx.fillStyle = '#0a0a0a';
+        ctx.fillStyle = '#1a1a1a';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        const fontStr = `${FONT_SIZE}px \"Courier New\", \"Lucida Console\", monospace`;
+        const fontStr = `600 ${FONT_SIZE}px "Inter", sans-serif`;
         ctx.font = fontStr;
         ctx.textBaseline = 'top';
         ctx.textAlign = 'left';
@@ -125,7 +125,7 @@ function CanvasBackground(): JSX.Element {
             ctx.save();
             ctx.translate(x, y);
             ctx.scale(1, VERT_STRETCH);
-            ctx.fillStyle = `rgba(210, 190, 155, ${opacity})`;
+            ctx.fillStyle = `rgba(246, 243, 236, ${opacity})`;
             ctx.fillText(cell.char, 0, 0);
             ctx.restore();
           }
@@ -141,10 +141,10 @@ function CanvasBackground(): JSX.Element {
 
       const progress = scrollRef.current;
 
-      ctx.fillStyle = '#0a0a0a';
+      ctx.fillStyle = '#1a1a1a';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      const fontStr = `${FONT_SIZE}px \"Courier New\", \"Lucida Console\", monospace`;
+      const fontStr = `600 ${FONT_SIZE}px "Inter", sans-serif`;
       ctx.font = fontStr;
       ctx.textBaseline = 'top';
       ctx.textAlign = 'left';
@@ -159,20 +159,20 @@ function CanvasBackground(): JSX.Element {
           if (cell.changeTimer <= 0) {
             cell.char = chars[Math.floor(Math.random() * chars.length)];
             cell.changeTimer = 30 + Math.floor(Math.random() * 80);
-            cell.brightness = 0.6 + Math.random() * 0.35;
+            cell.brightness = 0.4 + Math.random() * 0.32;
           }
 
           cell.brightness = Math.max(0.015, cell.brightness - 0.0025);
 
           if (Math.random() < 0.003) {
-            cell.brightness = 0.9 + Math.random() * 0.1;
+            cell.brightness = 0.7 + Math.random() * 0.25;
           }
 
           const opacity = cell.brightness * (1 - progress * 0.35);
           ctx.save();
           ctx.translate(x, y);
           ctx.scale(1, VERT_STRETCH);
-          ctx.fillStyle = `rgba(210, 190, 155, ${opacity})`;
+          ctx.fillStyle = `rgba(246, 243, 236, ${opacity})`;
           ctx.fillText(cell.char, 0, 0);
           ctx.restore();
         }
@@ -210,7 +210,7 @@ function CanvasBackground(): JSX.Element {
           pointerEvents: 'none',
         }}
       />
-      {/* Vignette overlay — pure CSS, no coordinate issues */}
+      {/* Vignette outer — darken edges */}
       <Box
         sx={{
           position: 'fixed',
@@ -219,10 +219,31 @@ function CanvasBackground(): JSX.Element {
           height: '100vh',
           zIndex: 0,
           pointerEvents: 'none',
-          background: {
-            xs: 'radial-gradient(ellipse 55% 50% at 50% 50%, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.20) 30%, rgba(0,0,0,0.38) 55%, rgba(0,0,0,0.62) 78%, rgba(0,0,0,0.80) 100%)',
-            md: 'radial-gradient(ellipse 65% 55% at 50% 50%, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.15) 35%, rgba(0,0,0,0.30) 60%, rgba(0,0,0,0.50) 82%, rgba(0,0,0,0.65) 100%)',
-          },
+          background: 'radial-gradient(circle, rgba(0,0,0,0) 60%, #000)',
+        }}
+      />
+      {/* Vignette center — darken center slightly */}
+      <Box
+        sx={{
+          position: 'fixed',
+          inset: 0,
+          width: '100%',
+          height: '100vh',
+          zIndex: 0,
+          pointerEvents: 'none',
+          background: 'radial-gradient(circle, rgba(0,0,0,0.6), rgba(0,0,0,0) 60%)',
+        }}
+      />
+      {/* Dark overlay — overall dimming */}
+      <Box
+        sx={{
+          position: 'fixed',
+          inset: 0,
+          width: '100%',
+          height: '100vh',
+          zIndex: 0,
+          pointerEvents: 'none',
+          background: 'rgba(0,0,0,0.5)',
         }}
       />
     </>
