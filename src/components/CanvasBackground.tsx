@@ -17,7 +17,7 @@ function getCharWidth(): number {
 }
 
 function getLineHeight(): number {
-  return window.innerWidth < 768 ? 15 : 22;
+  return window.innerWidth < 768 ? 17 : 26;
 }
 
 function CanvasBackground(): JSX.Element {
