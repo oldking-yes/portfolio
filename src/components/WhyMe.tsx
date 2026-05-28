@@ -32,7 +32,7 @@ function WhyMe(): JSX.Element {
       }}
     >
       <Container maxWidth="md">
-        <Box sx={{ textAlign: 'center', mb: { xs: 4, md: 6 } }} className="reveal">
+        <Box sx={{ textAlign: 'center', mb: { xs: 4, md: 6 } }} className="scroll-title-left">
           <Typography
             variant="overline"
             sx={{
@@ -64,10 +64,10 @@ function WhyMe(): JSX.Element {
             gap: 2,
           }}
         >
-          {highlights.map((h) => (
+          {highlights.map((h, i) => (
             <Box
               key={h.label}
-              className="reveal"
+              className={`scroll-stagger-${i + 1}`}
               sx={{
                 p: { xs: 3, md: 4 },
                 borderRadius: 3,
