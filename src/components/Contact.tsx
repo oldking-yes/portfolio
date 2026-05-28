@@ -205,33 +205,24 @@ function Contact(): JSX.Element {
             </IconButton>
           </Box>
 
-          {/* PDF viewer — object tag for better mobile support */}
+          {/* PDF viewer — iframe for cross-platform support */}
           <Box
             sx={{
               flex: 1,
               minHeight: 0,
-              overflow: 'auto',
+              overflow: 'hidden',
               backgroundColor: '#fff',
             }}
           >
-            <object
-              data={resumeUrl}
-              type="application/pdf"
+            <iframe
+              src={resumeUrl}
+              title="简历预览"
               style={{
                 width: '100%',
                 height: '100%',
                 border: 'none',
-                display: 'block',
-                minHeight: '100%',
               }}
-            >
-              <Box sx={{ p: 3, textAlign: 'center', color: '#666' }}>
-                <Typography sx={{ fontSize: '0.85rem', mb: 2 }}>无法加载 PDF 预览</Typography>
-                <Button variant="outlined" onClick={handleDownload} sx={{ fontSize: '0.8rem' }}>
-                  点击下载查看
-                </Button>
-              </Box>
-            </object>
+            />
           </Box>
 
           {/* Download bar */}
