@@ -35,8 +35,8 @@ function Navbar(): JSX.Element {
     const handleScroll = () => {
       setScrolled(window.scrollY > 60);
 
-      const sections = ['hero', 'projects', 'skills', 'contact'];
-      for (const id of sections.reverse()) {
+      const sections = ['hero', 'projects', 'contact'];
+      for (const id of [...sections].reverse()) {
         const el = document.getElementById(id);
         if (el && el.getBoundingClientRect().top <= 200) {
           setActiveSection(id);
@@ -51,7 +51,6 @@ function Navbar(): JSX.Element {
 
   const navLinks = [
     { label: '项目', href: '#projects' },
-    { label: '技能', href: '#skills' },
     { label: '联系', href: '#contact' },
   ];
 

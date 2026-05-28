@@ -88,7 +88,7 @@ function CanvasBackground(): JSX.Element {
           const isM = window.innerWidth < 768;
           cells[r][c] = {
             char: chars[Math.floor(Math.random() * chars.length)],
-            brightness: isM ? (0.12 + Math.random() * 0.18) : (0.22 + Math.random() * 0.28),
+            brightness: isM ? (0.18 + Math.random() * 0.22) : (0.30 + Math.random() * 0.35),
             changeTimer: Math.floor(Math.random() * 120),
           };
         }
@@ -111,7 +111,7 @@ function CanvasBackground(): JSX.Element {
         ctx.fillStyle = '#0a0a0a';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        const fontStr = `${FONT_SIZE}px "Courier New", "Lucida Console", monospace`;
+        const fontStr = `${FONT_SIZE}px \"Courier New\", \"Lucida Console\", monospace`;
         ctx.font = fontStr;
         ctx.textBaseline = 'top';
         ctx.textAlign = 'left';
@@ -125,7 +125,7 @@ function CanvasBackground(): JSX.Element {
             ctx.save();
             ctx.translate(x, y);
             ctx.scale(1, VERT_STRETCH);
-            ctx.fillStyle = `rgba(200, 180, 150, ${opacity})`;
+            ctx.fillStyle = `rgba(210, 190, 155, ${opacity})`;
             ctx.fillText(cell.char, 0, 0);
             ctx.restore();
           }
@@ -144,7 +144,7 @@ function CanvasBackground(): JSX.Element {
       ctx.fillStyle = '#0a0a0a';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      const fontStr = `${FONT_SIZE}px "Courier New", "Lucida Console", monospace`;
+      const fontStr = `${FONT_SIZE}px \"Courier New\", \"Lucida Console\", monospace`;
       ctx.font = fontStr;
       ctx.textBaseline = 'top';
       ctx.textAlign = 'left';
@@ -159,20 +159,20 @@ function CanvasBackground(): JSX.Element {
           if (cell.changeTimer <= 0) {
             cell.char = chars[Math.floor(Math.random() * chars.length)];
             cell.changeTimer = 30 + Math.floor(Math.random() * 80);
-            cell.brightness = 0.4 + Math.random() * 0.32;
+            cell.brightness = 0.6 + Math.random() * 0.35;
           }
 
-          cell.brightness = Math.max(0.03, cell.brightness - 0.0012);
+          cell.brightness = Math.max(0.015, cell.brightness - 0.0025);
 
-          if (Math.random() < 0.001) {
-            cell.brightness = 0.52;
+          if (Math.random() < 0.003) {
+            cell.brightness = 0.9 + Math.random() * 0.1;
           }
 
           const opacity = cell.brightness * (1 - progress * 0.35);
           ctx.save();
           ctx.translate(x, y);
           ctx.scale(1, VERT_STRETCH);
-          ctx.fillStyle = `rgba(200, 180, 150, ${opacity})`;
+          ctx.fillStyle = `rgba(210, 190, 155, ${opacity})`;
           ctx.fillText(cell.char, 0, 0);
           ctx.restore();
         }
@@ -220,8 +220,8 @@ function CanvasBackground(): JSX.Element {
           zIndex: 0,
           pointerEvents: 'none',
           background: {
-            xs: 'radial-gradient(ellipse 55% 50% at 50% 50%, transparent 0%, rgba(0,0,0,0.08) 35%, rgba(0,0,0,0.28) 60%, rgba(0,0,0,0.55) 80%, rgba(0,0,0,0.72) 100%)',
-            md: 'radial-gradient(ellipse 65% 55% at 50% 50%, transparent 0%, rgba(0,0,0,0.05) 40%, rgba(0,0,0,0.18) 65%, rgba(0,0,0,0.38) 85%, rgba(0,0,0,0.50) 100%)',
+            xs: 'radial-gradient(ellipse 55% 50% at 50% 50%, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.20) 30%, rgba(0,0,0,0.38) 55%, rgba(0,0,0,0.62) 78%, rgba(0,0,0,0.80) 100%)',
+            md: 'radial-gradient(ellipse 65% 55% at 50% 50%, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.15) 35%, rgba(0,0,0,0.30) 60%, rgba(0,0,0,0.50) 82%, rgba(0,0,0,0.65) 100%)',
           },
         }}
       />
