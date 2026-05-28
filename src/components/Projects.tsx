@@ -138,8 +138,8 @@ function Projects(): JSX.Element {
                   },
                 }}
               >
-                {/* Screenshot — 16:9 */}
-                <Box sx={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', backgroundColor: '#0a0f14' }}>
+                {/* Screenshot — 9:16 */}
+                <Box sx={{ width: '100%', aspectRatio: '9/16', overflow: 'hidden', backgroundColor: '#0a0f14' }}>
                   {repo.image ? (
                     <Box component="img" src={assetUrl(repo.image)} alt={repo.displayName}
                       sx={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
