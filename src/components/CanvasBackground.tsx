@@ -13,11 +13,11 @@ const FONT_SIZE = 13;
 const VERT_STRETCH = 1.28;
 
 function getCharWidth(): number {
-  return window.innerWidth < 768 ? 11 : 13;
+  return window.innerWidth < 768 ? 12 : 15;
 }
 
 function getLineHeight(): number {
-  return window.innerWidth < 768 ? 14 : 20;
+  return window.innerWidth < 768 ? 15 : 22;
 }
 
 function CanvasBackground(): JSX.Element {
@@ -125,7 +125,7 @@ function CanvasBackground(): JSX.Element {
             ctx.save();
             ctx.translate(x, y);
             ctx.scale(1, VERT_STRETCH);
-            ctx.fillStyle = `rgba(246, 243, 236, ${opacity})`;
+            ctx.fillStyle = `rgba(220, 200, 160, ${opacity})`;
             ctx.fillText(cell.char, 0, 0);
             ctx.restore();
           }
@@ -172,7 +172,7 @@ function CanvasBackground(): JSX.Element {
           ctx.save();
           ctx.translate(x, y);
           ctx.scale(1, VERT_STRETCH);
-          ctx.fillStyle = `rgba(246, 243, 236, ${opacity})`;
+          ctx.fillStyle = `rgba(220, 200, 160, ${opacity})`;
           ctx.fillText(cell.char, 0, 0);
           ctx.restore();
         }
