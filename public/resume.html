@@ -16,12 +16,23 @@
     background: #fff;
     line-height: 1.6;
     font-size: 10pt;
+    overflow-x: hidden;
   }
   .page {
     width: 210mm;
     min-height: 297mm;
     padding: 20mm 18mm;
     background: #fff;
+    margin: 0 auto;
+  }
+  /* Auto-scale for small viewports (embedded/iframe) */
+  @media screen and (max-width: 800px) {
+    .page {
+      transform-origin: top center;
+      transform: scale(var(--scale, 0.5));
+      width: 210mm;
+      margin-bottom: calc(-297mm * (1 - var(--scale, 0.5)));
+    }
   }
   .header {
     text-align: center;
@@ -187,7 +198,7 @@
 </style>
 </head>
 <body>
-<div class="page">
+<div class="page" id="page">
   <div class="header">
     <div class="name">王子轩</div>
     <div class="name-sub">Zixuan Wang</div>
@@ -311,5 +322,20 @@
     </div>
   </div>
 </div>
+<script>
+// Auto-scale page to fit viewport width (for iframe/embedded use)
+(function() {
+  var page = document.getElementById('page');
+  function rescale() {
+    var vw = window.innerWidth || document.documentElement.clientWidth;
+    if (vw < 800) {
+      var scale = Math.min(1, (vw - 16) / 793); // 210mm ≈ 793px at 96dpi
+      page.style.setProperty('--scale', scale);
+    }
+  }
+  rescale();
+  window.addEventListener('resize', rescale);
+})();
+</script>
 </body>
 </html>
