@@ -40,16 +40,8 @@ const projectCards = [
 
 function Timeline(): JSX.Element {
   return (
-    <Box component="section" id="timeline" sx={{ py: { xs: 6, md: 10 }, position: 'relative' }}>
-      <Container maxWidth="md" sx={{ position: 'relative' }}>
-        <Box className="scroll-timeline-line" sx={{
-          position: 'absolute',
-          left: { xs: '50px', md: '62px' },
-          top: 80,
-          bottom: 40,
-          width: 1,
-          background: 'linear-gradient(to bottom, transparent, rgba(143,164,184,0.18) 8%, rgba(143,164,184,0.18) 92%, transparent)',
-        }} />
+    <Box component="section" id="timeline" sx={{ py: { xs: 6, md: 10 }, }}>
+      <Container maxWidth="md" sx={{ }}>
         <Box sx={{ textAlign: 'center', mb: { xs: 4, md: 6 } }} className="scroll-title-left">
           <Typography
             variant="overline"
