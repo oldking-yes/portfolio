@@ -1,3 +1,6 @@
 {
-  "rewrites": []
+  "rewrites": [
+    { "source": "/api/chat", "destination": "http://106.55.55.54:8080/api/chat" },
+    { "source": "/api/chat/(.*)", "destination": "http://106.55.55.54:8080/api/chat/$1" }
+  ]
 }
