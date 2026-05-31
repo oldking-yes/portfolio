@@ -88,17 +88,17 @@ export const repos: Repo[] = [
     name: 'refine-yourself',
     displayName: 'AI 人格克隆',
     description:
-      '上传聊天记录 → DeepSeek AI 分析 → 五层人格画像 → 可对话的数字分身。Next.js 16 + Supabase SaaS 产品。',
+      '上传聊天记录 → DeepSeek AI 分析 → 五层人格画像 → 可对话的数字分身。Next.js 16 + PostgreSQL 全栈产品。',
     rationale:
-      '[LLM应用] 完整 SaaS 产品流程（77 源文件/26 组件/5 API）：上传 .txt → DeepSeek 提炼五层人格（身份/行为规则/表达风格/决策模式/对话样本）→ 生成分享链接 → 公开对话。预置 12 个名人角色（Elon Musk/罗翔/李白等）。Supabase PostgreSQL + RLS 安全策略，原始数据即用即弃。Vercel OG Image 11 种主题社交卡片渲染。独立域名 refineyourself.asia。',
+      '[LLM应用] 完整 SaaS 产品流程（77 源文件/26 组件/5 API）：上传 .txt → DeepSeek 提炼五层人格（身份/行为规则/表达风格/决策模式/对话样本）→ 生成分享链接 → 公开对话。预置 12 个名人角色（Elon Musk/罗翔/李白等）。PostgreSQL + RLS 安全策略，原始数据即用即弃。Vercel OG Image 11 种主题社交卡片渲染。独立域名 refineyourself.asia。',
     language: 'TypeScript',
     stars: 0,
     url: 'https://github.com/ryan-flow/refine-yourself',
-    techStack: ['Next.js 16', 'TypeScript', 'DeepSeek API', 'Supabase', 'PostgreSQL', 'Tailwind CSS 4', 'shadcn/ui'],
+    techStack: ['Next.js 16', 'TypeScript', 'DeepSeek API', 'PostgreSQL', 'Tailwind CSS 4', 'shadcn/ui'],
     icon: '🤖',
     gradient: 'linear-gradient(135deg, #0c1929, #0a2a3a)',
     image: '/projects/项目截图/炼化自己.png',
-    previewUrl: 'https://refine-yourself.vercel.app/',
+    previewUrl: 'https://refineyourself.asia',
   },
   {
     name: 'arknights-personality-v2',
