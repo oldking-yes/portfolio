@@ -65,17 +65,15 @@ function Projects(): JSX.Element {
         </Box>
 
         <Box sx={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-          {/* Arrows — desktop only */}
           <IconButton onClick={prev} disabled={realIndex === 0}
-            sx={{ display: { xs: 'none', md: 'flex' }, position: 'absolute', left: { md: 4 }, top: '50%', transform: 'translateY(-50%)', zIndex: 10, width: 48, height: 48, border: '1px solid rgba(143,164,184,0.18)', backgroundColor: 'rgba(10,10,10,0.55)', backdropFilter: 'blur(12px)', color: 'rgba(200,216,232,0.22)', '&:not(.Mui-disabled)': { color: '#c8d8e8' }, '&.Mui-disabled': { borderColor: 'rgba(143,164,184,0.06)', backgroundColor: 'rgba(10,10,10,0.25)' }, '&:hover:not(.Mui-disabled)': { borderColor: '#8ba8c0', backgroundColor: 'rgba(10,10,10,0.80)', color: '#fff' } }}>
+            sx={{ display: { xs: 'none', md: 'flex' }, position: 'absolute', left: { md: 4 }, top: '50%', transform: 'translateY(-50%)', zIndex: 10, width: 44, height: 44, border: '1px solid rgba(143,164,184,0.18)', backgroundColor: 'rgba(10,10,10,0.55)', backdropFilter: 'blur(12px)', color: 'rgba(200,216,232,0.22)', '&:not(.Mui-disabled)': { color: '#c8d8e8' }, '&.Mui-disabled': { borderColor: 'rgba(143,164,184,0.06)', backgroundColor: 'rgba(10,10,10,0.25)' }, '&:hover:not(.Mui-disabled)': { borderColor: '#8ba8c0', backgroundColor: 'rgba(10,10,10,0.80)', color: '#fff' } }}>
             <ChevronLeftIcon />
           </IconButton>
           <IconButton onClick={next} disabled={realIndex === repos.length - 1}
-            sx={{ display: { xs: 'none', md: 'flex' }, position: 'absolute', right: { md: 4 }, top: '50%', transform: 'translateY(-50%)', zIndex: 10, width: 48, height: 48, border: '1px solid rgba(143,164,184,0.18)', backgroundColor: 'rgba(10,10,10,0.55)', backdropFilter: 'blur(12px)', color: 'rgba(200,216,232,0.22)', '&:not(.Mui-disabled)': { color: '#c8d8e8' }, '&.Mui-disabled': { borderColor: 'rgba(143,164,184,0.06)', backgroundColor: 'rgba(10,10,10,0.25)' }, '&:hover:not(.Mui-disabled)': { borderColor: '#8ba8c0', backgroundColor: 'rgba(10,10,10,0.80)', color: '#fff' } }}>
+            sx={{ display: { xs: 'none', md: 'flex' }, position: 'absolute', right: { md: 4 }, top: '50%', transform: 'translateY(-50%)', zIndex: 10, width: 44, height: 44, border: '1px solid rgba(143,164,184,0.18)', backgroundColor: 'rgba(10,10,10,0.55)', backdropFilter: 'blur(12px)', color: 'rgba(200,216,232,0.22)', '&:not(.Mui-disabled)': { color: '#c8d8e8' }, '&.Mui-disabled': { borderColor: 'rgba(143,164,184,0.06)', backgroundColor: 'rgba(10,10,10,0.25)' }, '&:hover:not(.Mui-disabled)': { borderColor: '#8ba8c0', backgroundColor: 'rgba(10,10,10,0.80)', color: '#fff' } }}>
             <ChevronRightIcon />
           </IconButton>
 
-          {/* Scroll container */}
           <Box
             ref={scrollRef}
             sx={{
@@ -86,8 +84,8 @@ function Projects(): JSX.Element {
               '&::-webkit-scrollbar': { display: 'none' },
               msOverflowStyle: 'none',
               scrollbarWidth: 'none',
-              px: { xs: '16px', md: 'calc(50vw - 140px)' },
-              gap: { xs: 2, md: 3 },
+              px: { xs: '24px', md: 'calc(50vw - 120px)' },
+              gap: { xs: 2, md: 2.5 },
               alignItems: 'stretch',
               py: { xs: 1, md: 2 },
               width: '100%',
@@ -97,17 +95,17 @@ function Projects(): JSX.Element {
                 position: 'absolute',
                 top: 0,
                 bottom: 0,
-                width: { xs: 44, md: 70 },
+                width: { xs: 36, md: 60 },
                 zIndex: 2,
                 pointerEvents: 'none',
               },
               '&::before': {
                 left: 0,
-                background: 'linear-gradient(to right, rgba(10,10,10,0.65), transparent)',
+                background: 'linear-gradient(to right, rgba(10,10,10,0.7), transparent)',
               },
               '&::after': {
                 right: 0,
-                background: 'linear-gradient(to left, rgba(10,10,10,0.65), transparent)',
+                background: 'linear-gradient(to left, rgba(10,10,10,0.7), transparent)',
               },
             }}
           >
@@ -121,7 +119,7 @@ function Projects(): JSX.Element {
                 rel="noopener noreferrer"
                 sx={{
                   flex: '0 0 auto',
-                  width: { xs: 'calc(100vw - 32px)', md: 240 },
+                  width: { xs: 200, md: 220 },
                   scrollSnapAlign: 'center',
                   textDecoration: 'none',
                   borderRadius: 3,
@@ -140,27 +138,24 @@ function Projects(): JSX.Element {
                   },
                 }}
               >
-                {/* Phone mockup screenshot — full width on top */}
                 <Box
                   sx={{
                     width: '100%',
                     display: 'flex',
-                    alignItems: 'center',
                     justifyContent: 'center',
-                    p: 2,
+                    p: { xs: 1.2, md: 1.5 },
                     backgroundColor: 'rgba(0,0,0,0.15)',
                     borderBottom: '1px solid rgba(143,164,184,0.08)',
                   }}
                 >
                   <Box
                     sx={{
-                      width: '100%',
+                      width: 120,
                       aspectRatio: '9 / 16',
-                      borderRadius: '14px',
+                      borderRadius: '12px',
                       overflow: 'hidden',
                       border: '2px solid rgba(143,164,184,0.12)',
                       boxShadow: '0 4px 24px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.03)',
-                      position: 'relative',
                       backgroundColor: '#0a0f14',
                       flexShrink: 0,
                     }}
@@ -188,7 +183,7 @@ function Projects(): JSX.Element {
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          fontSize: '3rem',
+                          fontSize: '2rem',
                           opacity: 0.3,
                         }}
                       >
@@ -198,21 +193,22 @@ function Projects(): JSX.Element {
                   </Box>
                 </Box>
 
-                {/* Project info — below image */}
                 <Box
                   sx={{
-                    p: 2,
+                    flex: 1,
+                    p: { xs: 1, md: 1.2 },
                     display: 'flex',
                     flexDirection: 'column',
                     overflow: 'hidden',
                     minWidth: 0,
                   }}
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.8, mb: 0.5 }}>
-                    <GitHubIcon sx={{ fontSize: 14, color: '#8ba8c0', flexShrink: 0 }} />
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.2 }}>
+                    <GitHubIcon sx={{ fontSize: 12, color: '#8ba8c0', flexShrink: 0 }} />
                     <Typography
+                      noWrap
                       sx={{
-                        fontSize: '0.88rem',
+                        fontSize: { xs: '0.78rem', md: '0.82rem' },
                         fontWeight: 700,
                         color: '#e8e0d0',
                         lineHeight: 1.3,
@@ -224,12 +220,12 @@ function Projects(): JSX.Element {
 
                   <Typography
                     sx={{
-                      color: 'rgba(255,255,255,0.45)',
-                      fontSize: '0.7rem',
-                      lineHeight: 1.6,
-                      mb: 1,
+                      color: 'rgba(255,255,255,0.4)',
+                      fontSize: { xs: '0.6rem', md: '0.63rem' },
+                      lineHeight: 1.45,
+                      mb: 0.6,
                       display: '-webkit-box',
-                      WebkitLineClamp: 3,
+                      WebkitLineClamp: 2,
                       WebkitBoxOrient: 'vertical',
                       overflow: 'hidden',
                     }}
@@ -237,7 +233,7 @@ function Projects(): JSX.Element {
                     {repo.description}
                   </Typography>
 
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.4, mb: 1 }}>
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.3, mb: 0.6 }}>
                     {repo.techStack.slice(0, 3).map((tech) => (
                       <Chip
                         key={tech}
@@ -247,10 +243,10 @@ function Projects(): JSX.Element {
                           backgroundColor: 'rgba(143,164,184,0.08)',
                           color: '#a8bcc8',
                           border: '1px solid rgba(143,164,184,0.14)',
-                          fontSize: '0.5rem',
+                          fontSize: '0.48rem',
                           fontWeight: 600,
-                          height: 16,
-                          '& .MuiChip-label': { px: 0.5 },
+                          height: 15,
+                          '& .MuiChip-label': { px: 0.4 },
                         }}
                       />
                     ))}
@@ -261,14 +257,14 @@ function Projects(): JSX.Element {
                         sx={{
                           backgroundColor: 'rgba(143,164,184,0.04)',
                           color: '#6a8498',
-                          fontSize: '0.5rem',
-                          height: 16,
+                          fontSize: '0.48rem',
+                          height: 15,
                         }}
                       />
                     )}
                   </Box>
 
-                  <Box sx={{ display: 'flex', gap: 1.5, mt: 'auto' }}>
+                  <Box sx={{ display: 'flex', gap: 1.2, mt: 'auto' }}>
                     {repo.previewUrl && (
                       <Box
                         component="span"
@@ -277,11 +273,11 @@ function Projects(): JSX.Element {
                           alignItems: 'center',
                           gap: 0.2,
                           color: '#8fa4b8',
-                          fontSize: '0.6rem',
+                          fontSize: '0.55rem',
                           fontWeight: 600,
                         }}
                       >
-                        <LaunchIcon sx={{ fontSize: 11 }} /> 预览
+                        <LaunchIcon sx={{ fontSize: 9 }} /> 预览
                       </Box>
                     )}
                     <Box
@@ -295,12 +291,12 @@ function Projects(): JSX.Element {
                         alignItems: 'center',
                         gap: 0.2,
                         color: '#8ba8c0',
-                        fontSize: '0.6rem',
+                        fontSize: '0.55rem',
                         fontWeight: 500,
                         textDecoration: 'none',
                       }}
                     >
-                      <GitHubIcon sx={{ fontSize: 11 }} /> 源码
+                      <GitHubIcon sx={{ fontSize: 9 }} /> 源码
                     </Box>
                   </Box>
                 </Box>
@@ -309,7 +305,6 @@ function Projects(): JSX.Element {
           </Box>
         </Box>
 
-        {/* Dot indicators */}
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1.5, mt: { xs: 2, md: 4 } }}>
           {repos.map((_, i) => (
             <Box key={i} onClick={() => snapTo(i)}
