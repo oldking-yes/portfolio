@@ -114,7 +114,7 @@ export const repos: Repo[] = [
     icon: '🎮',
     gradient: 'linear-gradient(135deg, #0c1929, #1a1a3a)',
     image: '/projects/项目截图/明日方舟人格测试.png',
-    previewUrl: 'https://oldking-yes.github.io/arknights-personality-v2/',
+    previewUrl: 'https://ryan-flow.github.io/arknights-personality-v2/',
   },
   {
     name: 'ink-studio',
@@ -130,7 +130,7 @@ export const repos: Repo[] = [
     icon: '🎨',
     gradient: 'linear-gradient(135deg, #0c1929, #2a1a1a)',
     image: '/projects/项目截图/前端设计实验室.png', // TODO: update to ink-studio specific screenshot
-    previewUrl: 'https://oldking-yes.github.io/ink-studio',
+    previewUrl: 'https://ryan-flow.github.io/ink-studio/',
   },
 ];
 
