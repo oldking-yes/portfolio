@@ -66,7 +66,7 @@ export const repos: Repo[] = [
     icon: '🏛️',
     gradient: 'linear-gradient(135deg, #0c1929, #1a2a4a)',
     image: '/projects/项目截图/CRS推荐系统平台.png',
-    previewUrl: 'https://heritage.refineyourself.asia/',
+    previewUrl: 'http://106.55.55.54',
   },
   {
     name: 'prd-agent-rag',
