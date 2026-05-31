@@ -105,8 +105,8 @@ function Projects(): JSX.Element {
                 '&::-webkit-scrollbar': { display: 'none' },
                 msOverflowStyle: 'none',
                 scrollbarWidth: 'none',
-                px: { xs: '24px', md: 'calc(50vw - 130px)' },
-                gap: { xs: 2, md: 2.5 },
+                px: { xs: '24px', md: 'calc(50vw - 160px)' },
+                gap: { xs: 2.5, md: 3 },
                 alignItems: 'stretch',
                 py: { xs: 1, md: 2 },
                 width: '100%',
@@ -124,7 +124,7 @@ function Projects(): JSX.Element {
                   rel="noopener noreferrer"
                   sx={{
                     flex: '0 0 auto',
-                    width: { xs: 200, md: 240 },
+                    width: { xs: 260, md: 320 },
                     scrollSnapAlign: 'center',
                     textDecoration: 'none',
                     borderRadius: 3,
@@ -186,19 +186,19 @@ function Projects(): JSX.Element {
                   <Box
                     sx={{
                       flex: 1,
-                      p: { xs: 1, md: 1.2 },
+                      p: { xs: 1.2, md: 1.5 },
                       display: 'flex',
                       flexDirection: 'column',
                       overflow: 'hidden',
                       minWidth: 0,
                     }}
                   >
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.2 }}>
-                      <GitHubIcon sx={{ fontSize: 13, color: '#8ba8c0', flexShrink: 0 }} />
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.6, mb: 0.3 }}>
+                      <GitHubIcon sx={{ fontSize: 14, color: '#8ba8c0', flexShrink: 0 }} />
                       <Typography
                         noWrap
                         sx={{
-                          fontSize: { xs: '0.78rem', md: '0.85rem' },
+                          fontSize: { xs: '0.85rem', md: '0.92rem' },
                           fontWeight: 700,
                           color: '#e8e0d0',
                           lineHeight: 1.3,
@@ -211,11 +211,11 @@ function Projects(): JSX.Element {
                     <Typography
                       sx={{
                         color: 'rgba(255,255,255,0.4)',
-                        fontSize: { xs: '0.6rem', md: '0.65rem' },
-                        lineHeight: 1.45,
-                        mb: 0.6,
+                        fontSize: { xs: '0.65rem', md: '0.7rem' },
+                        lineHeight: 1.5,
+                        mb: 0.8,
                         display: '-webkit-box',
-                        WebkitLineClamp: 2,
+                        WebkitLineClamp: 3,
                         WebkitBoxOrient: 'vertical',
                         overflow: 'hidden',
                       }}
@@ -223,7 +223,7 @@ function Projects(): JSX.Element {
                       {repo.description}
                     </Typography>
 
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.4, mb: 0.6 }}>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 0.8 }}>
                       {repo.techStack.slice(0, 3).map((tech) => (
                         <Chip
                           key={tech}
@@ -233,10 +233,10 @@ function Projects(): JSX.Element {
                             backgroundColor: 'rgba(143,164,184,0.08)',
                             color: '#a8bcc8',
                             border: '1px solid rgba(143,164,184,0.14)',
-                            fontSize: '0.5rem',
+                            fontSize: '0.55rem',
                             fontWeight: 600,
-                            height: 16,
-                            '& .MuiChip-label': { px: 0.5 },
+                            height: 18,
+                            '& .MuiChip-label': { px: 0.6 },
                           }}
                         />
                       ))}
@@ -247,27 +247,27 @@ function Projects(): JSX.Element {
                           sx={{
                             backgroundColor: 'rgba(143,164,184,0.04)',
                             color: '#6a8498',
-                            fontSize: '0.5rem',
-                            height: 16,
+                            fontSize: '0.55rem',
+                            height: 18,
                           }}
                         />
                       )}
                     </Box>
 
-                    <Box sx={{ display: 'flex', gap: 1.2, mt: 'auto' }}>
+                    <Box sx={{ display: 'flex', gap: 1.5, mt: 'auto' }}>
                       {repo.previewUrl && (
                         <Box
                           component="span"
                           sx={{
                             display: 'inline-flex',
                             alignItems: 'center',
-                            gap: 0.2,
+                            gap: 0.25,
                             color: '#8fa4b8',
-                            fontSize: '0.55rem',
+                            fontSize: '0.6rem',
                             fontWeight: 600,
                           }}
                         >
-                          <LaunchIcon sx={{ fontSize: 10 }} /> 预览
+                          <LaunchIcon sx={{ fontSize: 11 }} /> 预览
                         </Box>
                       )}
                       <Box
@@ -279,14 +279,14 @@ function Projects(): JSX.Element {
                         sx={{
                           display: 'inline-flex',
                           alignItems: 'center',
-                          gap: 0.2,
+                          gap: 0.25,
                           color: '#8ba8c0',
-                          fontSize: '0.55rem',
+                          fontSize: '0.6rem',
                           fontWeight: 500,
                           textDecoration: 'none',
                         }}
                       >
-                        <GitHubIcon sx={{ fontSize: 10 }} /> 源码
+                        <GitHubIcon sx={{ fontSize: 11 }} /> 源码
                       </Box>
                     </Box>
                   </Box>
