@@ -86,8 +86,8 @@ function Projects(): JSX.Element {
               '&::-webkit-scrollbar': { display: 'none' },
               msOverflowStyle: 'none',
               scrollbarWidth: 'none',
-              px: { xs: 'calc(50vw - 160px)', md: 'calc(50vw - 370px)' },
-              gap: { xs: 4, md: 5 },
+              px: { xs: '16px', md: 'calc(50vw - 420px)' },
+              gap: { xs: 3, md: 4 },
               alignItems: 'stretch',
               py: { xs: 1, md: 2 },
               width: '100%',
@@ -121,66 +121,166 @@ function Projects(): JSX.Element {
                 rel="noopener noreferrer"
                 sx={{
                   flex: '0 0 auto',
-                  width: { xs: 'calc(100vw - 64px)', md: 640 },
+                  width: { xs: 'calc(100vw - 32px)', md: 800 },
                   scrollSnapAlign: 'center',
                   textDecoration: 'none',
                   borderRadius: 3,
-                  border: '1px solid rgba(143,164,184,0.08)',
-                  background: 'rgba(143,164,184,0.03)',
-                  backdropFilter: 'blur(12px)',
+                  border: '1px solid rgba(143,164,184,0.10)',
+                  background: 'rgba(143,164,184,0.04)',
+                  backdropFilter: 'blur(16px)',
                   overflow: 'hidden',
                   display: 'flex',
-                  flexDirection: 'column',
-                  transition: 'transform 0.2s ease, border-color 0.2s ease',
+                  flexDirection: { xs: 'column', md: 'row' },
+                  transition: 'transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease',
+                  boxShadow: '0 4px 24px rgba(0,0,0,0.2)',
                   '&:hover': {
-                    transform: 'translateY(-2px)',
-                    borderColor: 'rgba(143,164,184,0.22)',
+                    transform: 'translateY(-3px)',
+                    borderColor: 'rgba(143,164,184,0.25)',
+                    boxShadow: '0 8px 40px rgba(0,0,0,0.35)',
                   },
                 }}
               >
-                {/* Screenshot */}
-                <Box sx={{ flex: { xs: '0 0 44%', md: '0 0 40%' }, overflow: 'hidden', backgroundColor: '#0a0f14' }}>
-                  {repo.image ? (
-                    <Box component="img" src={assetUrl(repo.image)} alt={repo.displayName}
-                      sx={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
-                    />
-                  ) : (
-                    <Box sx={{ width: '100%', height: '100%', background: repo.gradient, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem', opacity: 0.3 }}>
-                      {repo.icon}
-                    </Box>
-                  )}
+                {/* Phone mockup screenshot — left on desktop, top on mobile */}
+                <Box
+                  sx={{
+                    flex: { md: '0 0 auto' },
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    p: { xs: 2, md: 3 },
+                    backgroundColor: 'rgba(0,0,0,0.15)',
+                    borderRight: { xs: 'none', md: '1px solid rgba(143,164,184,0.08)' },
+                    borderBottom: { xs: '1px solid rgba(143,164,184,0.08)', md: 'none' },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: { xs: '60%', md: 220 },
+                      aspectRatio: '9 / 16',
+                      borderRadius: '18px',
+                      overflow: 'hidden',
+                      border: '2.5px solid rgba(143,164,184,0.15)',
+                      boxShadow: '0 6px 32px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.04)',
+                      position: 'relative',
+                      backgroundColor: '#0a0f14',
+                      flexShrink: 0,
+                    }}
+                  >
+                    {repo.image ? (
+                      <Box
+                        component="img"
+                        src={assetUrl(repo.image)}
+                        alt={repo.displayName}
+                        sx={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          objectPosition: 'center top',
+                          display: 'block',
+                        }}
+                      />
+                    ) : (
+                      <Box
+                        sx={{
+                          width: '100%',
+                          height: '100%',
+                          background: repo.gradient,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '3rem',
+                          opacity: 0.3,
+                        }}
+                      >
+                        {repo.icon}
+                      </Box>
+                    )}
+                  </Box>
                 </Box>
 
-                {/* Body */}
-                <Box sx={{ flex: 1, p: { xs: 2.5, md: 3 }, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.2, mb: 1 }}>
+                {/* Project info — right on desktop, bottom on mobile */}
+                <Box
+                  sx={{
+                    flex: 1,
+                    p: { xs: 2.5, md: 3.5 },
+                    display: 'flex',
+                    flexDirection: 'column',
+                    overflow: 'hidden',
+                    minWidth: 0,
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.2, mb: 0.75 }}>
                     <GitHubIcon sx={{ fontSize: 17, color: '#8ba8c0', flexShrink: 0 }} />
-                    <Typography sx={{ fontSize: { xs: '0.88rem', md: '1.1rem' }, fontWeight: 700, color: '#e8e0d0', lineHeight: 1.3 }}>
+                    <Typography
+                      sx={{
+                        fontSize: '1.1rem',
+                        fontWeight: 700,
+                        color: '#e8e0d0',
+                        lineHeight: 1.3,
+                      }}
+                    >
                       {repo.displayName}
                     </Typography>
                   </Box>
 
-                  <Typography sx={{ color: 'rgba(255,255,255,0.5)', fontSize: { xs: '0.7rem', md: '0.82rem' }, lineHeight: 1.6, mb: 1.5, flex: 1 }}>
+                  <Typography
+                    sx={{
+                      color: 'rgba(255,255,255,0.45)',
+                      fontSize: '0.82rem',
+                      lineHeight: 1.7,
+                      mb: 1.5,
+                      flex: 1,
+                    }}
+                  >
                     {repo.description}
                   </Typography>
 
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.75, mb: 1 }}>
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.6, mb: 1.5 }}>
                     {repo.techStack.slice(0, 5).map((tech) => (
-                      <Chip key={tech} label={tech} size="small"
-                        sx={{ backgroundColor: 'rgba(143,164,184,0.08)', color: '#a8bcc8', border: '1px solid rgba(143,164,184,0.14)', fontSize: '0.55rem', fontWeight: 600, height: 20, '& .MuiChip-label': { px: 0.8 } }}
+                      <Chip
+                        key={tech}
+                        label={tech}
+                        size="small"
+                        sx={{
+                          backgroundColor: 'rgba(143,164,184,0.08)',
+                          color: '#a8bcc8',
+                          border: '1px solid rgba(143,164,184,0.14)',
+                          fontSize: '0.6rem',
+                          fontWeight: 600,
+                          height: 20,
+                          '& .MuiChip-label': { px: 0.8 },
+                        }}
                       />
                     ))}
                     {repo.techStack.length > 5 && (
-                      <Chip label={`+${repo.techStack.length - 5}`} size="small"
-                        sx={{ backgroundColor: 'rgba(143,164,184,0.04)', color: '#6a8498', fontSize: '0.55rem', height: 20 }}
+                      <Chip
+                        label={`+${repo.techStack.length - 5}`}
+                        size="small"
+                        sx={{
+                          backgroundColor: 'rgba(143,164,184,0.04)',
+                          color: '#6a8498',
+                          fontSize: '0.6rem',
+                          height: 20,
+                        }}
                       />
                     )}
                   </Box>
 
                   <Box sx={{ display: 'flex', gap: 2, mt: 'auto' }}>
                     {repo.previewUrl && (
-                      <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.3, color: '#8fa4b8', fontSize: '0.68rem', fontWeight: 600 }}>
-                        <LaunchIcon sx={{ fontSize: 12 }} /> 预览
+                      <Box
+                        component="span"
+                        sx={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 0.3,
+                          color: '#8fa4b8',
+                          fontSize: '0.7rem',
+                          fontWeight: 600,
+                        }}
+                      >
+                        <LaunchIcon sx={{ fontSize: 13 }} /> 预览
                       </Box>
                     )}
                     <Box
@@ -189,9 +289,17 @@ function Projects(): JSX.Element {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e: React.MouseEvent) => e.stopPropagation()}
-                      sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.3, color: '#8ba8c0', fontSize: '0.68rem', fontWeight: 500, textDecoration: 'none' }}
+                      sx={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 0.3,
+                        color: '#8ba8c0',
+                        fontSize: '0.7rem',
+                        fontWeight: 500,
+                        textDecoration: 'none',
+                      }}
                     >
-                      <GitHubIcon sx={{ fontSize: 12 }} /> 源码
+                      <GitHubIcon sx={{ fontSize: 13 }} /> 源码
                     </Box>
                   </Box>
                 </Box>
